@@ -15,3 +15,6 @@ __pycache__/
 grokbottkn*
 GrokBot.log.ai
 .pytest_cache/
+
+*.tar.gz
+*.tgz
