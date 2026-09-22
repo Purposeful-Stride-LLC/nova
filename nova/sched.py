@@ -193,6 +193,11 @@ def run_named(name: str) -> dict:
             from nova import office
 
             note = str(office.ensure_workforce())[:200]
+        elif key == "council-series":
+            # Agenda-only by default; no GPU unless STEWARD_RUN=1 (stub still skips chamber)
+            from nova import council_series
+
+            note = str(council_series.run_stub())[:200]
         else:
             err = f"unknown job {key}. /tools"
     except Exception as exc:

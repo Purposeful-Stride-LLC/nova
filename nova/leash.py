@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import shutil
 import urllib.request
+import hashlib
 from pathlib import Path
 
 from nova import breaklog, db, office
@@ -245,3 +246,30 @@ def qwen_run(prompt: str, *, cwd: str | None = None, timeout: int = 180) -> dict
     """Komodo on leash — wrap hands.qwen.run_prompt (HIL before file writes)."""
     from nova.hands import qwen as qwen_hand
     return qwen_hand.run_prompt(prompt, cwd=cwd, timeout=timeout)
+
+
+def proof_tree(paths: list[str] | tuple[str, ...] | None = None) -> dict:
+    """Build PROOF bundle: relative tree lines + sha256 + bytes_total. No GPU."""
+    root = Path(__file__).resolve().parents[1]
+    paths = list(paths or [])
+    tree: list[str] = []
+    sha: dict[str, str] = {}
+    total = 0
+    for raw in paths:
+        p = Path(raw)
+        if not p.is_absolute():
+            p = root / p
+        if not p.is_file():
+            tree.append(f"{raw}:MISSING")
+            continue
+        data = p.read_bytes()
+        digest = hashlib.sha256(data).hexdigest()
+        try:
+            rel = str(p.relative_to(root))
+        except Exception:
+            rel = str(p)
+        tree.append(f"{rel}:{len(data)}")
+        sha[rel] = digest
+        total += len(data)
+    zulu = db.zulu() if hasattr(db, "zulu") else ""
+    return {"ok": True, "tree": tree, "sha256": sha, "bytes_total": total, "zulu": zulu}

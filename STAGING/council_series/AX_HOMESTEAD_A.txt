@@ -1,0 +1,6 @@
+Ax-HOMESTEAD council seed
+Topic: A Beacon/tentacle always-on
+Zulu: 2026-09-22T11:03:28Z
+Mode: agenda-only (no LLM unless STEWARD_RUN=1)
+Prior gaps: [{"phase": "A", "gap": "OG lid-closed Ubuntu steps not proven on metal yet", "owner": "steward+Cassius"}]
+Next after this: B

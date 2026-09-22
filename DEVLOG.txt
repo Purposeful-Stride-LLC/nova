@@ -107,3 +107,39 @@ Landed: nova/breaklog.py nova/leash.py nova/brain.py
   data/reference/hexclass.txt copied from D:\pg\ai
   data/secrets/README for xAI key (stub brain.xai.grok)
 Overlay only. data\NOVA.db untouched by design.
+
+
+LOOP 2026-09-22  STRUCTURE LOCK — missing steps + council series + leash mail
+--------------------------------------------------------------------------------
+TRAJECTORY
+  Close gaps Michael named: waiting work queue, education seeds, WHI gap loop,
+  paper markets unfinished, STAGING not folded into live jobs, OG lid-closed
+  must still take jobs. GPU polite. No WhatsApp.
+
+THIS LOOP WORK (docs + stubs; no long GPU)
+  STAGING/NOVA_MISSING_STEPS_BUILD_ORDER.md   phases A–I owners + PROOF + GPU
+  STAGING/COUNCIL_SERIES_SCHEDULE.md          recursive A→I thermal-gated series
+  STAGING/HEARTHBEAT_MAIL_JOB_SCHEMA.md       envelope + queue dirs + result PROOF
+  STAGING/LEASH_KOMODO_CLAW_WORKFLOW.md       Komodo draft → Claw forge → promote
+  STAGING/OG_LID_CLOSED_BEACON.md             Ubuntu lid/systemd/linger/UDP steps
+  STAGING/DEVLOG_PETS_AND_MAIL.md             human plain-language pets+mail
+  STAGING/steps/STEP_P1..P3 + STEP_A          Claw-executable templates
+  data/queue/{waiting,running,done,failed}/   waiting work queue on disk
+  nova/sched.py + forge.py                    council-series stub (agenda-only)
+  docs/ copies of the key STAGING markdown
+
+PETS + MAIL (human)
+  Komodo/Qwen drafts code on a leash. Aurelius/OpenClaw executes and must return
+  PROOF (file tree + sha256). Hearthbeat UDP 41776 beacon / 41777 jobs move work
+  to tentacle nodes (including OG with lid closed). Steward promotes STAGING to
+  live. Pocket TTS anna may speak; prefer tiny/CPU models for councils.
+
+OPINION
+  Structure before heat. Agenda-only councils until STEWARD_RUN=1. First fire:
+  Council A (beacon always-on). OG SSH may still be blocked — apply lid guide
+  on-console. No secrets in docs.
+
+CHECKSUM THIS LOOP
+  Docs: STAGING/* + docs/* + notes/COUNCIL_SERIES_SCHED_NOTES.md
+  Code: council-series stub in sched/forge; queue dirs; STEPs templates
+  Not done: live OG systemd, live paper.py, full leash proof_tree patch

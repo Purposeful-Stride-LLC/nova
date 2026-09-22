@@ -121,6 +121,15 @@ FORGE = [
         "does": "Upsert openclaw@ qwen@ seer@ ear@ clerk@ into employees.",
         "risk": 0,
     },
+    {
+        "name": "council-series",
+        "job": "council-series",
+        "every_s": 0,
+        "cite": "STAGING/COUNCIL_SERIES_SCHEDULE.md + nova.council_series",
+        "does": "DISABLED default. Agenda-only next topic + Ax-HOMESTEAD seed. Steward enable every_s=86400; no LLM unless STEWARD_RUN=1.",
+        "risk": 0,
+    },
+
 ]
 
 

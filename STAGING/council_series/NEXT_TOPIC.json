@@ -1,0 +1,20 @@
+{
+  "topic": "A",
+  "title": "Beacon/tentacle always-on",
+  "phase": "A",
+  "zulu": "2026-09-22T11:03:28Z",
+  "mode": "agenda-only",
+  "model_hint": "qwen2:0.5b",
+  "require_steward_run": true,
+  "prior_proof_gaps_file": "STAGING/council_series/PROOF_GAPS.json",
+  "prior_gaps_for_topic": [
+    {
+      "phase": "A",
+      "gap": "OG lid-closed Ubuntu steps not proven on metal yet",
+      "owner": "steward+Cassius"
+    }
+  ],
+  "output_json": "STAGING/council_series/COUNCIL_A_RESULT.json",
+  "ax_homestead_seed_out": "STAGING/council_series/AX_HOMESTEAD_A.txt",
+  "next_after_this": "B"
+}

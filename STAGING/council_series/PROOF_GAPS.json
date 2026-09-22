@@ -1,0 +1,14 @@
+{
+  "updated_ct": "2026-09-22 06:02 CDT",
+  "gaps": [
+    {"phase": "A", "gap": "OG lid-closed Ubuntu steps not proven on metal yet", "owner": "steward+Cassius"},
+    {"phase": "B", "gap": "waiting work queue dirs exist in docs; hub+node live enqueue not proven", "owner": "Claw+tentacle"},
+    {"phase": "C", "gap": "education seed URL list not yet steward-approved", "owner": "Komodo"},
+    {"phase": "D", "gap": "WHI gap scout job stub only", "owner": "Claw"},
+    {"phase": "E", "gap": "leash forge PROOF path needs PATCH notes vs live claw.py", "owner": "Claw"},
+    {"phase": "F", "gap": "paper.py skeleton not landed", "owner": "Komodo"},
+    {"phase": "G", "gap": "HIL/ear/diary loops documented, not newly wired this lock", "owner": "steward"},
+    {"phase": "H", "gap": "docs commit cadence TBD after this push", "owner": "steward"},
+    {"phase": "I", "gap": "recursive council series not yet steward-fired", "owner": "steward"}
+  ]
+}
