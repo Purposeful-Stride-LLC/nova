@@ -1,0 +1,17 @@
+# metal face — required for daemon + TUI + holmes/cam/pdf
+psutil>=5.9
+opencv-python-headless>=4.8
+pypdf>=4.0
+
+# optional SSL for /web
+# certifi
+
+# optional TTS (already installed on TUF)
+# pocket-tts
+
+# optional vector hunt later
+# sqlite-vec
+
+# Ollama is a separate install, not pip
+# https://ollama.com
+# product GUI later — PySide6 (check 3.14 wheel)

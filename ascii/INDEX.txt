@@ -1,0 +1,37 @@
+================================================================================
+NOVA ASCII INDEX
+Used by TUI header / splash only. Not on the >> prompt.
+Homage light. If it fights work it dies.
+================================================================================
+
+ID nova-mark
+  *   supernova spark
+ ***
+*   *
+
+ID pulse
+ [ @ ]   idle
+ [ * ]   think
+ [ ! ]   report rank 2+
+
+ID banner-mini
+  N O V A
+  homestead instrument
+
+HOMAGE (names only, not quotes)
+  HAL      red eye  — /egg hal already
+  POD      doors    — /egg pod
+  Gort     Klaatu barada  — unused
+  R2       dome beep — unused
+  Ship     Boardman silent running — unused
+  Wintermute / Neuromancer console — header tone only
+  Frontinus  aqueduct legate — steward persona, not a glyph
+
+RULE
+  One mark in the header. Eggs are typed /egg NAME. No animation
+  while Ollama is busy. No audio egg.
+
+FILES
+  This index is the catalog. Glyphs stay here so the TUI can
+  load by ID later. Do not paste novels into term.py.
+================================================================================

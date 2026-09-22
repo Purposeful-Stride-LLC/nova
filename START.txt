@@ -1,0 +1,18 @@
+NOVA field kit 1.4 — cut A
+
+Two processes.
+
+  python -m nova          daemon: scheduler + master log
+  python -m nova.tui      metal face (edits the same job table)
+
+Keep pocket-tts serve on :8000 if you want an ear.
+
+  /jobs            list
+  /job add 60 holmes
+  /job on ID / job off ID
+  /web URL         strip + matrix + quality gate + WHI
+  /conv new        start a numbered conversation
+  /hunt Q          palace first
+  /models
+
+Quality gate writes Tx-REJECT if the page is thin. Good pages get 0x-WEB + cite.

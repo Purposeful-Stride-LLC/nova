@@ -1,0 +1,28 @@
+NOVA 1.6 test card — fresh data\
+================================
+Copy nova\ into C:\Users\wuchy\NOVA  (your main folder).
+Delete data\NOVA.db if you want a clean schema (you asked for this).
+
+Window A:  python -m nova
+  Expect: daemon line, jobs list including hw-check and whistle.
+
+Window B:  python -m nova.tui
+  /tutorial
+  /tools
+  /suggest
+  /staff                 jackets + voices
+  /models                Ax-OLLAMA rows
+  /holmes
+  /tick                  runs due jobs now
+  /reports               after /tick you may see rank-2 hw change
+  /ack 1                 if a report id exists
+  /cam 0                 still → data\artifacts\cam_0.jpg
+  /job add 30 cam:0      daemon stills (approve first on a real cam)
+  /web https://example.com
+  /hunt example
+  /pdf some.pdf          if you have one
+  /codesum nova
+
+Whistle is 900s. Do not expect chatter.
+
+If /web spacex rejects-thin, that is the gate. Read data\artifacts\web_last.txt

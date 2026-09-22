@@ -1,0 +1,32 @@
+{
+  "id": "og-ubuntu",
+  "host": "192.168.0.76",
+  "hostname": null,
+  "os": null,
+  "uname": null,
+  "cpu_ram": null,
+  "has_gpu": false,
+  "ssh": {
+    "host": "192.168.0.76",
+    "port": 22,
+    "user": "mike",
+    "auth": "password_temp_DO_NOT_STORE",
+    "key_ref": null,
+    "ok": false
+  },
+  "ports": {
+    "22": false,
+    "11434": false
+  },
+  "ollama": {
+    "tags": [],
+    "raw_list": "",
+    "which": null
+  },
+  "abilities": [
+    "cpu_llm",
+    "shell"
+  ],
+  "notes": "OG box; password was shared in chat \u2014 migrate to SSH key ASAP; never store pw in palace",
+  "zulu": "2026-09-21T09:27:17Z"
+}

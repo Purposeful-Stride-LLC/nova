@@ -1,0 +1,89 @@
+# DEVLOG.ai — notes for the next model (and for Grok)
+
+You are reading the kit at NOVA_fieldkit_v1_4. Python package `nova`.
+Windows TUF host. Do not overwrite `data/NOVA.db`. Overlay code only.
+
+## Why the GUI looks like a poster
+Steward supplied a cosmic-console mockup (aqueduct, NOVA wordmark,
+spawn status, neon tiles, job board, Grok-in-the-mirror).
+The live app is a *client* of SQLite + the daemon. It does not own
+the scheduler. Tiles are data: `nova/gui/deck.json`.
+
+## How to change the deck without rewriting app.py
+1. Edit `nova/gui/deck.json`.
+2. `live: false` = visible dead button (gray, tooltip = `why`).
+3. `panel` = QStackedWidget index, or null if the tile is only a label.
+4. Restart `python -m nova.gui`.
+5. New pane: add a widget in `app.py`, give it the next index, point a tile at it.
+
+## Spawn (do not regress)
+Never `cmd /c start TITLE python`. Windows treats TITLE as the exe.
+Use `nova.spawnutil.spawn(args, name, cwd)` which:
+- CREATE_NEW_CONSOLE
+- records pid in `data/artifacts/spawns.json`
+- `alive(pid)` via OpenProcess / tasklist
+
+Call sites: `launch.py`, `pocket.ensure_serve`.
+
+## Pipes the GUI must show
+- jobs table + queue rows (SYSTEM OPS)
+- URL drop -> `board.enqueue_url` -> job `ingest` every 15s -> `web.fetch`
+- packets inbox -> `office.deliver_inbox` (job `mail`)
+- bites after each tick
+- palace table viewer
+- viewport stills + moondream if tag exists
+- spawn PID list
+
+## Speech
+Parser peels `[speak voice]`, `[NOTICE]`, `SPEAK:`, `**speak**`.
+Serve TTS is form POST `text` + `voice_url` to :8000.
+Seats map in `pocket.SEATS`.
+
+## Models
+`state["model"]` in TUI/GUI combo wins. Do not steal short questions
+to 0.5b when the steward picked an 8b.
+
+## Dead by design (this loop)
+KILL tile — needs HIL before any TerminateProcess.
+TUI tile — launching a console from Qt is optional later.
+
+## Website vs metal
+See STAGING/WEBSITE_CHECKLIST.txt. Glass grok.me is not this process.
+
+## Version
+1.7 field kit. Next number when GUI deck.json + spawn status ship
+and steward accepts the overlay.
+
+If you add a feature: one paragraph here + one line in DEVLOG.txt.
+Write for a model that has only this folder.
+
+## v1.8 (Grok Bot cut)
+Leash animals via mail. breaklog is mandatory on job exceptions.
+brain.complete(provider=ollama.local|openai.compat|xai.grok stub).
+Do not enable xAI HTTP until data/secrets/xai_api_key.txt exists.
+cam: = features path; camsee: = optional moondream (steward heat).
+
+## 2026-09-19 crawl + RAG gate
+- nova/crawl.py: g3 heritage, same_host exploration, optional enqueue_web to board.
+- nova/rag.py: TF overlap search + qwen2:0.5b INCLUDE/EXCLUDE gate before prompt.
+- Deepened Textual + Qt docs into live chunks; python.org wander cleared.
+
+### CRAWL (nova/crawl.py)
+- Same-host directory exploration without network calls
+- Produces temporary chunks for optional web enqueue
+- TUI command: `/crawl URL`
+- Daemon job: `crawl:URL` drains into ingest/tick
+- Flow: crawl -> temp chunks -> board.enqueue_url -> web.fetch -> 0x-WEB or Tx-REJECT
+
+### RAG GATE (nova/rag.py)
+- Word/subject-weight search across palace knowledge
+- Small model (qwen2:0.5b) INCLUDE/EXCLUDE filtering before large-prompt context
+- Ax-RAG stamp on kept snippets; noise removed from conversation context
+- Source facts stay written; only filtered excerpts enter prompt window
+- Goal: deepen base with Textual + Qt docs first, then arXiv white papers later
+
+### DIARY
+- C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai (append-only Grok Bot sync)
+- Ponder notes: news-manipulation lexicon vs truthful publishers; arXiv depth follows
+- Pipeline: crawl -> temp/live chunks; enqueue -> web.fetch hit/miss.
+- Ponder (diary): news-manipulation lexicon vs truthful pubs; arXiv depth later.

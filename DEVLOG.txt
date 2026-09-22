@@ -1,0 +1,109 @@
+================================================================================
+NOVA DEVLOG
+Hard file. One loop = one dated entry + opinions.
+Wire-patch tests live under STAGING/  until they graduate to nova\
+TUI stays the metal face. GUI notes are research, not a second product.
+================================================================================
+
+MAKE 0  —  FOUNDING  (late Aug – 17 Sep 2026)
+--------------------------------------------------------------------------------
+Intent: sovereign homestead agent on everyday compute. Python spine.
+Ollama local. WHI palace. Dual use (homestead / Gx namespace) with HIL.
+First field kits were website-parity fantasies. Metal on Windows TUF
+(i7-14650HX, 16 GB, RTX 5050 8 GB, Python 3.14, no WSL) forced cuts.
+
+What landed by 1.6: daemon+jobs, matrix /web, pypdf, codesum, cam stills,
+office packets/staff/reports, pocket-tts generate/serve, ANSI TUI,
+parser speak tags, history copy, forge catalog, README+TUTORIAL.
+
+Opinion: the spine is real when holmes and cam:0 print in the daemon
+window. Everything that assumed Textual, pygame panels, or a second
+website on metal was theater. Keep the TUI. Document or it evaporates.
+
+
+LOOP 2026-09-18  AM
+--------------------------------------------------------------------------------
+TRAJECTORY
+  Now:  text palace + stills + optional VLM not on roster
+  Next: /open /brief /expand + daily 3-URL news  (PLAN_2026-09-18)
+  Later: Brain adapter (Ollama | Grok key)  X public API  GIS
+  Not:  dual-LLM 5-min loop as default  face index  video-in-TUI
+
+THIS LOOP WORK
+  STAGING/PLAN + display.py.dep + brief.py.dep
+  nova/senses.py  /see /hear /vision
+  README journal + TUTORIAL.txt pages
+  Code-only zips so data\NOVA.db survives
+
+OPINION
+  Good: overlay discipline, job table as law, parsers before models,
+        serve-not-generate for TTS, WHI in filenames.
+  Soft: TUI still a typewriter. Artifact pane is strings. No /open.
+        Staff jackets exist; seer has no weights until moondream.
+        News is a URL the steward types, not a world brief.
+  Risk: every loop adds commands faster than tests. Devlog+STAGING
+        is the patch bay. If it is not in STAGING it is not a test.
+
+CHECKSUM THIS LOOP
+  Live import surface: nova.senses nova.forge nova.parser nova.office
+  Docs: README.txt TUTORIAL.txt DEVLOG.txt STAGING/PLAN_2026-09-18.txt
+  DB: not in zip
+  Tests: none automated. Manual list in TUTORIAL PAGE 3–7.
+
+GUI RESEARCH (TUI remains)
+  tkinter     stdlib. PhotoImage + after() for stills. Ugly, ships.
+  customtkinter  skins tk. Extra dep.
+  Dear PyGui  fast immediate mode. Heavier.
+  webview     local HTML brief. Second window, not a replacement.
+  pygame      egg only. Already rejected as the face.
+  Verdict: optional Brief Window = tkinter, lazy import, F2 / /gui
+           default path stays python -m nova.tui
+
+ASCII
+  See ascii/INDEX.txt  homage light. Never on the prompt line.
+
+LOOP 2026-09-18  GUI REBUTTAL
+--------------------------------------------------------------------------------
+Steward: TUI stays TUI (prettier). Product glass is a real GUI.
+tkinter stands only as a preview. Product: PySide6. See STAGING/GUI_PYSIDE6.txt
+GUI is a client of NOVA.db. Daemon does not live inside Qt.
+
+LOOP 2026-09-18  v1.7
+--------------------------------------------------------------------------------
+License: PySide6 LGPL. Dynamic link + attribution. Not legal advice.
+PyQt6 GPL is not the ship license.
+Landed: splash.py launch.py nova.gui sherlock.py VERSION 1.7
+TUI header 1.7 + short splash. TUI still CLI-only.
+Tests this side: sherlock walk, splash frames, wav write, ast.
+
+LOOP 2026-09-18  launch start-title bug
+--------------------------------------------------------------------------------
+Windows `start NOVA-gui python` treats NOVA-gui as the .exe.
+Fix: CREATE_NEW_CONSOLE + python -m nova / nova.gui, cwd=kit root.
+
+LOOP 2026-09-18  speak grammar + bites + cosmic GUI
+--------------------------------------------------------------------------------
+Parser peels [speak] [NOTICE] SPEAK: **speak**. Few-shot GRAMMAR.
+Serve TTS posts urlencoded form first. Jobs route to staff.
+Tick enqueues a bite. TUI /bites /play. GUI five neon panels.
+
+NEXT PATCH BAY
+  1. pip install PySide6 on 3.14
+  2. /open PATH
+  3. pixmap from Tx-CAM in viewport
+================================================================================
+
+
+
+
+LOOP 2026-09-19  v1.8 leash + breaklog + brain seam
+--------------------------------------------------------------------------------
+Landed: nova/breaklog.py nova/leash.py nova/brain.py
+  masks.py enriched (seer ear openclaw qwen clerk)
+  office.ensure_workforce + openclaw@ qwen@
+  jobs: openclaw-status qwen-status camsee:N workforce
+  cam: uses senses.save_still (features + seer mail)
+  GUI deck tiles OPENCLAW QWEN BREAKS BRAIN; refresh ensures workforce
+  data/reference/hexclass.txt copied from D:\pg\ai
+  data/secrets/README for xAI key (stub brain.xai.grok)
+Overlay only. data\NOVA.db untouched by design.
