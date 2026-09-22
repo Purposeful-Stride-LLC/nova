@@ -1,0 +1,12 @@
+agenda ok
+handoff 60
+smoke True Confirmed. Tool: `web_fetch`. Ready for input.
+session start
+session done 20260921T0100-50c71291 n 6
+clear 20260921T0100-8c4579e9 {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0100-8c4579e9'}
+clear 20260921T0101-139f68b1 {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0101-139f68b1'}
+clear 20260921T0102-6799e32a {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0102-6799e32a'}
+clear 20260921T0103-d7a58654 {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0103-d7a58654'}
+clear 20260921T0104-e401d3ce {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0104-e401d3ce'}
+clear 20260921T0105-a4a1a75d {'ok': True, 'facts_deleted': 3, 'chunks_cleared': 3, 'case': '20260921T0105-a4a1a75d'}
+ALL_DONE

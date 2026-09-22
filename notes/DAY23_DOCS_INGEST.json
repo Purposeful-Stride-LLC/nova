@@ -1,0 +1,482 @@
+{
+  "ok": true,
+  "n": 7,
+  "items": [
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+      "chars": 16379,
+      "sections": 5,
+      "results": [
+        {
+          "section": 0,
+          "score": 40,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 312,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:48:18Z",
+            "cite": "web:ea75af5359901226:file:///C:/Users/wuchy/Documents/Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+            "matrix_score": 40,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 52,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 313,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:50:31Z",
+            "cite": "web:9ee95ea0ab1f6691:file:///C:/Users/wuchy/Documents/Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+            "matrix_score": 52,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 60,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 314,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:50:32Z",
+            "cite": "web:f7f2549d6d10ce95:file:///C:/Users/wuchy/Documents/Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+            "matrix_score": 60,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 54,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 315,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:50:33Z",
+            "cite": "web:89cba22146550ca9:file:///C:/Users/wuchy/Documents/Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+            "matrix_score": 54,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 4,
+          "score": 55,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 316,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:50:34Z",
+            "cite": "web:7c5fe4754a13f307:file:///C:/Users/wuchy/Documents/Provisional_Patent_FrostShield_PurposefulStride_LLC.docx",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\IP_Assignment_Lunar_Regolith_Ice_Harvesting_Microwave_Pyramid_System.pdf",
+      "chars": 7797,
+      "sections": 3,
+      "results": [
+        {
+          "section": 0,
+          "score": 48,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 317,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:50:35Z",
+            "cite": "web:17dd2c721667a3e8:file:///C:/Users/wuchy/Documents/IP_Assignment_Lunar_Regolith_Ice_Harvesting_Microwave_Pyramid_System.pdf",
+            "matrix_score": 48,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 58,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 318,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:52:40Z",
+            "cite": "web:0ede4f28527ecf72:file:///C:/Users/wuchy/Documents/IP_Assignment_Lunar_Regolith_Ice_Harvesting_Microwave_Pyramid_System.pdf",
+            "matrix_score": 58,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 57,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 319,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:52:40Z",
+            "cite": "web:64cbf7b9f703361a:file:///C:/Users/wuchy/Documents/IP_Assignment_Lunar_Regolith_Ice_Harvesting_Microwave_Pyramid_System.pdf",
+            "matrix_score": 57,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\Operating_Concept_Hybrid_Energy_Station_Laboratory.docx",
+      "chars": 6263,
+      "sections": 2,
+      "results": [
+        {
+          "section": 0,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 320,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:52:41Z",
+            "cite": "web:6568655a28c8c2c5:file:///C:/Users/wuchy/Documents/Operating_Concept_Hybrid_Energy_Station_Laboratory.docx",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 53,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 321,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:52:41Z",
+            "cite": "web:8958ec7872eb37e8:file:///C:/Users/wuchy/Documents/Operating_Concept_Hybrid_Energy_Station_Laboratory.docx",
+            "matrix_score": 53,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+      "chars": 13965,
+      "sections": 5,
+      "results": [
+        {
+          "section": 0,
+          "score": 44,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 322,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:44Z",
+            "cite": "web:24b797be693d3ae2:file:///C:/Users/wuchy/Documents/Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+            "matrix_score": 44,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 323,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:44Z",
+            "cite": "web:3df9de1052d48370:file:///C:/Users/wuchy/Documents/Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 52,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 324,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:45Z",
+            "cite": "web:12334585da333915:file:///C:/Users/wuchy/Documents/Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+            "matrix_score": 52,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 325,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:45Z",
+            "cite": "web:05e2ab015033cf08:file:///C:/Users/wuchy/Documents/Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 4,
+          "score": 53,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 326,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:46Z",
+            "cite": "web:ac85bae091df9f2d:file:///C:/Users/wuchy/Documents/Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
+            "matrix_score": 53,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
+      "chars": 12421,
+      "sections": 4,
+      "results": [
+        {
+          "section": 0,
+          "score": 41,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 327,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:46Z",
+            "cite": "web:1888259da27a5de0:file:///C:/Users/wuchy/Documents/Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
+            "matrix_score": 41,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 56,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 328,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:46Z",
+            "cite": "web:b767ec1e70a84a23:file:///C:/Users/wuchy/Documents/Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
+            "matrix_score": 56,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 52,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 329,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:47Z",
+            "cite": "web:3bf8a3d802c42f09:file:///C:/Users/wuchy/Documents/Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
+            "matrix_score": 52,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 330,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:48Z",
+            "cite": "web:73af23c997342e2a:file:///C:/Users/wuchy/Documents/Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+      "chars": 20888,
+      "sections": 7,
+      "results": [
+        {
+          "section": 0,
+          "score": 32,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 331,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:54:48Z",
+            "cite": "web:81c5c53bd319f643:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 32,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 46,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 332,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:57:10Z",
+            "cite": "web:dc6ba3052f880751:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 46,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 333,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:57:10Z",
+            "cite": "web:b3e9f4b56d8e3c2e:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 57,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 334,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:57:11Z",
+            "cite": "web:404359a1480d084d:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 57,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 4,
+          "score": 59,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 335,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:57:13Z",
+            "cite": "web:97a544760a929444:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 59,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 5,
+          "score": 55,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 336,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:59:48Z",
+            "cite": "web:4462e36d61b25e05:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 6,
+          "score": 58,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 337,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:59:48Z",
+            "cite": "web:08f204230192240e:file:///C:/Users/wuchy/Documents/IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+            "matrix_score": 58,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\Invention_Disclosure_Liquid_Metal_MHD_ReEntry_System.docx",
+      "chars": 3806,
+      "sections": 2,
+      "results": [
+        {
+          "section": 0,
+          "score": 55,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 338,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:59:49Z",
+            "cite": "web:d934be1acc366d8c:file:///C:/Users/wuchy/Documents/Invention_Disclosure_Liquid_Metal_MHD_ReEntry_System.docx",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 42,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 339,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:59:49Z",
+            "cite": "web:f343092a3a0ee09f:file:///C:/Users/wuchy/Documents/Invention_Disclosure_Liquid_Metal_MHD_ReEntry_System.docx",
+            "matrix_score": 42,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    }
+  ]
+}

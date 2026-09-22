@@ -92,3 +92,17 @@ F. NEXT CUTS (ordered)
 3. Port palace table+search into live app.py (prior council)
 4. Expand this file when glass/website host work resumes
 =======================================================
+
+
+G. NIGHT UPDATE  2026-09-20 22:05 CT
+----------------------------------------------------
+[LIVE] WHI index (nova/whi.py) + db hunt/indexes + crawl hexclass
+[LIVE] masks (nova/masks.py) + TUI /mask; jackets pruned
+[LIVE] GUI deck on_tile for live tiles; Astrocomms multiline+margin
+[LIVE] chamber seats claw+code+brief; chamber.promote_to_rag(case)
+[LIVE] TTS anna / SERVE_BASE :8000 / spawn_titled START_NOVA
+[LIVE] WA lean wrapper dry-run OK; QR link still user step
+[GAP]  live chamber cites in /rag until promote_to_rag (temps only)
+[GAP]  OpenClaw feedback counters still zeros (not wired)
+[GAP]  real email plugin; WA live DM; glass/xAI/X/GIS unchanged
+Next ordered: WA QR -> email plugin -> promote policy / feedback wire

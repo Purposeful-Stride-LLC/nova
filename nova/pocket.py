@@ -61,6 +61,12 @@ SEATS = {
     "seer": "anna",
     "ear": "javert",
     "openclaw": "michael",
+    "aurelius": "michael",
+    "scout": "eve",
+    "analyst": "anna",
+    "skeptic": "javert",
+    "synthesist": "charles",
+    "grokbot": "anna",
     "qwen": "george",
     "clerk": "anna",
 }
@@ -184,6 +190,14 @@ def start_serve_window() -> dict:
         return {"ok": False, "error": str(exc), "base": SERVE_BASE}
 
 
+def speak_employee(text: str, employee_or_mask: str = "brief") -> dict:
+    """Speak as a palace employee / mask using Pocket TTS only."""
+    key = (employee_or_mask or "brief").strip().lower()
+    if "@" in key:
+        key = key.split("@", 1)[0]
+    voice = SEATS.get(key) or DEFAULT_VOICE
+    return speak(text, voice)
+
 def speak(text: str, voice: str = "anna") -> dict:
     """Multipart /tts first (correct OpenAPI). CLI generate next. Import last."""
     import urllib.request
@@ -210,8 +224,8 @@ def speak(text: str, voice: str = "anna") -> dict:
                 raw = r.read()
             if raw[:4] == b"RIFF" or len(raw) > 44:
                 dest.write_bytes(raw)
-                _play(dest)
-                return {"ok": True, "via": "serve-multipart", "path": str(dest), "voice": voice, "note": note}
+                play = _play(dest)
+                return {"ok": True, "via": "serve-multipart", "path": str(dest), "voice": voice, "note": note, "play": play}
             errors.append(f"serve non-wav bytes={len(raw)} head={raw[:24]!r}")
         except Exception as exc:
             errors.append(f"serve {exc}")
@@ -235,8 +249,8 @@ def speak(text: str, voice: str = "anna") -> dict:
             text=True,
         )
         if dest.exists() and dest.stat().st_size > 44:
-            _play(dest)
-            return {"ok": True, "via": "cli", "path": str(dest), "voice": voice, "note": note}
+            play = _play(dest)
+            return {"ok": True, "via": "cli", "path": str(dest), "voice": voice, "note": note, "play": play}
         errors.append(f"cli rc={r.returncode} {(r.stderr or r.stdout or '')[:200]}")
     except Exception as exc:
         errors.append(f"cli {exc}")
@@ -248,8 +262,8 @@ def speak(text: str, voice: str = "anna") -> dict:
         audio = model.generate_audio(_state(voice), text)
         arr = audio.detach().cpu().numpy() if hasattr(audio, "detach") else asarray(audio)
         scipy.io.wavfile.write(str(dest), model.sample_rate, arr)
-        _play(dest)
-        return {"ok": True, "via": "import", "path": str(dest), "voice": voice}
+        play = _play(dest)
+        return {"ok": True, "via": "import", "path": str(dest), "voice": voice, "play": play}
     except Exception as exc:
         errors.append(f"import {exc}")
         try:
@@ -261,18 +275,84 @@ def speak(text: str, voice: str = "anna") -> dict:
         return {"ok": False, "error": " | ".join(errors), "note": note, "voice": voice}
 
 
-def _play(path) -> None:
+
+def _normalize_wav(path) -> "Path":
+    """Pocket TTS often writes a bogus data-chunk size (~2e9). Rewrite PCM header."""
+    from pathlib import Path as P
+    import struct
+    import wave
+
+    path = P(path)
+    data = path.read_bytes()
+    if len(data) < 44 or data[:4] != b"RIFF" or data[8:12] != b"WAVE":
+        return path
+    pos = 12
+    pcm = None
+    ch, rate, width = 1, 24000, 2
+    while pos + 8 <= len(data):
+        cid = data[pos : pos + 4]
+        sz = struct.unpack_from("<I", data, pos + 4)[0]
+        body = data[pos + 8 : pos + 8 + max(0, min(sz, len(data) - (pos + 8)))]
+        if cid == b"fmt " and len(body) >= 16:
+            _af, ch, rate, _br, _ba, bits = struct.unpack_from("<HHIIHH", body[:16])
+            width = max(1, bits // 8)
+        if cid == b"data":
+            # Trust file remainder when claimed size is absurd
+            if sz > len(data) or sz > 50_000_000:
+                pcm = data[pos + 8 :]
+            else:
+                pcm = body
+            break
+        pos += 8 + sz
+        if sz % 2:
+            pos += 1
+    if not pcm:
+        return path
+    fixed = path.with_name(path.stem + "_play.wav")
+    with wave.open(str(fixed), "wb") as w:
+        w.setnchannels(ch)
+        w.setsampwidth(width)
+        w.setframerate(rate)
+        w.writeframes(pcm)
+    return fixed
+
+
+def _play(path) -> dict:
+    """Play wav on Windows. Returns {ok, via, path, error?}. Never swallow failures."""
     from pathlib import Path as P
 
     path = P(path)
+    if not path.exists():
+        return {"ok": False, "error": "missing wav", "path": str(path)}
+    play_path = _normalize_wav(path)
+    errors: list[str] = []
     if sys.platform == "win32":
-        subprocess.Popen(
-            [
-                "powershell",
-                "-NoProfile",
-                "-Command",
-                f'(New-Object Media.SoundPlayer "{path}").PlaySync()',
-            ],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        try:
+            import winsound
+
+            winsound.PlaySound(str(play_path.resolve()), winsound.SND_FILENAME | winsound.SND_NODEFAULT)
+            return {"ok": True, "via": "winsound", "path": str(play_path)}
+        except Exception as exc:
+            errors.append(f"winsound {exc}")
+        # fallback: SoundPlayer on normalized file
+        try:
+            pp = str(play_path.resolve()).replace("'", "''")
+            ps = "(New-Object Media.SoundPlayer '" + pp + "').PlaySync()"
+            r = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", ps],
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            if r.returncode == 0:
+                return {"ok": True, "via": "SoundPlayer", "path": str(play_path)}
+            errors.append(f"SoundPlayer rc={r.returncode} {(r.stderr or '')[:200]}")
+        except Exception as exc:
+            errors.append(f"SoundPlayer {exc}")
+        try:
+            subprocess.Popen(["cmd", "/c", "start", "", str(play_path.resolve())], shell=False)
+            return {"ok": True, "via": "start", "path": str(play_path), "note": "default app"}
+        except Exception as exc:
+            errors.append(f"start {exc}")
+    return {"ok": False, "error": "; ".join(errors) or "no play method", "path": str(play_path)}
+

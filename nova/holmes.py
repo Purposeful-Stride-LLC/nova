@@ -1,11 +1,14 @@
-"""Holmes sweep — uses awareness probes if present."""
+"""Holmes + Watson L0 sweep — code only, no LLM.
 
+Holmes: metal probes (hardware/process/network/lan/ai_runtime/volumes/vision)
+Watson: efficient tree map of key Windows roots (fieldkit, NOVA docs, thumb, openclaw)
+"""
 from __future__ import annotations
 
 import json
 import time
 
-from nova.db import insert_obs, zulu
+from nova.db import insert_obs, put_fact, zulu
 
 
 def sweep() -> dict:
@@ -13,12 +16,12 @@ def sweep() -> dict:
     probes = []
     names = (
         "hardware",
-        "vision",
         "process",
         "network",
         "lan",
         "ai_runtime",
         "volumes",
+        "vision",
     )
     for name in names:
         try:
@@ -29,8 +32,39 @@ def sweep() -> dict:
             row = {"source": name, "ok": False, "error": str(exc)}
         probes.append(row)
         insert_obs(row.get("source", name), bool(row.get("ok")), json.dumps(row)[:2000])
-    return {
+
+    watson = {}
+    try:
+        from nova import watson as watson_mod
+
+        watson = watson_mod.map_metal(max_depth=3)
+    except Exception as exc:  # noqa: BLE001
+        watson = {"ok": False, "error": str(exc)}
+
+    out = {
         "zulu": zulu(),
         "duration_s": round(time.time() - t0, 3),
+        "role": "holmes",
         "probes": probes,
+        "watson": {
+            "ok": watson.get("ok"),
+            "artifact": watson.get("artifact"),
+            "roots": [
+                {"root": m.get("root"), "files": m.get("files"), "dirs": m.get("dirs"), "ok": m.get("ok")}
+                for m in (watson.get("maps") or [])
+            ],
+        },
     }
+    put_fact(
+        "Ax-HOLMES",
+        "sweep",
+        json.dumps({
+            "zulu": out["zulu"],
+            "duration_s": out["duration_s"],
+            "probe_ok": sum(1 for p in probes if p.get("ok")),
+            "probe_n": len(probes),
+            "watson": out["watson"],
+        })[:4000],
+        kind="crawl",
+    )
+    return out

@@ -52,7 +52,7 @@ def run_named(name: str) -> dict:
             from nova import holmes
 
             sw = holmes.sweep()
-            note = f"probes={len(sw.get('probes') or [])}"
+            note = f"probes={len(sw.get('probes') or [])} watson={1 if (sw.get('watson') or {}).get('ok') else 0}"
         elif key == "maintain":
             note = maintain()
         elif key == "ollama-catalog":
@@ -107,6 +107,44 @@ def run_named(name: str) -> dict:
             note = str({"still": still.get("ok"), "vlm": extra})[:200]
         elif key == "whistle":
             note = whistle()
+        elif key == "docs-scout":
+            from nova import docs_ingest
+            note = str(docs_ingest.scout())[:200]
+        elif key == "docs-ingest":
+            from nova import docs_ingest, thermal
+            g = thermal.gate("llm")
+            if not g.get("allow"):
+                note = f"thermal_skip {g.get('reason')} band={(g.get('snap') or {}).get('band')}"
+            else:
+                band = (g.get("snap") or {}).get("band")
+                lim = 2 if band == "cool" else 1
+                d = docs_ingest.ingest_due(limit=lim, model="qwen2:0.5b", mask="chronicler")
+                note = f"n={d.get('n')} ok={d.get('ok')} band={band}"
+        elif key == "ingest-drain":
+            from nova import crawl, thermal
+            g = thermal.gate("llm")
+            if not g.get("allow"):
+                note = f"thermal_skip {g.get('reason')}"
+            else:
+                band = (g.get("snap") or {}).get("band")
+                lim = 8 if band == "cool" else 4
+                d = crawl.drain_temps_through_pipe(limit=lim, model="qwen2:0.5b", mask="chronicler", min_score=28)
+                note = "drain_n=" + str((d or {}).get("n")) + f" band={band}"
+        elif key == "nova-diary":
+            from nova import novadiary
+            d = novadiary.write_entry(theme="homestead evening")
+            note = f"ok={d.get('ok')} chars={d.get('chars')} err={d.get('error')}"
+        elif key == "thermal-check":
+            from nova import thermal
+            snap = thermal.snapshot()
+            thermal.record_fact(snap)
+            note = f"band={snap.get('band')} temp={(snap.get('gpu') or {}).get('temp_c')} llm_ok={snap.get('llm_ok')}"
+
+        elif key == "homestead-cycle":
+            from nova import homestead
+            cyc = homestead.cycle()
+            th = cyc.get("thermal") or {}
+            note = f"needs={len(cyc.get('needs') or [])} band={th.get('band')} temp={th.get('gpu_temp')} root={(cyc.get('scan') or {}).get('root')}"
         elif key == "mail":
             from nova import office
 
@@ -173,6 +211,11 @@ def run_named(name: str) -> dict:
 
 def maintain() -> str:
     con = db.connect()
+    try:
+        from nova import whi
+        whi.ensure_indexes(con)
+    except Exception:
+        pass
     rows = con.execute("SELECT id, title, n_turns FROM conversations").fetchall()
     n = 0
     for row in rows:
@@ -189,18 +232,56 @@ def maintain() -> str:
         db.conv_meta(row["id"], title, top[:80], top)
         n += 1
     con.close()
-    return f"convs={n}"
+    # Cut 1: auto-drain crawl temps through ingest_pipe (matrix + LLM + provenance)
+    drained = 0
+    try:
+        from nova import crawl
+        d = crawl.drain_temps_through_pipe(limit=8, model="qwen3:8b", mask="chronicler", min_score=28)
+        drained = int((d or {}).get("n") or 0)
+    except Exception as exc:
+        return f"convs={n} drain_err={exc}"
+    try:
+        arts = sorted((db.home() / "data" / "artifacts").glob("tts_*.wav"), key=lambda p: p.stat().st_mtime, reverse=True)
+        purged = 0
+        for oldw in arts[25:]:
+            oldw.unlink(missing_ok=True)
+            purged += 1
+    except Exception:
+        purged = -1
+    return f"convs={n} drain={drained} tts_gc={purged}"
 
 
 def whistle() -> str:
     import random
+    from datetime import datetime, timezone
 
-    from nova import office, pocket
+    from nova import office, pocket, db
 
     office._ensure()
     crew = office.staff()
-    emp = random.choice(crew) if crew else {"id": "hearth@local", "voice": "anna"}
-    line = random.choice(
+    emp = random.choice(crew) if crew else {"id": "hearth@local", "voice": "anna", "mask": "hearth"}
+    # Cut 4: WHI lag L0 — if newest fact older than 5 minutes, alert with sentinel voice
+    lag_line = None
+    try:
+        con = db.connect()
+        row = con.execute("SELECT zulu FROM facts ORDER BY id DESC LIMIT 1").fetchone()
+        con.close()
+        if row and row["zulu"]:
+            z = str(row["zulu"]).replace("Z", "+00:00")
+            try:
+                ts = datetime.fromisoformat(z)
+            except Exception:
+                ts = None
+            if ts is not None:
+                if ts.tzinfo is None:
+                    ts = ts.replace(tzinfo=timezone.utc)
+                age = (datetime.now(timezone.utc) - ts).total_seconds()
+                if age > 300:
+                    lag_line = f"Palace WHI lag {int(age)} seconds. Steward, check ingest."
+                    emp = {"id": "sentinel@local", "voice": "javert", "mask": "sentinel"}
+    except Exception:
+        pass
+    line = lag_line or random.choice(
         [
             "Still here. Offline. Private.",
             "Queue is law.",
@@ -208,12 +289,15 @@ def whistle() -> str:
             "Palace holds.",
         ]
     )
+    voice = pocket.resolve_voice(emp.get("voice") or emp.get("mask") or "anna")
     try:
-        pocket.speak(line, emp.get("voice") or "anna")
+        r = pocket.speak(line, voice)
+        play = (r or {}).get("play") or {}
+        play_note = f" play={play.get('ok')}" if play else ""
     except Exception as exc:
         return f"tts {exc}"
     office.bump(emp.get("id") or "hearth@local", "jobs_run")
-    return f"{emp.get('id')} {line}"
+    return f"{emp.get('id')} {line}{play_note}"
 
 
 def tick() -> list[dict]:

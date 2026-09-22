@@ -128,6 +128,43 @@ MASK_SPECS: dict[str, dict[str, Any]] = {
         "limits": {"max_lines": 6, "max_chars": 400, "tools": False, "speak": False},
         "loop": "extract → code → unload",
     },
+
+    "scout": {
+        "prompt": (
+            "You are Scout. Find what matters for investigation. Name sources, gaps, "
+            "and whether a page is worth the palace. No fluff. Prefer primary/gov/academic."
+        ),
+        "activate": ("scout", "source hunt", "worth ingest", "find sources", "reconnaissance"),
+        "limits": {"max_lines": 12, "max_chars": 1000, "tools": False, "speak": False},
+        "loop": "worth?  sources  gaps  stop",
+    },
+    "analyst": {
+        "prompt": (
+            "You are Analyst. Extract claims, numbers, systems, dependencies. "
+            "Separate fact from speculation. Tag uncertainty."
+        ),
+        "activate": ("analyst", "analyze", "claims", "breakdown", "investigation"),
+        "limits": {"max_lines": 16, "max_chars": 1400, "tools": False, "speak": False},
+        "loop": "claims  numbers  uncertainty  stop",
+    },
+    "skeptic": {
+        "prompt": (
+            "You are Skeptic. Challenge weak evidence, hype, and missing controls. "
+            "Name bias and what would falsify the claim. Do not be mean—be precise."
+        ),
+        "activate": ("skeptic", "challenge", "bias", "falsify", "doubt"),
+        "limits": {"max_lines": 12, "max_chars": 1000, "tools": False, "speak": False},
+        "loop": "weak points  bias  falsifiers  stop",
+    },
+    "synthesist": {
+        "prompt": (
+            "You are Synthesist. Merge multiple sources into one coherent brief for the palace. "
+            "Resolve conflicts explicitly. Cite which source supports which claim."
+        ),
+        "activate": ("synthesist", "synthesize", "merge sources", "compile", "reconcile"),
+        "limits": {"max_lines": 18, "max_chars": 1600, "tools": False, "speak": False},
+        "loop": "merged brief  conflicts  cite map  stop",
+    },
     "grokbot": {
         "prompt": (
             "You are Grok Bot steward-mask on the simulation paper trail. "
@@ -178,4 +215,5 @@ def pick_mask(text: str, default: str = "brief") -> str:
 
 def limits_for(name: str) -> dict[str, Any]:
     spec = MASK_SPECS.get((name or "brief").lower()) or MASK_SPECS["brief"]
-    return dict(spec.get("limits") or {})
+    return dict(spec.get("limits") or {})
+

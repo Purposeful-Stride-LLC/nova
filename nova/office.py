@@ -221,6 +221,21 @@ def snapshot_hw() -> dict:
     except Exception:
         pass
     blob["cams"] = cams
+    try:
+        from nova import thermal
+
+        th = thermal.snapshot()
+        blob["thermal"] = {
+            "band": th.get("band"),
+            "gpu_temp_c": (th.get("gpu") or {}).get("temp_c"),
+            "gpu_util": (th.get("gpu") or {}).get("util_pct"),
+            "vram_used_mib": (th.get("gpu") or {}).get("mem_used_mib"),
+            "vram_free_mib": (th.get("gpu") or {}).get("mem_free_mib"),
+            "cpu_temp_c": th.get("cpu_temp_c"),
+            "llm_ok": th.get("llm_ok"),
+        }
+    except Exception as exc:
+        blob["thermal"] = {"error": str(exc)}
     raw = json.dumps(blob, sort_keys=True)
     checksum = hashlib.sha256(raw.encode()).hexdigest()[:16]
     return {"checksum": checksum, "blob": blob}
@@ -356,3 +371,20 @@ def deliver_inbox(limit: int = 3) -> list[dict]:
         bump(dest, "jobs_run")
         out.append({"id": pkt["id"], "dest": dest, "err": err, "reply": reply[:160]})
     return out
+
+
+def sync_voices_from_pocket() -> int:
+    """Keep employee.voice aligned with pocket.SEATS (Pocket TTS only)."""
+    from nova import pocket
+    ensure_workforce()
+    con = db.connect()
+    n = 0
+    for row in con.execute("SELECT id, mask, voice FROM employees").fetchall():
+        mask = (row["mask"] or row["id"].split("@")[0]).lower()
+        want = pocket.SEATS.get(mask) or pocket.DEFAULT_VOICE
+        if (row["voice"] or "") != want:
+            con.execute("UPDATE employees SET voice=? WHERE id=?", (want, row["id"]))
+            n += 1
+    con.commit()
+    con.close()
+    return n

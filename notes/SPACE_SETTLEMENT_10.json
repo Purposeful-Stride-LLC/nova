@@ -1,0 +1,103 @@
+{
+  "topic": "human space settlement",
+  "parts": [
+    {
+      "id": 1,
+      "name": "Destination and site selection",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Colonization_of_Mars",
+        "https://en.wikipedia.org/wiki/Colonization_of_the_Moon",
+        "https://www.nasa.gov/humans-in-space/"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Launch and transportation",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Space_transportation",
+        "https://www.nasa.gov/exploration/systems/sls/index.html"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Habitats and structures",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Space_habitat",
+        "https://en.wikipedia.org/wiki/Lunar_habitat"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Life support closed loops",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Environmental_control_and_life_support_system",
+        "https://en.wikipedia.org/wiki/Closed_ecological_system"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Power and energy systems",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Solar_power_satellite",
+        "https://en.wikipedia.org/wiki/Radioisotope_thermoelectric_generator"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "ISRU and local materials",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/In-situ_resource_utilization",
+        "https://en.wikipedia.org/wiki/Lunar_regolith"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Radiation health and medicine",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Health_threat_from_cosmic_rays",
+        "https://en.wikipedia.org/wiki/Space_medicine"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Communications and navigation",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Deep_Space_Network",
+        "https://en.wikipedia.org/wiki/Interplanetary_Internet"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Governance law economics psychology",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Space_law",
+        "https://en.wikipedia.org/wiki/Outer_Space_Treaty"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Industry manufacturing expansion",
+      "seeds": [
+        "https://en.wikipedia.org/wiki/Space_manufacturing",
+        "https://en.wikipedia.org/wiki/Space_colonization"
+      ]
+    }
+  ],
+  "ingest": {
+    "model": "qwen3:8b",
+    "mask_default": "chronicler",
+    "min_score": 28
+  },
+  "council_seats": [
+    "claw",
+    "code",
+    "brief"
+  ],
+  "analysis_masks_pending_user": [
+    "scout",
+    "analyst",
+    "skeptic",
+    "synthesist",
+    "chronicler"
+  ]
+}

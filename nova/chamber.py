@@ -8,7 +8,9 @@ from typing import Any
 
 from nova import db, breaklog
 
-SEATS = ("claw", "code", "brief")  # brief=qwen3:8b; no 0.5b on design
+SEATS = ("claw", "code", "brief")
+# Cut 2: after each motion verdict, promote temps -> live RAG chunks
+AUTO_PROMOTE_RAG = True  # brief=qwen3:8b; no 0.5b on design
 
 
 def _ensure_chunks(con) -> None:
@@ -234,6 +236,54 @@ def council(topic: str, steward_report: str, seats: tuple[str, ...] | None = Non
     return round_robin(topic, steward_report, seats=seats)
 
 
+
+
+def promote_to_rag(case: str, *, whi: str = "Ax-CHAMBER") -> dict:
+    """Promote chamber Tx-TEMP opinions for a case into live chunks for /rag.
+
+    Opinions stay in facts; this copies a readable summary into chunks.status=live
+    so future Ollama context via nova.rag.search can see council work.
+    """
+    case = (case or "").strip()
+    if not case:
+        return {"ok": False, "error": "need case"}
+    con = db.connect()
+    rows = con.execute(
+        "SELECT id,zulu,whi,title,body FROM facts WHERE whi='Tx-TEMP' AND title LIKE ? ORDER BY id",
+        (f"chamber/{case}/%",),
+    ).fetchall()
+    if not rows:
+        con.close()
+        return {"ok": False, "error": "no temps", "case": case}
+    _ensure_chunks(con)
+    n = 0
+    for row in rows:
+        title = row["title"] or ""
+        body = row["body"] or ""
+        cite = f"chamber/{case}/{title.split('/')[-1] if title else n}"
+        text = body if isinstance(body, str) else str(body)
+        # prefer JSON opinion field if parked as JSON
+        try:
+            import json as _json
+            j = _json.loads(text)
+            if isinstance(j, dict) and j.get("opinion"):
+                text = str(j.get("opinion"))
+            elif isinstance(j, dict) and j.get("address"):
+                text = _json.dumps(j, ensure_ascii=False)[:4000]
+        except Exception:
+            pass
+        hx = hashlib.sha256((cite + text).encode()).hexdigest()[:16]
+        con.execute(
+            "INSERT INTO chunks(zulu,whi,source_cite,text,hash,status) VALUES (?,?,?,?,?,?)",
+            (db.zulu(), whi if whi.startswith(("Ax-","Tx-","0x-")) else "Ax-CHAMBER", cite, text[:8000], hx, "live"),
+        )
+        n += 1
+    con.commit()
+    con.close()
+    db.put_fact("Ax-CHAMBER", f"promoted/{case}", f"n={n} to live chunks for RAG")
+    return {"ok": True, "case": case, "promoted": n, "whi": whi}
+
+
 def session_motions(
     motions: list[dict],
     seats: tuple[str, ...] | None = None,
@@ -275,6 +325,12 @@ def session_motions(
         db.put_fact("Ax-CHAMBER", f"motion/{session}/{mid}", json.dumps({
             "title": title, "case": case, "seats": list(entry["seats"].keys())
         })[:4000])
+        if AUTO_PROMOTE_RAG:
+            try:
+                entry["promote"] = promote_to_rag(case)
+            except Exception as exc:
+                entry["promote"] = {"ok": False, "error": str(exc)}
+                breaklog.record("chamber", f"promote:{case}:{exc}", severity="warn", whi="Tx-TEMP")
     return out
 
 

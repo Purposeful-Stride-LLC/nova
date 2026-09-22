@@ -27,3 +27,17 @@ Pipe:
 
 See also: STAGING/CAPABILITY_MATRIX_2026-09-20.txt
   (channels/apps + Claw email/DM gaps; steward 2026-09-20)
+
+[x] WHI classify + idx_facts_whi / idx_chunks_whi (nova/whi.py)  — 2026-09-21
+[x] masks.py cues + TUI /mask list|auto|NAME (not Modelfile jackets)
+[x] GUI deck live tiles wired; dead stay dead
+[x] chamber seats claw+code+brief; promote_to_rag for live RAG
+[x] Astrocomms multiline input + taskbar bottom margin
+[x] Pocket TTS SERVE_BASE :8000 default voice anna; titled START_NOVA
+[x] WhatsApp lean wrapper + HIL (link QR still pending user)
+[ ] chamber temps auto-promote policy (manual promote_to_rag for now)
+[ ] OpenClaw employee feedback counters (accepted/rejected still zero)
+[ ] WhatsApp QR link + live DM smoke
+[ ] lean email plugin + HIL send
+
+Updated: 2026-09-20 22:05 CT

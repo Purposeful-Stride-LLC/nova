@@ -1,0 +1,59 @@
+{
+  "zulu": "2026-09-21T10:12:08Z",
+  "drills": {
+    "cold_ollama": {
+      "error": "[Errno 2] No such file",
+      "out": ""
+    },
+    "warm_ollama_udp": {
+      "rtt_ms": 1592.7,
+      "body": {
+        "ok": true,
+        "kind": "ollama_gen",
+        "model": "qwen:0.5b",
+        "stdout": "WARM_NODE_OK\n\n",
+        "stderr": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2834 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2834 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2826 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2807 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2807 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25",
+        "rc": 0,
+        "ms": 1577,
+        "zulu": "2026-09-21T10:12:10Z",
+        "job_id": "warm-ollama-1",
+        "load_after": {
+          "load1": 0.08,
+          "load5": 0.06,
+          "load15": 0.06
+        }
+      }
+    },
+    "ffmpeg_still": {
+      "ok": true,
+      "n": 1,
+      "path": "/home/mike/pg/nova-tentacle/captures/still_20260921T101210Z.jpg",
+      "bytes": 16356
+    },
+    "curl_scout": {
+      "ok": true,
+      "url": "https://example.com",
+      "path": "/home/mike/pg/nova-tentacle/captures/scout_example.html",
+      "bytes": 559,
+      "hil": true,
+      "note": "benign example.com fetch for scout timing"
+    },
+    "freecad_headless": {
+      "ok": true,
+      "cmds": [
+        "/usr/bin/freecadcmd",
+        "/usr/bin/freecad"
+      ],
+      "ms": 369,
+      "stdout": " is free and open-source software licensed under the terms of LGPL2+ license.\nFreeCAD wouldn't be possible without FreeCAD community.\n  #####                 ####  ###   ####  \n  #                    #      # #   #   # \n  #     ##  #### ####  #     #   #  #   # \n  ####  # # #  # #  #  #     #####  #   # \n  #     #   #### ####  #    #     # #   # \n  #     #   #    #     #    #     # #   #  ##  ##  ##\n  #     #   #### ####   ### #     # ####   ##  ##  ##\n\nRecompute......\n\t\t\t\t\t\t(100.0 %)\t\n\t\t\t\t\t\t\t\t\n",
+      "stderr": "",
+      "exe": "/usr/bin/freecadcmd",
+      "artifact_bytes": 2342,
+      "artifact": "/home/mike/pg/nova-tentacle/captures/nova_probe_box.FCStd"
+    },
+    "ds_cli_book": {
+      "ls_and_snip": "-rwxr-xr-x 1 mike mike 7973093 May 29  2025 /home/mike/Documents/data_science_at_the_command_line.pdf\nThis hands-on guide demonstrates how the flexibility of the command line\ncan help you become a more efficient and productive data scientist. You\u2019ll\nlearn how to combine small, yet powerful, command-line tools to quickly\nobtain, scrub, explore, and model your data.\n\nTo get you started\u2014whether you\u2019re on Windows, OS X, or Linux\u2014author\nJeroen Janssens has developed the Data Science Toolbox, an easy-toinstall virtual environment packed with over 80 command-line tools.\nDiscover why the command line is an agile, scalable, and extensible\ntechnology. Even if you\u2019re already comfortable processing data with, say,\nPython or R, you\u2019ll greatly improve your data science workflow by also\nleveraging the power of the command line.\n\u25a0\u25a0 Obtain data from websites, APIs, databases, and spreadsheets\n\u25a0\u25a0 Perform scrub operations on text, CSV, HTML/XML, and JSON\n\u25a0\u25a0 Explore data, compute descriptive statistics, and create\n\nvisualizations\n\u25a0\u25a0 Manage your data science workflow\n\u25a0\u25a0 Create reusable command-line tools from one-liners and\n\nexisting Python or R code\n\u25a0\u25a0 Parallelize and distribute data-intensive pipelines\n\u25a0\u25a0 Model data with dimensionality reduction, clustering,\n\nregression, and classification algorithms\n\nJeroen Janssens, a Senior Data Scientist at YPlan in New York, specializes in\nmachine learning, anomaly detection, and data visualization. He holds an MSc in\nArtificial Intelligence from Maastrich",
+      "err": ""
+    }
+  }
+}

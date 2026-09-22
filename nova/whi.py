@@ -11,8 +11,12 @@ plus Claw crawl hexclass (1x03 wiki, 1x04 news, G1000 gov, 1x00 misc).
 
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 from typing import Any
+
+
 
 # Established wing prefixes only
 WINGS = ("Ax-", "Tx-", "0x-")
@@ -38,7 +42,7 @@ KIND_MAP = {
     "codesum": "Tx-CODE",
     "reject": "Tx-REJECT",
     "temp": "Tx-TEMP",
-    "crawl": "Tx-CRAWL",
+    "crawl": "Tx-CRAWL", "holmes": "Ax-HOLMES", "watson": "Ax-WATSON", "homestead": "Ax-HOMESTEAD",
     "break": "Tx-BREAK",
     "tts": "Tx-TTS",
     "web": "0x-WEB",
@@ -68,16 +72,45 @@ SUBJECT_RULES: list[tuple[str, str, str]] = [
 
 
 def claw_hexclass(text: str, url: str = "") -> str:
-    """Claw crawl classify enhancement (1x03 wiki, 1x04 news, G1000 gov, 1x00)."""
+    """Claw crawl classify — heritage hexclass prefixes (D:\\pg\\ai) + URL heuristics.
+
+    Returns short codes like 1x03 (encyclopedias), 1x04 (news), G1000 (gov), 1x00.
+    Full labels live in nova/hexclass_table.json (folded from thumb hexclass.txt).
+    """
     t = (text or "").lower()
     u = (url or "").lower()
-    if "wikipedia" in u or "encyclopedia" in t:
-        return "1x03"
-    if "news" in t or "article" in t:
-        return "1x04"
-    if ".gov" in u or "/gov" in u:
+    if ".gov" in u or u.endswith(".mil") or "/gov/" in u:
         return "G1000"
+    if "wikipedia" in u or "encyclopedia" in t or "britannica" in t:
+        return "1x03"
+    if any(x in u for x in ("news", "reuters", "apnews", "bbc.")) or (
+        " journalism" in t or t.startswith("news")
+    ):
+        return "1x04"
+    if any(x in u for x in ("arxiv.org", "doi.org", "ieee.org", "acm.org")):
+        return "1x07"  # education/research family in hexclass table
+    if any(x in t for x in ("philosophy", "metaphysics", "epistemology")):
+        return "1x10"
+    if any(x in t for x in ("religion", "theology", "bible")):
+        return "1x20"
+    # optional: load labels (side effect free)
+    try:
+        _p = Path(__file__).with_name("hexclass_table.json")
+        if _p.is_file():
+            json.loads(_p.read_text(encoding="utf-8"))  # validate present
+    except Exception:
+        pass
     return "1x00"
+
+
+def hexclass_label(code: str) -> str:
+    """Human label for a claw_hexclass code."""
+    try:
+        _p = Path(__file__).with_name("hexclass_table.json")
+        data = json.loads(_p.read_text(encoding="utf-8"))
+        return str(data.get(code) or data.get((code or "")[:4]) or code)
+    except Exception:
+        return code or ""
 
 
 def _norm_subject(token: str) -> str:

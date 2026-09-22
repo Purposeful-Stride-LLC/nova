@@ -101,10 +101,16 @@ def main() -> None:
 
     chat_w = QWidget()
     cl = QVBoxLayout(chat_w)
+    cl.setContentsMargins(8, 8, 8, 36)  # bottom gap — Windows taskbar often covers input
     chat_log = QTextEdit()
     chat_log.setReadOnly(True)
-    chat_in = QLineEdit()
-    chat_in.setPlaceholderText("ask the palace...")
+    chat_in = QTextEdit()
+    chat_in.setPlaceholderText("ask the palace...  (Ctrl+Enter or Send)")
+    chat_in.setAcceptRichText(False)
+    chat_in.setMinimumHeight(72)  # ~3 lines
+    chat_in.setMaximumHeight(140)
+    chat_in.setLineWrapMode(QTextEdit.WidgetWidth)
+    btn_send = QPushButton("Send")
     cl.addWidget(QLabel("ASTROCOMMS"))
     model_box = QComboBox()
     try:
@@ -113,15 +119,19 @@ def main() -> None:
         tags = []
     if not tags:
         tags = ["llama3-groq-tool-use:8b", "qwen3:8b", "moondream"]
-    for t in tags:
-        model_box.addItem(t)
+    for tname in tags:
+        model_box.addItem(tname)
     prefer = "llama3-groq-tool-use:8b"
     if prefer in tags:
         model_box.setCurrentText(prefer)
     tstate["model"] = model_box.currentText()
     cl.addWidget(model_box)
-    cl.addWidget(chat_log)
+    cl.addWidget(chat_log, stretch=1)
     cl.addWidget(chat_in)
+    send_row = QHBoxLayout()
+    send_row.addStretch(1)
+    send_row.addWidget(btn_send)
+    cl.addLayout(send_row)
 
     def pick_model(_=None):
         tstate["model"] = model_box.currentText()
@@ -129,7 +139,7 @@ def main() -> None:
     model_box.currentTextChanged.connect(pick_model)
 
     def send():
-        text = chat_in.text().strip()
+        text = chat_in.toPlainText().strip()
         if not text:
             return
         chat_in.clear()
@@ -145,7 +155,17 @@ def main() -> None:
             reply = str(exc)
         chat_log.append("NOVA: " + reply)
 
-    chat_in.returnPressed.connect(send)
+    btn_send = QPushButton("Send")
+    btn_send.clicked.connect(send)
+    # Ctrl+Enter sends; plain Enter inserts newline in QTextEdit
+    def _chat_key(e):
+        from PySide6.QtCore import Qt as _Qt
+        if e.key() in (_Qt.Key_Return, _Qt.Key_Enter) and (e.modifiers() & _Qt.ControlModifier):
+            send()
+            return
+        QTextEdit.keyPressEvent(chat_in, e)
+    chat_in.keyPressEvent = _chat_key  # type: ignore
+
 
     sonic = QWidget()
     sl = QVBoxLayout(sonic)

@@ -1,0 +1,12 @@
+{
+  "ports": {
+    "22": false,
+    "11434": false,
+    "41776": false,
+    "41777": false
+  },
+  "profile": {
+    "ssh_ok": false,
+    "error": "port 22 closed"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "zulu": "2026-09-21T04:33:05Z",
+  "zulu_start": "2026-09-21T04:29:42Z",
+  "session_id": "nova-browser-hil-xai",
+  "model": "ollama/qwen3.5:9b",
+  "runId": "311e58e6-d97c-4500-bb7e-34e33a4c4264",
+  "status": "ok",
+  "text": "**Summary:** Browser test completed successfully. Visited https://xai.com, which is an independent domain (registered 1994) owned by CTR LIMITED in Hong Kong \u2014 not affiliated with X.AI LLC. Captured page title and 10 key observations covering domain history, services, partnerships, contact info, and bilingual content. Report saved to `nova-out/REPORT_XAI_BROWSER_SMOKE.md`.\n\n**PROOF:** bytes=2791"
+}

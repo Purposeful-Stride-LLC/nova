@@ -1,0 +1,47 @@
+{
+  "zulu": "2026-09-21T07:24:35Z",
+  "gpu_share": true,
+  "torch": true,
+  "diffusers": false,
+  "PIL": false,
+  "cv2": true,
+  "nvidia_smi": "NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, 6390 MiB, 1521 MiB",
+  "vision_tags": [
+    "moondream:latest"
+  ],
+  "cam_still": {
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\vision\\Ax-CAM-0_steward_2026-09-21T072438Z.jpg",
+    "error": null
+  },
+  "moondream_see": {
+    "ok": true,
+    "text": "\nThe image shows a man wearing headphones and a gray tank top, with his head tilted back and his eyes closed. He appears to be in a relaxed position, possibly dancing or enjoying a music session. The man is the main subject of the image, with the headphones and tank top being the primary focus.\n\nThe scene takes place in a room with a white ceiling, which contrasts with the man's gray tank top. The man is positioned in the center of the image, with the headphones covering his ears. The image does not contain any other people or objects, making the man the sole subject of the photograph.",
+    "error": null,
+    "model": "moondream"
+  },
+  "openclaw": {
+    "ok": true,
+    "zulu": "2026-09-21T07:24:43Z",
+    "gateway_http": {
+      "ok": true,
+      "status": 200,
+      "bytes": 2048
+    },
+    "cli": "C:\\Users\\wuchy\\AppData\\Roaming\\npm\\openclaw.CMD",
+    "driver_hint": "ollama/qwen3.5:9b (fallback: llama3-groq-tool-use:8b)",
+    "role": "messenger-candidate + coding agent"
+  },
+  "qwen": {
+    "ok": true,
+    "zulu": "2026-09-21T07:24:43Z",
+    "cli": "C:\\Users\\wuchy\\AppData\\Roaming\\npm\\qwen.CMD",
+    "settings_model": "qwen3.5:9b",
+    "baseUrl": "http://127.0.0.1:11434/v1",
+    "ollama_up": true,
+    "codellama": true,
+    "role": "komodo coder"
+  },
+  "nova_brief": "Defer. Risk: GPU contention. Next cut: Evaluate resource allocation before integration.",
+  "aurelius_err": "[WinError 2] The system cannot find the file specified"
+}

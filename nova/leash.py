@@ -48,6 +48,7 @@ def openclaw_status() -> dict:
         body=json.dumps(body)[:3500],
     )
     office.bump("openclaw@local", "jobs_run")
+
     if not http.get("ok"):
         breaklog.record(
             "openclaw-gateway",
@@ -219,6 +220,14 @@ def openclaw_run(
             body=(text or json.dumps(body))[:3500],
         )
         office.bump("openclaw@local", "jobs_run")
+        try:
+            from nova import proof
+            body["proof"] = proof.enforce_on_reply(text or "")
+            if body["proof"].get("accepted") is False:
+                body["ok"] = False
+                body["status"] = "proof-reject"
+        except Exception as _proof_exc:
+            body["proof"] = {"ok": False, "error": str(_proof_exc)}
         if not ok:
             breaklog.record("openclaw-run", text[:500] or "failed", severity="warn", whi="Tx-CLAW", context=body)
         return body
@@ -230,3 +239,9 @@ def openclaw_run(
             tmp.unlink(missing_ok=True)
         except Exception:
             pass
+
+
+def qwen_run(prompt: str, *, cwd: str | None = None, timeout: int = 180) -> dict:
+    """Komodo on leash — wrap hands.qwen.run_prompt (HIL before file writes)."""
+    from nova.hands import qwen as qwen_hand
+    return qwen_hand.run_prompt(prompt, cwd=cwd, timeout=timeout)

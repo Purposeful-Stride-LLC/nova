@@ -1,0 +1,30 @@
+[
+  {
+    "path": "Political_Action_Committee.pdf",
+    "ok": true,
+    "sections": 6,
+    "chars": 16665,
+    "error": null,
+    "whis": [
+      "0x-DOC"
+    ]
+  },
+  {
+    "path": "Saddlebags_with_Spurs_Concept_Paper.docx",
+    "ok": true,
+    "sections": 1,
+    "chars": 3264,
+    "error": null,
+    "whis": [
+      "0x-DOC"
+    ]
+  },
+  {
+    "path": "Proyecto_Bahia_Aguila_Pitch_Package.docx",
+    "ok": false,
+    "sections": null,
+    "chars": null,
+    "error": "Package not found at 'C:\\Users\\wuchy\\Documents\\Proyecto_Bahia_Aguila_Pitch_Package.docx'",
+    "whis": []
+  }
+]

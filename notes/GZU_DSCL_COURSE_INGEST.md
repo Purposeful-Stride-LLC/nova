@@ -1,0 +1,11 @@
+source_url=file:///C:/Users/wuchy/Projects/AiTutor/content/courses/built/gzu-dscl.json
+course_id=gzu-dscl
+content_sha256=7ce6b1a5f6c0afc7709251ff39a888348f28bf1bb1a6ed06a8c9902c0d8c2d93
+whi=0x-DOC
+mask=chronicler
+
+COURSE gzu-dscl
+
+GZU: Data Science at the Command Line
+
+PROVENANCE {"sha256": "7ce6b1a5f6c0afc7709251ff39a888348f28bf1bb1a6ed06a8c9902c0d8c2d93", "provenance": {"schema": "aitutor.course.v1", "content_sha256": "560b2b5f9b344e1d8fce0aca59eb76007f2043028ff0d4ced96dae6bb1ab29bd", "cite_count": 5, "hashed_zulu": "2026-09-21T10:19:59Z"}, "sources": [{"id": "S1", "title": "Data Science at the Command Line (PDF)", "locator": "D:\\pg\\documents\\Ebooks\\data_science_at_the_command_line.pdf", "authority": "primary", "note": "Jeroen Janssens \u2014 O'Reilly; authoritative book text", "sha256": "fd9a3b02e6ea5189824e1acf779247c515b328c39168791d75e132106bcb7c1e"}, {"id": "S2", "title": "DataScienceCommandLine.txt (audiobook transcript / extract)", "locator": "D:\\pg\\documents\\DataScienceCommandLine\\DataScienceCommandLine.txt", "authority": "secondary", "note": "Local extract + Pocket-TTS audio lineage on same folder", "sha256": "8fad51e606f516814ccd667c73e6190314211dd6215b39d26f3e0409b0e99ac8"}, {"id": "S3", "title": "DSCL_preface.mp3", "locator": "D:\\pg\\documents\\DataScienceCommandLine\\DSCL_preface.mp3", "authority": "secondary", "note": "Audio companion for lecture/speak path", "sha256": "1968a96d9d4bddad7d9a124aee101b85b024aa7ef190e8ae421df8a6bcbdf64f"}, {"id": "S4", "title": "DSCL_ch1.mp3", "locator": "D:\\pg\\documents\\DataScienceCommandLine\\DSCL_ch1.mp3", "authority": "secondary", "note": "Audio companion for lecture/speak path", "sha256": "a5b7bc56ca23e17ad092a20b0bc7e18dcaa4f6cbe6bbf9f90a910a622d9d902e"}, {"id": "S5", "title": "Data Science at the Command Line (PDF on LinuxBox1)", "locator": "/home/mike/Documents/data_science_at_the_command_line.pdf", "authority": "primary", "note": "Same book, second metal (OG Ubuntu). Hash when SSH hash convenient.", "sha256": null, "host_ref": "hearth:og-ubuntu"}]}

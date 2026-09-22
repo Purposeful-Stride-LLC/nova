@@ -1,0 +1,32 @@
+[
+  {
+    "target": "D:\\pg\\ai\\mylilspider.py",
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\codesum.md",
+    "error": null
+  },
+  {
+    "target": "D:\\pg\\ai\\holmes.py",
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\codesum.md",
+    "error": null
+  },
+  {
+    "target": "D:\\pg\\ai\\cbSum.py",
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\codesum.md",
+    "error": null
+  },
+  {
+    "target": "D:\\pg\\ai\\hexclass.txt",
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\codesum.md",
+    "error": null
+  },
+  {
+    "target": "D:\\pg\\ai\\network_spyder.py",
+    "ok": true,
+    "path": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\data\\artifacts\\codesum.md",
+    "error": null
+  }
+]

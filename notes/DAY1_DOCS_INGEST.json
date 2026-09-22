@@ -1,0 +1,361 @@
+{
+  "ok": true,
+  "n": 5,
+  "items": [
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
+      "chars": 12641,
+      "sections": 4,
+      "results": [
+        {
+          "section": 0,
+          "score": 39,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 291,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:32:34Z",
+            "cite": "web:eb8a2d5860c1bf04:file:///C:/Users/wuchy/Documents/NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
+            "matrix_score": 39,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 47,
+          "whi": "Ax-OLLAMA",
+          "stored": {
+            "ok": true,
+            "chunk_id": 292,
+            "whi": "Ax-OLLAMA",
+            "accessed": "2026-09-21T08:32:36Z",
+            "cite": "web:a3cd79894d38adca:file:///C:/Users/wuchy/Documents/NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
+            "matrix_score": 47,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 53,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 293,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:34:41Z",
+            "cite": "web:739cc63e110176f3:file:///C:/Users/wuchy/Documents/NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
+            "matrix_score": 53,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 51,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 294,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:42Z",
+            "cite": "web:0f74d43b0bba7969:file:///C:/Users/wuchy/Documents/NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
+            "matrix_score": 51,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+      "chars": 14015,
+      "sections": 5,
+      "results": [
+        {
+          "section": 0,
+          "score": 54,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 295,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:43Z",
+            "cite": "web:397bb5b019cad5dc:file:///C:/Users/wuchy/Documents/NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+            "matrix_score": 54,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 57,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 296,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:43Z",
+            "cite": "web:c90342aa955ef5d2:file:///C:/Users/wuchy/Documents/NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+            "matrix_score": 57,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 58,
+          "whi": "0x-WEB",
+          "stored": {
+            "ok": true,
+            "chunk_id": 297,
+            "whi": "0x-WEB",
+            "accessed": "2026-09-21T08:36:43Z",
+            "cite": "web:508f557c14921596:file:///C:/Users/wuchy/Documents/NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+            "matrix_score": 58,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 55,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 298,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:43Z",
+            "cite": "web:6fbc979765eca043:file:///C:/Users/wuchy/Documents/NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 4,
+          "score": 56,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 299,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:44Z",
+            "cite": "web:5b048def20dffe6a:file:///C:/Users/wuchy/Documents/NOVA_Field_Worker_Platform_BPC_Concept_Spec_Purposeful_Stride_LLC.docx",
+            "matrix_score": 56,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\NOVA\\clawbotinstructions.txt",
+      "chars": 10716,
+      "sections": 4,
+      "results": [
+        {
+          "section": 0,
+          "score": 30,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 300,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:36:44Z",
+            "cite": "web:87aae21029e9bc6e:file:///C:/Users/wuchy/Documents/NOVA/clawbotinstructions.txt",
+            "matrix_score": 30,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 30,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 301,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:55Z",
+            "cite": "web:68439c737063a2c4:file:///C:/Users/wuchy/Documents/NOVA/clawbotinstructions.txt",
+            "matrix_score": 30,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 30,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 302,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:56Z",
+            "cite": "web:cabc655786ba8c38:file:///C:/Users/wuchy/Documents/NOVA/clawbotinstructions.txt",
+            "matrix_score": 30,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 34,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 303,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:56Z",
+            "cite": "web:4602d4329651d67e:file:///C:/Users/wuchy/Documents/NOVA/clawbotinstructions.txt",
+            "matrix_score": 34,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\NOVA\\claw_coding_playbook.txt",
+      "chars": 2280,
+      "sections": 1,
+      "results": [
+        {
+          "section": 0,
+          "score": 40,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 304,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:56Z",
+            "cite": "web:098df599c5b7313f:file:///C:/Users/wuchy/Documents/NOVA/claw_coding_playbook.txt",
+            "matrix_score": 40,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "path": "C:\\Users\\wuchy\\Documents\\NOVA\\_scratch_projectnova_odt.txt",
+      "chars": 20996,
+      "sections": 7,
+      "results": [
+        {
+          "section": 0,
+          "score": 42,
+          "whi": "Ax-OLLAMA",
+          "stored": {
+            "ok": true,
+            "chunk_id": 305,
+            "whi": "Ax-OLLAMA",
+            "accessed": "2026-09-21T08:38:57Z",
+            "cite": "web:a2c3f252c68dfbc6:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 42,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 1,
+          "score": 56,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 306,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:58Z",
+            "cite": "web:021ebbccbafeaaab:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 56,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 2,
+          "score": 55,
+          "whi": "Tx-TTS",
+          "stored": {
+            "ok": true,
+            "chunk_id": 307,
+            "whi": "Tx-TTS",
+            "accessed": "2026-09-21T08:38:58Z",
+            "cite": "web:7535b84851788525:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 3,
+          "score": 54,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 308,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:58Z",
+            "cite": "web:fee1522c72a2c1e8:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 54,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 4,
+          "score": 52,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 309,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:58Z",
+            "cite": "web:308b0e3ebf32a022:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 52,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 5,
+          "score": 55,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 310,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:59Z",
+            "cite": "web:e51af81361dee09e:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 55,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        },
+        {
+          "section": 6,
+          "score": 60,
+          "whi": "0x-DOC",
+          "stored": {
+            "ok": true,
+            "chunk_id": 311,
+            "whi": "0x-DOC",
+            "accessed": "2026-09-21T08:38:59Z",
+            "cite": "web:afaa8786b0eb4a9a:file:///C:/Users/wuchy/Documents/NOVA/_scratch_projectnova_odt.txt",
+            "matrix_score": 60,
+            "llm": "qwen2:0.5b",
+            "mask": "chronicler"
+          }
+        }
+      ]
+    }
+  ]
+}

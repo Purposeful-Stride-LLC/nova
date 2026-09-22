@@ -35,8 +35,8 @@ Ollama loads whatever name you pin. Loopback only.
 NOVA home is the folder that contains nova\\ and data\\.
 """,
     """PAGE 6  VOICE AND CAM
-Keep  python -m pocket_tts serve   on :8000
-  /tts hello    /voice alba|michael|jane
+Keep  python -m pocket_tts serve --default-voice anna   on :8000
+  /tts hello    /voice anna|michael|jane|eve
   /cam 0        local still
 Writes data\\artifacts\\ with real extensions.
 """,
@@ -66,8 +66,15 @@ Base glass: deepen Textual + Qt. Facts stay precise; gate filters prompt only.
 """,
     """PAGE 10  CHAMBER + DIARY
 /chamber list CASE   /chamber clear CASE
-Tx-TEMP chamber/<case>/<seat> -> Ax-CHAMBER verdict -> clear.
-Diary: GrokBot.log.ai append-only. Re-scan when stuck — ponderings are fuel.
+Seats: claw + code + brief. Temps = Tx-TEMP (not RAG). promote_to_rag(case) -> live.
+Diary: GrokBot.log.ai append-only. Re-scan when stuck - ponderings are fuel.
+""",
+    """PAGE 11  MASKS / WHI / WA / PROOF
+/mask list|auto|NAME   (masks.py cues; not Modelfile jackets)
+/hunt Ax-CHAMBER       facts; /rag needs live chunks
+/wa link               QR then HIL send; bridge via openclaw :18789
+Claw: PROOF: bytes=N before DONE; write to nova-out; steward pulls.
+START_NOVA.bat: titled TTS (:8000 anna) + daemon + GUI. Astrocomms = multiline Ctrl+Enter.
 """,
 ]
 

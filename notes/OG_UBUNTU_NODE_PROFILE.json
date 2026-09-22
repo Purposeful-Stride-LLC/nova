@@ -1,0 +1,56 @@
+{
+  "id": "og-ubuntu",
+  "host": "192.168.0.76",
+  "hostname": "LinuxBox1",
+  "os": null,
+  "uname": null,
+  "cpu_ram": null,
+  "has_gpu": false,
+  "ssh": {
+    "host": "192.168.0.76",
+    "port": 22,
+    "user": "mike",
+    "ok": true,
+    "auth": "password_temp_migrate_to_key"
+  },
+  "ports": {
+    "22": false,
+    "11434": false
+  },
+  "ollama": {
+    "tags": [],
+    "raw_list": "",
+    "which": null
+  },
+  "abilities": [
+    "cpu_llm",
+    "shell",
+    "net",
+    "fs_map",
+    "cam",
+    "mic"
+  ],
+  "notes": "OG box; password was shared in chat \u2014 migrate to SSH key ASAP; never store pw in palace",
+  "zulu": "2026-09-21T09:27:17Z",
+  "grade": "tentacle",
+  "root": "/home/mike/pg/nova-tentacle",
+  "mesh": {
+    "udp": 41776,
+    "tcp": 41777
+  },
+  "has_ollama": true,
+  "has_openclaw": false,
+  "videos": [
+    "/dev/video0",
+    "/dev/video1"
+  ],
+  "models_sample": [
+    "nova-gx",
+    "qwen:0.5b",
+    "moondream",
+    "llama3.2:1b",
+    "phi3:mini"
+  ],
+  "pong": "ok",
+  "deploy": "tar.gz -> ~/pg/nova-tentacle"
+}

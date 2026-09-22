@@ -1,0 +1,6 @@
+{
+  "ssh_ok": true,
+  "remote_root": "/home/mike/pg/nova-tentacle",
+  "tar": "C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\nova-tentacle-og.tar.gz",
+  "deploy": "tar.gz via sftp into ~/pg"
+}

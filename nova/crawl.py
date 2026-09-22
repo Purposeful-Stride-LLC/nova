@@ -6,7 +6,7 @@ import time
 import urllib.request
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
-from nova import db, whi
+from nova import db, whi, matrix
 
 UA = "NOVA-fieldkit-crawl/1.0 (+local; steward HIL)"
 MIN_DELAY, MAX_DELAY = 5.0, 15.0
@@ -59,9 +59,14 @@ def fetch(url: str, timeout: float = 15.0) -> dict:
 def ingest_temp(url: str, text: str, title: str, depth: int) -> int:
     con = db.connect(); _ensure(con)
     title = (title or "").strip() or url
-    body = f"title={title}\ndepth={depth}\nurl={url}\n\n{text}"[:8000]
+    m = matrix.analyze(text or "")
+    body = (
+        f"title={title}\ndepth={depth}\nurl={url}\nmatrix_score={m.get('score')}\n"
+        f"matrix_label={m.get('label')}\n\n{text}"
+    )[:8000]
     hx = hashlib.sha256(body.encode()).hexdigest()[:16]
     code = classify(text, url)
+    # Thin pages still land as temp for steward audit; pipe later clears/rejects
     con.execute(
         "INSERT INTO chunks(zulu,whi,source_cite,text,hash,status) VALUES (?,?,?,?,?,?)",
         (db.zulu(), "Tx-TEMP", f"crawl:{code}:{url}", body, hx, "temp"),
@@ -135,3 +140,32 @@ def crawl(start_url: str, max_pages: int = 5, max_depth: int = 3, min_delay: flo
         except Exception as exc:
             db.put_fact("Tx-CRAWL", "err", f"{url}:{exc}"[:2000])
     return {"ok": True, "pages": pages, "chunk_ids": ids, "visited": len(visited), "enqueued": enq, "host": host0}
+
+
+def drain_temps_through_pipe(
+    chunk_ids: list[int] | None = None,
+    *,
+    model: str = "qwen3:8b",
+    mask: str = "chronicler",
+    min_score: int = 28,
+    limit: int = 20,
+) -> dict:
+    """Run matrix+LLM provenance promote on crawl temp chunks via ingest_pipe."""
+    from nova import ingest_pipe
+    con = db.connect(); _ensure(con)
+    if chunk_ids:
+        rows = []
+        for cid in chunk_ids:
+            r = con.execute("SELECT id FROM chunks WHERE id=? AND status='temp'", (cid,)).fetchone()
+            if r:
+                rows.append(r)
+    else:
+        rows = con.execute(
+            "SELECT id FROM chunks WHERE status='temp' AND source_cite LIKE 'crawl:%' ORDER BY id DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+    con.close()
+    out = []
+    for r in rows:
+        out.append(ingest_pipe.process_crawl_chunk(int(r["id"]), model=model, mask=mask, min_score=min_score))
+    return {"ok": True, "n": len(out), "results": out}

@@ -1,35 +1,17 @@
-# Databases / runtime state
-data/NOVA.db
+﻿data/NOVA.db
 data/*.db
-*.db
 data/secrets/
 data/artifacts/
 data/*.log
-
-# Python
 __pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-*.egg-info/
-.venv/
-venv/
-
-# Secrets / credentials
-.env
-.env.*
-secrets/
-**/secrets/
-*.pem
-*.psk
-*password*
-grokbottkn*
-
-# Archives / audio / binaries we never ship
+*.py[cod]
 *.zip
 *.wav
 *.bin
-
-# Ops / scratch
+.env
+*.pem
+*.key
+*secret*
+grokbottkn*
 GrokBot.log.ai
-*.log
+.pytest_cache/

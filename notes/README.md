@@ -1,8 +1,5 @@
-# notes/ — private steward & council working notes
+﻿# Notes (private RAG backup)
 
-These files are a RAG backup of steward/council work notes from the NOVA
-fieldkit `STAGING/` folder. They are **not** product documentation.
-
-- Private org repo (Purposeful Stride LLC) — do not publish publicly.
-- Useful for local-first homestead RAG and continuity across machines.
-- Prefer `docs/` for durable product/ops docs; keep ephemeral scratch here.
+Working steward/council reports and staging docs from the NOVA fieldkit.
+Not product documentation. Safe here only while the repo stays private.
+Do not put secrets, tokens, or live DB dumps in this folder.

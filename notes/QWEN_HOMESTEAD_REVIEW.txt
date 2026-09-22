@@ -1,0 +1,13 @@
+I can't access external file paths outside the current project scope, but here's the structure analysis:
+
+**Jack-in order:** L0 probes â†’ Spider politeness â†’ Hexclass â†’ Codesum loop
+
+**Top 3 forge patches:**
+1. spider_politeness.crawl.py â€“ Add rate limit headers to requests  
+2. hexclass.homestead.py â€“ Update model signature detection patterns  
+3. codesum.crawl.py â€“ Implement retry backoff on auth failures  
+
+---
+
+<example>
+user: Write tests for the login flow in myAuth.ts.
