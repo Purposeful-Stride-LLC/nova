@@ -1,0 +1,849 @@
+﻿================================================================================
+GrokBot.log.ai  —  NOVA project working log (Grok Bot)
+Steward: Michael D. Wuchevich  |  Host: TUF
+Convention: append-only; each block starts with an ISO-local datetime stamp;
+human-readable prose for audit. Do not overwrite prior entries.
+================================================================================
+
+[2026-09-19 05:31:51 -05:00] BOOTSTRAP — log created
+--------------------------------------------------------------------------------
+Context
+  Path under lease: C:\Users\wuchy\Documents\NOVA (read-write for project work).
+  Live kit identified: NOVA\NOVA_fieldkit_v1_4 (VERSION 1.7.0).
+  Steward framing (this turn): the field kit is legacy code, thoughts, and
+  explorations from before Grok Bot / Grok-era tooling. Good ideas about how
+  NOVA should function for users; treat it as heritage to learn from, not as
+  the final product to blindly ship.
+
+Standing request from steward
+  Keep this file as continuous working memory across instances. Each NOVA
+  interaction cycle: append dated musings / decisions / findings. Format for
+  human audit. Scan this log when resuming NOVA work.
+
+Related stack on TUF (already verified this session)
+  OpenClaw: restored; gateway on 127.0.0.1:18789; lobster driver =
+    ollama/llama3-groq-tool-use:8b (steward choice 2026-09-19).
+  Qwen Code: CLI 0.24.0; settings -> Ollama OpenAI-compat; model qwen3.5:9b.
+  Ollama: up; GPU NVIDIA GeForce RTX 5050 Laptop GPU ~8 GB.
+  NOVA brain today: loopback Ollama via nova/ollama_talk.py
+    (code default llama3-groq-tool-use:8b).
+
+Hopeful north star (steward, paraphrased — not yet implemented)
+  Proper xAI / Grok hooks into NOVA so Grok can take the driver's seat when
+  wanted, with local open-source LLMs (Ollama) still carrying character /
+  memory work on metal. Leash OpenClaw + Qwen Code rather than reinvent them.
+  Happy accident: Grok-shaped memory bank + local model that just works.
+
+Next in this cycle
+  Deeper read-only scan of names and useful code/data under the field kit;
+  append findings below. No overwrite of data\NOVA.db. Overlay discipline
+  from DEVLOG.ai still applies for any future code changes.
+
+
+[2026-09-19 05:32:13 -05:00] LEGACY KIT READ-THROUGH — NOVA_fieldkit_v1_4
+--------------------------------------------------------------------------------
+Steward note honored: this tree is pre-GrokBot exploration. Harvest ideas;
+do not treat every line as production gospel.
+
+Layout
+  C:\Users\wuchy\Documents\NOVA\
+    GrokBot.log.ai                 (this log — new)
+    NOVA_fieldkit_v1_4\            (legacy field kit VERSION 1.7.0)
+      README.txt START.txt TEST.txt TUTORIAL.txt DEVLOG.txt DEVLOG.ai
+      requirements.txt VERSION ascii\ data\ nova\ STAGING\
+
+Process model (still the heart of the idea)
+  python -m nova          daemon: sched.tick() every 5s; jobs in SQLite
+  python -m nova.tui      metal face (edits same job table)
+  python -m nova.gui      PySide6 client of NOVA.db (not a second scheduler)
+  python -m nova.launch   splash -> pocket-tts serve -> daemon -> gui
+  data\NOVA.db            palace — NEVER overwrite on overlay
+  Overlay rule            copy nova\*.py + docs only; leave data\ alone
+
+Module map (nova\*.py) — names to remember
+  __main__.py     daemon loop
+  sched.py        job runner
+  db.py           SQLite palace + zulu stamps
+  router.py       model pick: TINY vs REASON lists; YESNO short -> tiny
+  ollama_talk.py  loopback 127.0.0.1:11434 only; DEFAULT llama3-groq-tool-use:8b
+  masks.py        system-prompt masks (brief/hearth/tutor/deleo/sentinel/...)
+                  NOTE: masks are prompts, NOT Ollama Modelfiles
+  office.py       staff jackets / packets / reports / HIL queue
+  parser.py       peels [speak] / NOTICE / SPEAK tags for TTS
+  pocket.py       pocket-tts seats + ensure_serve
+  matrix.py       web text keepers / quality gate
+  board.py        URL enqueue
+  senses.py       /see /hear /vision
+  hands\          web pdf history cameras codesum
+  forge.py        catalog of hands for /forge
+  holmes.py       hw-check
+  sherlock.py     walk/tests helper
+  spawnutil.py    Windows-safe CREATE_NEW_CONSOLE spawn + pid registry
+  gui\deck.json   neon tiles; live:false = visible dead button (KILL, TUI)
+  tui\term.py     ANSI metal face
+  awareness\      awareness package hook
+  STAGING\        PLAN_2026-09-18, brief/display .dep, GUI notes — patch bay
+
+Design ideas worth keeping for a Grok-era NOVA
+  1. Job table is law; daemon owns time; UI is a client.
+  2. HIL for destructive acts (KILL tile dead until /approve).
+  3. Brain adapter sketch already in PLAN: complete(system,user,images)
+     with ollama.local HAVE; xai.grok later via data/secrets (never git).
+  4. Router already lists qwen3.5:9b beside llama3-groq-tool-use:8b —
+     local fleet and character masks can stay on Ollama while a Grok
+     adapter takes the driver's seat for harder turns.
+  5. Leash > reinvent: OpenClaw (lobster) + Qwen Code (komodo) stay
+     external animals; NOVA should observe/hand off, not swallow them.
+  6. DEVLOG.ai is written for the next model — continue that courtesy here.
+
+Not done this entry
+  No xAI SDK hooks coded yet. No Modelfile character bank yet.
+  OpenClaw already running with lobster driver llama3-groq-tool-use:8b
+  from earlier this session — that is the first real leash animal online.
+
+
+[2026-09-19 05:33:21 -05:00] NEW ROOT DISCOVERED — D:\pg\ai
+--------------------------------------------------------------------------------
+Steward correction: earlier Documents\NOVA field kit is not the only heritage.
+Primary older exploration tree is D:\pg\ai (and D:\pg\ai\nova-ai\).
+
+Note on tooling
+  Shell+machineId can list and Get-Content D:\ paths.
+  The structured Read tool refused D:\ (outside allowed local-exec root).
+  Prefer Shell for D: scans until roots widen.
+
+D:\pg\ai\ top-level (probes + notes)
+  Hardware/network probes: hardware_probe.py, hardware_alt_probe*.py,
+    network_probe*.py, network_spyder*.py, master_probe.py, master_report.py,
+    system_doc*.py, system_spec.py, software_inventory.py, lan_probe.py
+  Early holmes / homestead: holmes.py, python_homestead_deps.py, host_ping.py
+  TCP/UDP toys: tcp_client/server/proxy, udp_dns_client, pync.py, mylilspider.py
+  Character / class notes: modfiletest.txt (AU agency + NOVA T-0 Modelfile draft),
+    hexclass.txt (Dewey-like 1x... classification codes), banterlist.txt,
+    Cornerman86.py, vtparagraphs.txt, speak_phrases.sh
+  Archives: AI_tool_kit.txt (bundled scripts from Manjaro-era whthat),
+    codebase_1.txt, cbSum.py / cbSumcolor.py, cronjob.txt
+
+D:\pg\ai\nova-ai\ — earlier NOVA spine (pre fieldkit_v1_4)
+  Entrypoints: ai_main.py, orchestrator.py, nova_Tv3.py, nova_terminal*.py,
+    nova_tts.py, nova_diary.py
+  DBs/logs: NOVA.db, chat.db, oldchat.db, oldnova.db, web.db (~11 MB),
+    nova_conversations.log, nova_history.json, nova_debug.log, nova_diary.txt
+  project_docs\: shieldDocv01.md (sovereign personal AI vision),
+    darpa_nova_skeleton.md + DARPA content pages, ProjectNOVA.odt
+  agents\: Modelfiles for tiers (t0/t1, nova-c0/c1, gx-t1) and a large
+    agents\avatar\ library (Grok-generated character clips + video_player)
+  agents\modfile\Modelfile — character bank seeds already exist here
+  awareness\: holmes*, starship_core.py, security_ai_loop.py, drive_map,
+    process_scan, tools\codesum + codeanalyzer*, market sim under data\market
+  awareness\data\nova.devlog — earlier dated musings (sibling to Documents log)
+  Grokconvowebcrawl.txt — saved grok.com / x.com Grok conversation URLs
+
+Vision thread that matches steward's happy-accident hope
+  shieldDocv01: offline-first, SQLite palace, tiered agency, cultural wrappers.
+  modfiletest + agents Modelfiles: character requirements on local Ollama.
+  Grok conversation saves + avatar clips: Grok already in the creative loop;
+  next era is official xAI hooks in the metal kit + leash on OpenClaw/Qwen.
+
+Relationship to Documents field kit
+  Documents\NOVA\NOVA_fieldkit_v1_4 = later compressed metal face (v1.7).
+  D:\pg\ai\nova-ai = broader lab (orchestrator, DARPA docs, Modelfiles, avatars).
+  Keep both; harvest character Modelfiles and shield principles into the
+  field kit / Brain adapter work rather than forking a third spine blindly.
+
+
+[2026-09-19 05:40:07 -05:00] RANKED PLAN + CHARACTER HARVEST + WORKFORCE MAP
+--------------------------------------------------------------------------------
+Steward ask: ranked jobs; scan character Modelfiles / knowledge injection;
+feed fieldkit masks; OpenClaw + Qwen leash; codellama + vision loops;
+mermaid of whole project; mail addresses for offline workforce; opinion.
+
+OPINION (Grok Bot)
+  Agree. Palace + mailroom + leashed external animals is the right shape for
+  an offline AI workforce on 8 GB VRAM. Do not bake giant Modelfile encyclopedias
+  into every turn yet — fieldkit already learned that masks (short system prompts
+  swapped per turn) are lighter and work with any roster tag. Monthly Modelfile
+  reflection / adaptation is a later complexity tier. xAI hook + GUI polish after
+  the leash and mail path are real. Michael-in-the-loop testing is the acceptance
+  gate — keep GrokBot.log.ai as the audit trail.
+
+RANKED JOBS
+  1. DONE this entry: character Modelfile harvest -> mask enrichment map
+  2. DONE this entry: mermaid architecture (NOVA / OpenClaw / Qwen / vision)
+  3. NEXT code cut: office employees openclaw@local + qwen@local (or coder@local)
+     + thin leash jobs (status probe / handoff packet)
+  4. NEXT: wire cam:N -> OpenCV features -> moondream optional -> seer@local
+     already partly present in senses.py; extend analysis loop + codellama for
+     codesum path (codellama:latest is on Ollama as of this scan)
+  5. LATER: monthly adaptation reflection that may rewrite Modelfiles
+  6. LATER: official xAI Brain adapter + GUI look/feel
+
+CHARACTER / KNOWLEDGE INJECTION — WHAT THE OLD MODEFILES DID
+  Path: D:\pg\ai\nova-ai\agents\
+  Technique: Ollama Modelfile = FROM <base> + huge SYSTEM """...""" + PARAMETER*
+  Knowledge injection styles observed:
+    A) Role bounds (T0/T1): hard rules, max words, no internet, shutdown sim
+    B) Expert dump (C0/C1): paste whole domain curricula (Ollama, Ubuntu, Python…)
+       into SYSTEM — heavy; good for baked specialists, bad for per-turn swap
+    C) Persona modes (C3 / terminal Modelfile): [NOVA: mode|emotion] tags,
+       avatar clip sync, [tts:], math/logic cores embedded in prompt
+    D) Domain ops (Gx-T1): WHI Gx code tables + ROE output schema
+  Fieldkit evolution (masks.py): SHORT role lines only — swap per turn.
+    Current: brief, hearth, tutor, deleo, sentinel, chronicler, reviewer, economist
+  Harvest mapping (use for richer masks WITHOUT baking full Modelfiles yet):
+    T0          -> tiny router path + chronicler/brief (stateless extract)
+    T1          -> deleo / tools (local ops, refuse cloud)
+    C1 companion-> hearth + mode bleed later (personality is GUI/avatar layer)
+    C1 expert   -> reviewer + tutor (expertise on demand, not always-on)
+    Gx-T1       -> sentinel + chronicler WHI discipline (dormant Gx wing)
+    Terminal    -> parser tags already exist ([speak]); keep UI tags out of mask
+  Rule of thumb: masks carry ROLE; Modelfiles later carry baked WEIGHTS+ROLE
+  when monthly reflection says a specialist is worth a dedicated ollama create.
+
+LIVE STACK CHECK (this moment)
+  OpenClaw gateway: OK
+  Lobster driver: llama3-groq-tool-use:8b
+  Qwen Code: qwen3.5:9b via Ollama OpenAI-compat
+  codellama:latest: present (codesum / coder brain candidate)
+  moondream:latest: present (vision VLM for /see)
+  Fieldkit office: already seeds {mask}@local employees + packets
+
+PROPOSED MAIL WORKFORCE (palace addresses)
+  steward@local     — Michael (HIL)
+  brief@local       — existing
+  chronicler@local  — existing
+  seer@local        — vision packets (already posted from senses)
+  openclaw@local    — NEW: lobster outbound/inbound status + task handoffs
+  qwen@local        — NEW: coder/komodo handoffs (codesum, repo edits)
+  grok@local        — FUTURE: xAI driver when Brain adapter lands
+
+
+[2026-09-19 05:45:44 -05:00] DEEP READ BLOCK 1 — WHI / hexclass / early scheduler intent
+--------------------------------------------------------------------------------
+Source roots: D:\pg\ai\hexclass.txt, modfiletest.txt (T0 classify codes),
+  nova-ai\awareness\data\nova.devlog, agents Gx Modelfile WHI tables.
+
+hexclass.txt (48 entries)
+  Shape: keys like 1x0F000000000 / 1x17000000000 — Dewey-inspired hex taxonomy.
+  Observed coverage so far: 1x0* Generalities (16), 1x1* Philosophy/Psychology (16),
+  1x2* Religion (16). File ends at 1x2F — incomplete encyclopedia; pattern is
+  clear: fixed-width hex class codes for instantaneous bucket recognition later.
+  T0 Modelfile already expects classify output like "1x03 0001" — early WHI use.
+  Lesson: do NOT require LLM to invent taxonomy; stamp known codes, train later
+  models to emit/recognize them for pattern match without full RAG.
+
+Gx Modelfile (dormant wing)
+  Parallel WHI family: Gx1000-helmet … Gx9000-meta. Different namespace from 1x.
+  Fieldkit README already says Gx dormant — keep civil homestead on Ax/Tx/0x first.
+
+nova.devlog (Jan 2026)
+  Early correct instinct: background Python scheduler as agency spine; modular
+  task manager; hardware limits as first-class (id/ego framing = metal constraint).
+  Fieldkit later crystallized this as sched.tick + jobs table — that was the win.
+  Mistake risk if we forget: early logs fantasized microservices; fieldkit rightly
+  stayed one SQLite palace on Windows metal.
+
+Homestead evolution note
+  WHI index is the long game for pattern recognition after frontier fine-tunes.
+  Near term: keep stamping WHI on packets/facts (chronicler mask); preserve hexclass
+  + Gx tables as reference data under palace or STAGING, not as always-on prompt bulk.
+
+
+[2026-09-19 05:46:02 -05:00] DEEP READ BLOCK 2 — Fieldkit palace WHI wings + awareness lab
+--------------------------------------------------------------------------------
+Fieldkit palace (the evolved form)
+  facts.whi TEXT on every put_fact. Wings in live use:
+    Ax-*     self/models/hw after integrate (Ax-OLLAMA, Ax-HW, Ax-CAM filenames)
+    Tx-*     staging (Tx-CAM, Tx-EAR, Tx-FUSE, Tx-HW, Tx-HUNT-MISS, Tx-CODE/PDF/HIST)
+    0x-WEB   promoted web after matrix quality gate (not morality — substance score)
+    Gx       dormant (README) — Gx Modelfile WHI tables stay reference only for now
+  matrix.py: pre-LLM; score>=28 + length/unique gates; reject-thin -> Tx-REJECT path
+  office packets carry whi; chronicler mask = stamp WHI/source/zulu
+  Lesson already paid for: parsers and quality gates BEFORE models. Do not regress.
+
+White Hat probe lab (D:\pg\ai\*.py)
+  Pattern: human_report + JSON twin; "White Hat *" naming = WHI as White Hat Index
+  ethymology bridge: White Hat probes -> WHI stamps on palace facts.
+  holmes aggregator (awareness/holmes.py): fault-tolerant run of probe scripts,
+  skip missing, store awareness_snapshots JSON. Fieldkit holmes job is the slim heir.
+
+Vision lab vs fieldkit senses
+  starship_core.py / security_ai_loop.py: multi-cam OpenCV, motion, strip stitch,
+  optional Ollama VLM, SQLite log, 10GB cleanup — ambitious continuous loop.
+  Fieldkit cut for 8GB homestead: stills on cam:N, OpenCV features first, moondream
+  only if tag exists, packet seer@local, HIL before act. PLAN already says do not
+  run dual LLM cam loops hot. Keep that discipline.
+
+Homestead direction (civilian metal)
+  Preserve WHI column + wing prefixes as the instantaneous recognition surface.
+  Expand hexclass 1x* catalog as data, not prompt. Link T0 classify to hexclass.
+  Awareness probes: re-home selectively as jobs (drive_map, process_scan) not as
+  always-on security_ai_loop video buffers on 16GB RAM laptop.
+
+
+[2026-09-19 05:46:18 -05:00] DEEP READ BLOCK 3 — Orchestrator, TTS pain, codesum, shield risks
+--------------------------------------------------------------------------------
+orchestrator.py (D lab)
+  ToolRegistry + AIReasoner nested tool loop + NovaScheduler.
+  Default tasks: holmes_sweep 900s, autonomous_reasoning 3600s.
+  Fieldkit heir: jobs table replaces in-process scheduler; office mail replaces
+  nested reasoner-as-default (too hot for 8GB if always-on). Keep ToolRegistry
+  idea as forge/hands catalog, not hourly autonomous reasoning.
+
+pocket-tts lessons (debug.log + pocket-tts.txt)
+  generate path hits HuggingFace and fails offline (name resolution / reset).
+  Fieldkit already chose serve-on-:8000 over generate — correct. Keep that.
+
+codesum.py
+  Structured review prompt: STRUCTURE/PURPOSE/KEY OPS/I/O/DEPS — exactly what
+  fieldkit reviewer mask and hands/codesum inherited. Prefer codellama or
+  qwen for this job when leashed; max-size-kb gate is load-shedding for metal.
+
+shieldDocv01 risks worth keeping as design constraints
+  Personality drift -> tabula rasa + feedback (masks + log, not silent Modelfile rewrite)
+  Compute abuse -> caps, HIL, no always-on dual LLM
+  Digital divide -> CPU-viable baseline already in spirit of tiny router models
+  Civil vs Gx divergence -> homestead first; Gx WHI tables dormant until asked
+
+White Hat master_probe
+  Linux-era paths (/home/mw/Sq_shop/whthat/) — do not port shell probes blindly
+  to Windows; fieldkit holmes/hw-check already Windows-aware heirs.
+
+
+[2026-09-19 05:46:40 -05:00] DEEP READ BLOCK 4 — Doctrine, terminals, Cornerman, diary; GESTALT UPDATE
+--------------------------------------------------------------------------------
+Doctrine (project_docs)
+  DARPA draft frames Nova as offline microsystems AI: tabula rasa, user control,
+  tutor for frontier skills, opt-in compute marketplace, civil vs cleared tiers.
+  For THIS metal (civilian homestead on TUF 16GB/8GB GPU): implement civil tier
+  only. Marketplace / cleared pipelines = paper for later. Do not bloat fieldkit.
+
+Terminal lineage (nova_terminal -> v2 -> Tv3)
+  Split chat/artifact, emotive pulses, easter eggs, [NOVA: mode|emotion] logging.
+  Fieldkit split: TUI = metal face slash surface; GUI = neon client; personality
+  modes belong in GUI/avatar + optional hearth mask bleed — not in daemon.
+
+Cornerman86.py
+  Linux iptables + scapy LAN bouncer with banter. Homestead lesson: network
+  defense is optional HIL job, not default daemon. Windows port is a new animal;
+  do not auto-import.
+
+nova_diary.py
+  Append-only dated personal log via ollama.generate — direct ancestor of
+  GrokBot.log.ai convention (human audit, never overwrite). Keep that ritual.
+
+office.py already seeds seer@local (voice alba) and binds seer->moondream.
+  senses posts ear@local but ear may not be in VOICES seed — gap to note for
+  later mail cut. openclaw@ / qwen@ still absent (Job 3).
+
+GESTALT — how the lab should feed the fieldkit spine
+  KEEP (already expressed or must stay):
+    - Job-table daemon + SQLite palace with whi column
+    - Wing prefixes Ax/Tx/0x (+ Gx dormant)
+    - Pre-LLM matrix quality gate
+    - Short masks + employee@local mail + HIL queue
+    - pocket-tts SERVE not generate
+    - OpenCV stills first; VLM optional; dual-LLM cam loops forbidden by default
+    - hexclass 1x* + Gx tables as REFERENCE data for future trained recognition
+    - codesum STRUCTURE/PURPOSE/KEY OPS prompt family
+    - Append-only dated logs (DEVLOG / diary / GrokBot.log.ai)
+  DROP or defer from lab (mistakes / heat / wrong OS):
+    - Always-on autonomous_reasoning hourly
+    - Giant Modelfile encyclopedias in every chat turn
+    - Continuous multi-cam video buffers on laptop
+    - Linux-only White Hat scripts without Windows rewrite
+    - Cornerman auto-block without steward HIL
+    - GalacticMarket trope generator as core path
+  EVOLVE toward (civilian homestead, limited metal):
+    1) WHI discipline: every packet/fact stamped; hexclass file copied into
+       fieldkit data/reference; T0/tiny model classifies into 1x* when cheap
+    2) Leash animals via mail: openclaw@local, qwen@local (codellama for codesum)
+    3) Enrich masks from Modelfile ROLE lines only (not full expert dumps)
+    4) Vision job chain: cam -> features -> optional moondream -> seer@ mail
+    5) xAI Brain adapter later as grok@local driver, same complete() seam
+    6) Monthly Modelfile reflection much later
+
+UPDATED OPTIONS A–C (after fuller gestalt — code still held until steward says go)
+  A) Mail + thin leash: seed openclaw@local + qwen@local; jobs openclaw-status
+     and qwen-handoff; packets only; no swallowing their processes
+  B) Mask enrichment: expand masks.py with T0/T1/Gx-discipline lines harvested
+     from Modelfiles; keep under ~500 chars each; leave personality modes to GUI
+  C) Vision analysis loop: harden cam:N -> OpenCV -> Tx-CAM -> seer@; optional
+     moondream; motion elevate per PLAN; never default dual LLM
+
+Still unread / skim-only (honest residual)
+  Large avatar mp4 library (names cataloged earlier; not frame-analyzed)
+  Full banterlist / codebase_1 / nova_debug bulk / web.db contents
+  ProjectNOVA.odt binary
+  Can continue another deep-read pass if steward wants before A–C.
+
+
+[2026-09-19 05:54:17 -05:00] IMPLEMENTATION CUT v1.8 — A/B/C + breaklog + brain + GUI
+--------------------------------------------------------------------------------
+ProjectNOVA.odt read: content is the DARPA MTO abstract (same doctrine as
+project_docs markdown), not a Grok chat transcript. Still useful: tabula rasa,
+SQLite palace, pre/post parse bridge, modular agency, civil homestead first.
+
+CODE LANDED (overlay nova\ + docs; NOVA.db not overwritten)
+  nova/breaklog.py   — Tx-BREAK facts + rank reports + chronicler mail
+  nova/leash.py      — openclaw_status / qwen_status / handoff
+  nova/brain.py      — complete() ollama.local | openai.compat | xai.grok stub
+  masks.py           — enriched + seer/ear/openclaw/qwen/clerk
+  office.py          — ensure_workforce upserts openclaw@ qwen@ seer@ ear@ clerk@
+  sched.py           — openclaw-status, qwen-status, workforce, camsee:N;
+                       cam: -> senses.save_still; job exceptions -> breaklog;
+                       codesum prefers codellama
+  forge.py / deck.json / gui app refresh ensure_workforce + BREAKS in records
+  data/reference/hexclass.txt  — WHI taxonomy copy from D:\pg\ai
+  data/secrets/README.txt      — xAI key placeholder
+  VERSION 1.8.0  STAGING/TEST_1_8.txt  DEVLOG notes
+
+SMOKE (this session)
+  ensure_workforce added: seer@ ear@ openclaw@ qwen@ clerk@
+  openclaw_status ok=True ; qwen_status ok=True
+  brain.complete(ollama.local) returned Online
+
+MESSENGER / xAI NOTE
+  OpenClaw remains the preferred messenger animal (gateway + channels).
+  brain.xai.grok is stubbed until steward drops xai_api_key.txt — then enable HTTP.
+  Official xAI as Ollama-shaped driver is the complete() seam, not a second daemon.
+
+TEST PARAMS: see STAGING/TEST_1_8.txt (Michael acceptance list).
+
+
+[2026-09-19 07:27:28 -05:00] POCKET TTS FIX + CLAW DRIVE INSTRUCTIONS
+--------------------------------------------------------------------------------
+Bug: pocket.speak used urlencoded/JSON POST to /tts. Live Kyutai OpenAPI requires
+multipart/form-data (text, voice_url). Response is audio/wav (RIFF).
+Fix: nova/pocket.py serve-multipart path. Proof: speak() ok via=serve-multipart.
+Instructions: C:\Users\wuchy\Documents\NOVA\clawbotinstructions.txt
+  (+ STAGING copy). Sequenced STEPs for small-model OpenClaw drive.
+Handoff packet mailed to openclaw@local pointing at STEP 0.1-0.2.
+OpenClaw gateway was healthy; WhatsApp still stopped/unlinked.
+Steward note: gtool failed (likely context); use lobster driver + one STEP.
+
+
+==== 2026-09-19 07:37:51 America/Chicago ====
+GAP-CLOSE LEASH LOOP (Grokbuild paste vs fieldkit)
+HAVE: leash.py, pocket multipart TTS, breaklog, brain, masks/workforce, sched openclaw-status/qwen-status/workforce/camsee/mail, TUI /tts, deck OPENCLAW/QWEN tiles
+NEED (ordered): FLOW.md; nova/claw.py + awareness openclaw_18789 + TUI /claw + claw-ping; nova/hands/qwen.py + /qwen + qwen:PATH; snap()->artifacts/monitor.txt; optional chatCompletions HIL
+ACTIONS: Rewrote clawbotinstructions.txt (NOVA root + STAGING) as PHASE 1-6 STEPs. Mailed openclaw@local packet_id=8 with STEP 1.1 only (create FLOW.md). Steward: deliver mail or paste STEP 1.1 into OpenClaw Control UI; Claw HTTP chat door lands in PHASE 2.
+
+==== 2026-09-19 07:47:39 America/Chicago ====
+CLAW MAIL LOOP EXERCISE (NOVA as steward on TUF)
+zulu clock used: packet8 delivered 2026-09-19T12:46:59Z; return packet11 Ax-CLAW to brief@local.
+Gateway :18789 up; /v1/models 404 (chatCompletions off). Palace deliver_inbox still Ollama-mask path - NOT used for this test.
+Real claw: openclaw agent --session-id nova-mail-2 --model ollama/qwen3.5:9b
+  lobster llama3-groq-tool-use:8b FAILED context_overflow (bootstrap ~32k chars vs 8192 ctx).
+  qwen3.5:9b 32k SUCCEEDED; wrote STAGING/FLOW.md (1237 bytes, mermaid present).
+Mail: packet 8 task -> delivered with --- reply; packet 11 reply queued to brief@local.
+Overlay: leash.openclaw_run() + sched job claw-run (pulls next openclaw task packet).
+NEXT: STEP 1.2 log line; then PHASE 2 claw.py; consider raising lobster num_ctx or keep qwen3.5:9b for tool STEPs.
+
+==== 2026-09-19 07:56:27 America/Chicago | zulu=2026-09-19T12:56:27Z ====
+DIARY SOP (standing — every Grok Bot / NOVA steward turn on TUF)
+1) Stamp this log with local+zulu at turn start and turn end.
+2) Claw driver for tool STEPs: ollama/qwen3.5:9b (32k). Do NOT use llama3-groq-tool-use:8b for agent turns until bootstrap slimmed or num_ctx raised (overflow ~9-11k vs 8192).
+3) Palace path: leash.handoff -> packet queued -> leash.openclaw_run / sched claw-run -> stamp packet delivered + reply to brief@local. Never pretend deliver_inbox (Ollama mask) is real Claw.
+4) Overlay nova\ only; never wipe data\NOVA.db.
+5) One STEP per Claw turn; capture DONE/FILES/PROOF/NEXT into diary.
+6) After leash gap-close: RAG tighten (WHI classes, tables, crawler ingest). Use each Claw STEP artifact as RAG seed.
+STEWARD INTENT THIS TURN: continue as NOVA; hammer leash; update tutorial; then RAG/palace plan. Put Claw to work on remaining STEPs.
+
+==== 2026-09-19 08:00:21 America/Chicago | CLAW STEP 1.2 ====
+LEASH BREAK FOUND: Claw write/exec to Documents\NOVA often no-ops or fabricates DONE.
+WORKS: write under C:\Users\wuchy\.openclaw\workspace\nova-out\ then NOVA pulls into palace.
+FLOW.md earlier succeeded; STEP 1.2 Documents append failed until workspace rule.
+Driver remains ollama/qwen3.5:9b for tool STEPs.
+
+==== 2026-09-19 08:08:13 America/Chicago | zulu=2026-09-19T13:08:13Z | TURN END ====
+CLAW WORK THIS TURN
+- Driver locked: qwen3.5:9b. Workspace pull pattern proven.
+- STEP 1.2: Documents append failed (false DONE); diary stamped by steward after break found.
+- STEP 2.1: claw.py written in nova-out, pulled; status TCP ok; models 404.
+- STEP 2.2: claw draft awareness BROKEN (httpx, run_probe=None); steward restored + openclaw_18789 keys. Draft saved STAGING\claw_draft_awareness_BROKEN.py as RAG seed.
+- Steward wired TUI /claw + sched claw-ping (smoke ok).
+- Tutorial pages 7-8 CLAW LEASH + MAIL/MEMORY SEEDS present.
+- TUF briefly unreachable mid-merge; resumed.
+
+STRUCTURE BREAKS IN RECORDING
+1) deliver_inbox != Claw (Ollama mask) — signal dump still packets table; wrong actor.
+2) Claw write outside workspace -> false DONE (break in proof chain).
+3) lobster 8b context overflow — need larger model or slim bootstrap.
+4) /v1/models 404 — chatCompletions off; /claw ask will Tx until enabled.
+5) Claw may rewrite APIs incompatibly — steward must review pulls.
+
+RAG / MEMORY PALACE PLAN (after remaining claw STEPs 3-4)
+A) Classify audit: facts.whi + packets.whi must be Ax-|Tx-|0x- only; fix orphans.
+B) Table plan: keep facts as WHI ledger; packets as mail; add optional chunks table
+   (id,zulu,whi,source_cite,text,embed_model,hash) for RAG; transform web_last + codesum
+   + claw STEP artifacts into chunks.
+C) Ingest: existing /web -> 0x-WEB; extend board/ingest to write chunks; crawler job
+   webcrawl:URL depth N with HIL before writes.
+D) Seed RAG from this leash run: FLOW.md, claw.py, diary SOP, tutorial 7-8, broken drafts.
+E) Models: nova-chronicler for memory summarize; qwen3.5:9b for claw tools; moondream camsee.
+
+NEXT CLAW STEPS: 3.x hands/qwen.py + /qwen; 4.x snap/monitor.txt; then RAG module.
+
+==== 2026-09-19 08:16:44 America/Chicago | zulu=2026-09-19T13:16:44Z ====
+STEWARD FEEDBACK (Michael)
+- Claw Control UI shows palace mails as sessions — good signal path.
+- Cleaner / shorter tool language lets smaller llama3 toolkit work; verbosity was the overflow/fail driver. Prefer BASIC tool language for claw STEPs.
+- Claw reports executed; NOVA must still verify files on disk (workspace pull + smoke).
+
+PHASE 2 CONFIRM (smoke 2026-09-19T13:16:44Z)
+PASS: nova/claw.py, awareness openclaw_18789+models keys, TUI /claw, sched claw-ping+claw-run, tutorial p7-8, FLOW.md, leash.openclaw_run.
+NOTE: /v1/models still 404 (chatCompletions off) — status TCP ok; ask waits on flag.
+
+QWEN CODE AGENCY (plan note — later, not this STEP)
+- Role: coding valet via subprocess qwen --prompt; mail qwen@local; job qwen:PATH.
+- Near-term: PHASE 3 hands/qwen.py + /qwen + sched qwen:
+- Later (log only): game-design / larger creative coding jobs via same valet; do not scope now.
+- Driver hint for claw tool STEPs remains qwen3.5:9b unless BASIC prompts proven on lobster 8b.
+
+COMMENCING PHASE 3
+
+==== 2026-09-19 08:19:46 America/Chicago | zulu=2026-09-19T13:19:46Z | TURN END ====
+PHASE 2 CONFIRMED PASS (post-dark resume).
+PHASE 3 DONE: nova/hands/qwen.py pulled; TUI /qwen; sched qwen:; smoke run_prompt -> ok rc0 stdout pong.
+PHASE 4 DONE: nova/snap.py; TUI /snap; data/artifacts/monitor.txt written.
+BASIC tool language STEPs used for claw writes to nova-out (qwen.py, snap.py).
+QWEN AGENCY: near-term valet live; later creative/game-design jobs noted only — out of scope now.
+NEXT: RAG chunks table + webcrawl ingest (rag-impl).
+
+==== 2026-09-19 08:34:04 America/Chicago | zulu=2026-09-19T13:34:04Z ====
+DELIBERATION CHAMBER + RAG (steward thoughts)
+YES — possible and aligned with palace/court. Orchestrator = Grok Bot/NOVA steward.
+Experts (local only this round):
+  claw   = OpenClaw agent (qwen3.5:9b tool seat) via openclaw_run
+  qwen   = Qwen Code valet via hands.qwen.run_prompt
+  code   = codellama via Ollama chat (llama code seat)
+Round: issue SAME problem -> each reply -> store Tx-TEMP facts titled
+  chamber/<case>/<seat>  body has address + opinion
+Defense: if conflict, one short rebuttal each (optional)
+Judge: steward mulls -> Ax-CHAMBER verdict fact -> orders to claw and/or qwen
+Clear: delete or mark Tx-TEMP for that case after promote to chunks/orders
+
+HERITAGE D:\pg\crawl (steward summary ONLY)
+- KEEP pattern: g3crawler.py — requests+BS4, sqlite crawled_data(url,code,title,content,ts),
+  human delay 5-15s, simple hex classify, max_pages, UA header.
+- WHCS taxonomy in whcs_desc.txt / hexclass — library codes 1x.. separate from Ax/Tx/0x wings.
+- mylilspider*.py = evolutionary drafts; spider20 recursive+gz folder; do NOT port broken backtrack.
+- Fieldkit already: nova/hands/web.py fetch -> web_last.txt + 0x-WEB; board.drain_one queue http.
+
+RAG FRAMEWORK TARGET
+1) chunks table: id,zulu,whi,source_cite,text,hash,status(temp|live|cleared)
+2) crawl job: depth-limited, delay, classify -> temp chunk -> summarize (chronicler/code) -> live chunk -> clear temp
+3) chamber module drives MoE design/ops before code orders
+
+==== 2026-09-19 08:40:42 America/Chicago | zulu=2026-09-19T13:40:42Z | CHAMBER+RAG ====
+CASE 20260919T1334-f4b6ead4 round-robin done.
+Claw: strong (one chunks lifecycle, HIL purge). Code: depth+threats useful; rejected 3 tables.
+Qwen: failed twice (interactive agent asked clarifying Qs) — BASIC design prompts not enough for qwen --prompt chatty mode; later use file-based brief or codesum seat.
+Verdict Ax-CHAMBER stored; temps cleared after crawl.py landed.
+crawl.py implemented from verdict (claw order hit UnicodeDecodeError in leash subprocess — fixed encoding=utf-8 errors=replace); steward wrote module; sched crawl:URL + /chamber list|clear wired.
+Embeddings deferred. Next smoke: crawl one URL with max_pages=1 when steward says go (polite delay).
+
+==== 2026-09-19 08:51:03 America/Chicago | zulu=2026-09-19T13:51:03Z ====
+CRAWL+WEB TEST: 10 GUI/TUI doc sites queued (board ids 6-15), web drain + crawl seeds.
+TUI: /crawl URL wired + HELP. Daemon: crawl:URL and ingest/board drain.
+Audit JSON: STAGING/CRAWL_AUDIT_GUI_TUI.json and CRAWL_TEST_GUI_TUI.json
+Note: older queue items (grok.me) drained before our seeds — palace also gained those 0x-WEB.
+
+==== 2026-09-19 08:59:14 America/Chicago | zulu=2026-09-19T13:59:14Z ====
+STEWARD PONDERINGS (keep — orientation fuel)
+RAG is not dump-all-into-context. Flow:
+  crawl (explore, same-host) -> temp chunks
+  -> word/subject weight + small-model worthiness gate (include/exclude)
+  -> only worthy live facts enter the prompt conversation
+  -> clear GPU/context after; source facts stay as written (precise, not junk)
+Base of THIS project glass: Textual + Qt/PySide flavors — deepen those first.
+Later: arXiv white papers via crawler+ingester for depth (PhD/postdoc material).
+Later still: news-media manipulation lexicon vs truthful publication scoring
+  (psych + linguistics) to tighten /web reject criteria — note only, not this trial.
+Diary exists so ponderings survive; re-scan diary for orientation when stuck.
+Humanity journals; NOVA journals. Same trick.
+
+AGREE with steward: garbage-in ruins the palace AI; quality-in compounds.
+Deeper crawl Textual+Qt next; enqueue discovered URLs to web gate; RAG gate stub.
+
+==== 2026-09-19 09:02:15 America/Chicago | zulu=2026-09-19T14:02:15Z | TURN END ====
+Deep Textual/Qt crawl: ~27 pages, same-host, enqueue_web; 25 drained to web (mostly ingest).
+Promoted 34 on-topic chunks to live; cleared python.org temps.
+nova/rag.py + /rag live (word weight + 0.5b gate). Docs: README.txt TUTORIAL.txt DEVLOG.ai tutorial.py updated.
+
+==== 2026-09-19 09:02:40 America/Chicago | zulu=2026-09-19T14:02:40Z | TURN END ====
+Agreed RAG vision logged. Deep Textual/Qt crawl done (~27 pages, same-host, enqueue_web).
+Promoted 34 on-topic chunks live; cleared python.org temps. nova/rag.py + /rag.
+Docs updated: README.txt TUTORIAL.txt DEVLOG.ai (+ tutorial.py pages).
+
+==== 2026-09-19 09:10:56 America/Chicago | zulu=2026-09-19T14:10:56Z | EOD BREAK ====
+OpenClaw PRIMARY -> ollama/qwen3.5:9b
+ARROW/FALLBACKS -> llama3-groq-tool-use:8b, qwen3:8b (lobster kept in arrow slot)
+claw_coding_playbook.txt written (NOVA + STAGING + nova-out)
+Overnight queue Q1 mailed to openclaw@local; Q2-Q7 wait until tomorrow
+Steward taking break. Good session: leash, chamber, crawl, RAG, Textual/Qt depth.
+
+==== 2026-09-19 09:20:24 America/Chicago | zulu=2026-09-19T14:20:24Z | NIGHTCAP ====
+DAY SUMMARY (2026-09-19)
+Conditions: TUF local-exec; intermittent unreachable blinks; OpenClaw gateway up;
+Ollama crowded with ~14 tags (~VRAM pressure); TTS serve multipart fixed earlier,
+first intentional speak-to-steward this nightcap.
+Work landed: leash (openclaw_run/claw-run), claw.py+/claw, qwen hands, snap,
+chamber MoE, crawl+same-host+enqueue, RAG gate /rag, Textual/Qt deep crawl,
+Claw PRIMARY qwen3.5:9b / ARROW lobster 8b, coding playbook, overnight Q1 mail.
+
+PAPER MARKETS (design only tonight)
+STAGING/PAPER_MARKETS.md + dead deck tile PAPER MARKETS.
+yfinance paper wallets; sched 09:35 / 12:00 / 15:45 CT; one LLM per tick;
+$10k paper each (qwen3.5:9b $25k flagship); skip vision/tiny/chronicler/codellama.
+Idle musing: diary is orientation RAG for the steward-AI pair — same as human journals.
+Idle musing: news-manipulation lexicon belongs next to paper-market psychology later.
+Idle musing: fewer resident models > more half-loaded ones; unload is kindness to the box.
+
+TTS: speaking short goodnight via pocket michael voice now.
+
+==== 2026-09-20 02:08:59 America/Chicago | zulu=2026-09-20T07:08:59Z ====
+CLAW OVERNIGHT RESCAN + GUI GRADE
+Claw artifacts since nightcap:
+  STAGING/claw_report_gui_enhancements.txt (design proposal A-)
+  nova/gui/app_enhanced.py (~26KB) — BROKEN syntax L395 QFrame())); not wired
+  nova/gui/app.py.wdtp (backup/work)
+  nova/drain_queue.py, list_tables.py, report_db_contents.py (helpers B/C)
+  nova-out/rag_gate_notes.md (Q3-ish)
+LIVE entry: nova/gui/__main__.py still -> app.main (original app.py). Offscreen boot: see log.
+Enhanced design intent liked (tables, graph, progress) but incomplete: deck buttons connect to None,
+chat not hooked to term.handle, QueueTracker is QVBoxLayout not QWidget, no main().
+NEXT: fix enhanced syntax OR discard; wire panels to real NOVA handle; then paper markets.
+
+==== 2026-09-20 02:51:32 America/Chicago | zulu=2026-09-20T07:51:32Z ====
+COUNCIL on GUI/codebase grade case 20260920T0749-65743edc
+Claw+code agree: port Priority-1 into app.py; do not ship enhanced; paper waits.
+Qwen clarifier fail again. chamber.council() alias added. Verdict Ax-CHAMBER; temps cleared.
+
+==== 2026-09-20 13:11:26 America/Chicago | zulu=2026-09-20T18:11:26Z ====
+CAPABILITY MATRIX from WEBSITE_CHECKLIST + OpenClaw channels catalog.
+WhatsApp: installed enabled NOT linked stopped. Email: palace packets only; ClawHub plugins available unused.
+Wrote STAGING/CAPABILITY_MATRIX_2026-09-20.txt. Lean path: reuse OpenClaw channels (WA QR + one email plugin), not rewrite.
+
+==== 2026-09-20 13:18:19 America/Chicago | zulu=2026-09-20T18:18:19Z ====
+FUNCTIONALITY REPORT + AI testing checklist.
+Q1 programs PARTIAL/mostly yes; Q2 stage format PARTIAL; Q3 WHI wings PASS (0 orphans), hexclass PARTIAL via crawl cites.
+Wrote STAGING/GROKBOT_FUNCTIONALITY_REPORT_2026-09-20.txt
+Wrote docs/AI_CODE_TESTING_CHECKLIST.md (+ STAGING copy) + docs/advice/2026-09-20_testing-whi-ship-gate.md
+Seeded 0x-ADVICE fact + live chunk for RAG.
+
+==== 2026-09-20 13:29:00 America/Chicago | zulu=2026-09-20T18:29:00Z ====
+HARDEN + PRUNE (baby leviathan / octopus spine).
+put_fact wing+title+body contract; matrix.page_title; web REJECT/0x-WEB titles; crawl ingest titles; clear_temp_chunks(all_temp).
+Cleared leftover temp chunks; deleted non-chamber Tx-TEMP facts.
+Chamber SEATS default claw+code (qwen opt-in). Vision note docs/advice/2026-09-20_leviathan-spine-prune.md + RAG.
+
+==== 2026-09-20 13:39:10 America/Chicago | zulu=2026-09-20T18:39:10Z ====
+PALACE table+search ported into live nova/gui/app.py (QTableWidget).
+Lean nova/msg.py: OpenClaw WhatsApp arm, HIL approve=, draft/status/send, default target +allowFrom.
+TUI /wa status|draft|send dry|send approve. Deck WHATSAPP tile. WA still not linked — needs QR login.
+
+==== 2026-09-20 19:13:07 America/Chicago | zulu=2026-09-21T00:13:07Z ====
+TUF reconnect: pushed /wa link (QR new console), wa_qr_window, deck tip.
+Opened WhatsApp QR login window + started python -m nova.gui (palace QTableWidget).
+Dry-run send OK (format). WA still not linked until phone scan.
+Startup: __main__ gui → app.py (not enhanced). launch.py splash shortened via NOVA_FAST; added START_GUI.bat + START_NOVA.bat (quoted paths — avoids old start TITLE bug).
+
+==== 2026-09-20 19:30:25 America/Chicago | zulu=2026-09-21T00:30:25Z ====
+POCKET TTS: NOVA hooks already used :8000; Kyutai package CORS lists localhost:3000 (demo origin only — not listen port).
+Pinned SERVE_BASE/SERVE_PORT=8000 in pocket.py + launch spawn --port 8000; start_serve_window().
+GUI app.py: startup QMessageBox if serve down — Yes opens parallel :8000 window; No stays off; daemon untouched.
+Speak smoke OK via serve-multipart while :8000 up.
+
+==== 2026-09-20 20:07:08 America/Chicago | zulu=2026-09-21T01:07:08Z ====
+ROBERTS COUNCIL session 20260921T0100-50c71291 DONE. Seats small/code/claw. Mail smoke packet60 OK web_fetch.
+Artifacts: COUNCIL_AGENDA, COUNCIL_CLAW_MAIL_SMOKE, COUNCIL_ROBERTS, STEWARD_PLAN_DRAFT_FROM_COUNCIL.md
+Awaiting human approve of steward plan before OpenClaw build STEPs.
+
+[2026-09-20 21:14:31 CT] STEP1 TTS/voice/grammar APPROVED+DONE
+- Default NOVA voice: anna (pocket.SEATS brief/seer/clerk/hearth, resolve_voice fallback, speak(), term state, office VOICES, bites/sched fallbacks)
+- parser.GRAMMAR rewritten: [speak anna] ... [/speak]; seat map; NOTICE/SPEAK:**speak forms
+- peel: SPEAK_COLON + SPEAK_XML patterns; existing BLOCK/LINE/MD kept
+- term ask(): TTS-FAIL art on speak fail (no silent swallow)
+- employees table: brief/seer/clerk/hearth (+ leftover alba) -> anna
+- Smoke: peel brief->anna; speak anna via serve-multipart OK (wav under data/artifacts)
+- Next: step2 titled TTS :8000 + titled daemon + GUI startup windows
+
+[2026-09-20 21:16:50 CT] STEP2 startup titled windows DONE (+ pocket.py salvage)
+- pocket.py was wiped to 0 bytes during step2 edit; reconstructed from prior dumps (SERVE_BASE :8000, anna defaults, multipart speak, start_serve_window via spawn_titled)
+- spawnutil.spawn_titled: start \"TITLE\" cmd /k with quoted title + PYTHONPATH
+- nova.launch: titled TTS :8000 (if down) -> titled NOVA daemon -> GUI (CREATE_NEW_CONSOLE)
+- START_NOVA.bat comment updated; GUI popup still uses start_serve_window
+- Smoke: speak anna OK; spawn_titled smoke console; peel brief->anna
+- Next: step3 GUI QScrollArea + resize; leave enhanced scrap
+
+[2026-09-20 21:17:28 CT] STEP3 GUI scroll/resize DONE
+- live app.py: CommandDeck in QScrollArea; each stack panel wrapped in QScrollArea; window min 800x480; deck min/max width (not fixed 240); stack stretch=1
+- app_enhanced.py moved to STAGING/app_enhanced.py.scrap (not shipped; __main__ still nova.gui.app)
+- deck.json live panel indices 0..n still mapped via tile.panel -> stack.setCurrentIndex
+
+[2026-09-20 21:21:37 CT] STEP4-5 DONE (steward write + Claw confirm)
+- Executor had failed (no TUF); parent wrote nova-out directly on TUF then mailed confirm.
+- C:\Users\wuchy\.openclaw\workspace\nova-out\BROWSER_HIL_PLAYBOOK.md (1043 B)
+- CAM_METADATA_SCHEMA.md (963 B) — fixed cam0 geo optional; dynamic cams geo=null no fake
+- cam0_capture_stub.py (935 B) — build_cam0_meta only; no camera/network
+- Palace packet 68 + openclaw_run nova-steward-s45-confirm OK (Claw acknowledged; byte sizes it quoted were wrong — trust local sizes above)
+- Not pulled into fieldkit nova\ yet (review gate). HIL browser smoke = step 6 later with you present.
+- STEWARD PLAN steps 1-5 complete; 6 HIL browser; 7 later PoE/WA/email
+
+[2026-09-20 21:31:12 CT] STATUS PASS for steward outline
+- Runtime: ollama+claw:18789+tts:8000 up; 2x nova.gui + pocket_tts; daemon not in process list this check
+- HELP synced to live slash cmds; harness advice note written
+- WHI: wing string only; no idx on facts.whi; no subject classifier (gap confirmed)
+- Feedback counters all 0 — not tuned
+- Claw rest memory was D&D space campaign fixes, not NOVA webspyder; heritage network_spyder = LAN ping (D:\pg\ai)
+
+[2026-09-20 21:37:11 CT] COUNCIL_WHI_MEDIA session done -> STAGING/COUNCIL_WHI_MEDIA_2026-09-21.json seats claw+code+brief
+
+
+[2026-09-20 21:41:37 CT] PRUNE A-H DONE; masks upgraded; mirror zip for box
+- Removed: gemma2:2b llama3.2:3b nova-sentinel nova-chronicler nova-auditor llama3:8b nova-commander phi3:mini
+- Kept: codellama moondream llama3-groq-tool-use:8b qwen3:8b qwen2:0.5b qwen3.5:9b
+- masks.py: MASK_SPECS + activate cues + limits + loops + grokbot; /mask auto|manual; HELP lists masks
+- Claw journal: memory/2026-09-21.md side-project note
+- Mirror zip: Documents\NOVA\NOVA_fieldkit_mirror_sans_db.zip (~635KB) copied to Grok Bot box
+
+[2026-09-20 21:42:20 CT] masks+sim+prune wrap
+- ollama list now 6 models; masks MASK_SPECS + /mask auto on TUF
+- sandbox mirror /workspace/nova-mirror/fieldkit (no DB); SIM paper trail copied to STAGING
+
+[2026-09-20 21:56:55 CT] WHI index + deck wire LIVE on TUF (sim-proven; Claw ack but no bytes — steward promote)
+- nova/whi.py NEW (wing+subject + claw hexclass)
+- db: idx_facts_whi (+title), idx_chunks_whi; put_fact auto/kind; hunt WHI-keyed
+- crawl uses whi.claw_hexclass; gui deck on_tile 100% live tiles
+- nova-out kept as source; STEP_WHI_INDEX_DECK.txt
+
+================================================================================
+2026-09-20 22:09:28 CT  |  steward cycle — tut/diary + Astrocomms + checklist council
+--------------------------------------------------------------------------------
+DONE:
+- Astrocomms GUI: QTextEdit ~3-line wrap/scroll, bottom margin 36px, Ctrl+Enter+Send
+  (btn_send defined before layout; smoke import OK)
+- chamber.promote_to_rag(case): copies Tx-TEMP chamber bodies -> chunks status=live
+- TUTORIAL.txt pages 14–20 refreshed (anna, masks, WHI, /wa, START_NOVA, PROOF, Astrocomms)
+- nova/tutorial.py PAGE 10–11 updated (11 pages total)
+- WEBSITE_CHECKLIST + CAPABILITY_MATRIX night section G
+- Claw nova-out: STEP_ALIGNMENT_REPORTING.txt + NOTES_ALIGNMENT_REPORTING.md
+  PROOF bytes on STEP=1492
+- Council CHECKLIST_GAP session 20260921T0306-50c71291 (claw+code+brief)
+  A: Agree auto-promote after verdict (brief: pilot+manual review)
+  B: Next metal — WA QR+DM, then email plugin / nightly news / feedback (seats vary order)
+  C: Agree/Amend enforce PROOF on STEP templates; update playbook
+
+AUDIT chamber↔RAG:
+  Ax-CHAMBER facts=20  Tx-TEMP chamber=12  live chamber chunks=0  live total=37  temp chunks=12
+  → council data in DB facts; NOT in /rag until promote_to_rag
+
+STILL OPEN:
+- HIL browser smoke (user present)
+- WA QR link + live DM
+- lean email plugin
+- auto-promote policy (council leaned Agree; not coded yet)
+- OpenClaw feedback counters still zeros
+================================================================================
+
+================================================================================
+2026-09-20 23:33:12 CT  |  HIL browser smoke — Claw surf xai.com
+--------------------------------------------------------------------------------
+ORDERED: STEP_BROWSER_XAI_SMOKE.txt + leash.openclaw_run session nova-browser-hil-xai
+RESULT: ok; REPORT_XAI_BROWSER_SMOKE.md PROOF bytes=2791
+FINDING: https://xai.com is NOT xAI LLC — Hong Kong CTR LIMITED domain (est. 1994).
+  Likely user meant https://x.ai for Grok/xAI smoke — offer re-run.
+STAGING: CLAW_XAI_BROWSER_RUN.json
+================================================================================
+
+================================================================================
+2026-09-20 23:59:45 CT  |  palace day — spider A-F, TTS, Claw Aurelius, grok.me, D: thumb
+--------------------------------------------------------------------------------
+PHRASING: A-F = handling stages (scout…sentinel) not only MoE seat names. LOCKED.
+SPIDER: STAGING/SPIDER_PIPE_FLOW.md + nova/ingest_pipe.py + crawl matrix/drain
+TTS: serve_up True; speak anna multipart OK → wav + _play SoundPlayer
+CLAW NAME: Aurelius Nova (IDENTITY_NAME.md). Parallel STEPs OK (locate/thumb/WHI).
+THUMB: Removable D: → D:\pg\ai heritage (steward confirmed).
+GROK.ME: fetched NOVA Command, Frost Shield, FRONTINUS → WEBSITE_VS_METAL_2026-09-21.md
+FACTS~1255 live_chunks~37; glass site numbers stale.
+NEXT: settlement 10 crawl via pipe; council DB-split + council→palace; STT assess; docs.
+================================================================================
+
+================================================================================
+2026-09-21 00:17:09 CT  |  settlement-10 ingest + council + promote_to_rag
+--------------------------------------------------------------------------------
+Box sim done earlier (dry score 52). Live batch: 15+ alts via ingest_pipe chronicler/qwen3:8b
+NASA pages score-low reject (gate works). Wiki 404s replaced (Lunar_base, Life_support_system, Mars_habitat).
+Outer_Space_Treaty still score-low (~20) — thin/JS?
+RAG smoke hits Space_habitat cite. live chunks 65; provenance live ~16+; chamber live cites 9 after promote.
+Council STAGING/REPORT_SETTLEMENT_COUNCIL.md + COUNCIL_SETTLEMENT_2026-09-21.json
+Promoted 3 motions x 3 seats = 9 Ax-CHAMBER live chunks.
+================================================================================
+
+================================================================================
+2026-09-21 00:53:24 CT  |  Pocket TTS play confirmed by ear; daemon council + job tick
+--------------------------------------------------------------------------------
+User heard anna Pocket TTS after normalize+winsound; prefers Pocket TTS only (no Ollama TTS).
+Daemon council session 20260921T0538-50c71291 D1-D5 promoted to Ax-CHAMBER live.
+Report: STAGING/REPORT_DAEMON_COUNCIL.md
+================================================================================
+
+================================================================================
+2026-09-21 01:02:02 CT  |  five cuts wired + capability/devops meditation
+--------------------------------------------------------------------------------
+1 maintain auto-drain  2 AUTO_PROMOTE_RAG  3 speak_employee+SEATS+sync_voices
+4 whistle WHI lag  5 proof.py + leash proof-reject
+Doc: STAGING/NOVA_CAPABILITY_DEVOPS_2026-09-21.md
+================================================================================
+
+================================================================================
+2026-09-21 01:35:41 CT  |  homestead waltz — lobster+komodo, thumb shards, need->forge protocol
+--------------------------------------------------------------------------------
+homestead.cycle: D:\pg\ai wings counted; needs L0/spider/codesum/hexclass/protocol
+codesum x5 thumb files; qwen_run OK (shallow); Aurelius agent failed — steward report
+Protocol: STAGING/HOMESTEAD_PROTOCOL.md  Waltz: STAGING/WALTZ_P0_P2.md
+================================================================================
+
+================================================================================
+2026-09-21 01:43:40 CT  |  L0 Holmes + Watson (code-only, Windows)
+--------------------------------------------------------------------------------
+nova/awareness/probes.py + watson.tree_map; holmes.sweep stamps Ax-HOLMES + Ax-WATSON
+No LLM on gather. Artifact: data/artifacts/watson_tree.txt
+================================================================================
+
+================================================================================
+2026-09-21 01:55:38 CT  |  next steps waltz — hexclass, homestead job, STT council, pets playbook
+--------------------------------------------------------------------------------
+hexclass_table.json + claw_hexclass/hexclass_label; homestead-cycle job hourly
+STAGING/NOVA_PETS_PLAYBOOK.md STT_ASSESSMENT_SEED + COUNCIL_STT; P1_CHANNELS_STATUS
+================================================================================
+
+[2026-09-21 02:03:03 -05:00] Steward cycle — homestead-cycle job + STT council + pets playbook
+- Fixed job_add('homestead-cycle', 3600); wired sched elif; smoke after reload.
+- STT council 20260921T0654-50c71291: Agree faster-whisper pilot, PTT/cue HIL, ear_stt like cam:0 → Tx-EAR.
+- STAGING: NOVA_PETS_PLAYBOOK.md, STT_ASSESSMENT_SEED.md, REPORT_STT_COUNCIL.md, STT_STEWARD_REC.md
+- Hexclass fold already in nova/hexclass_table.json + whi; verified import.
+- Next: WA QR (user), email plugin GAP, ear_stt pilot code, settlement 10-section brief.
+
+[2026-09-21 02:14:19 -05:00] Cycle: WA QR + IMAP plugin + ear_stt + metal/staging/WHI plans
+- WA: link_qr new console; was not linked/stopped — operator scan
+- Email: imap plugin installed+enabled; creds pending; EMAIL_IMAP_HIL.md
+- ear_stt.py: PTT approve=True, CPU faster-whisper; smoke_offline
+- NOVA brief one-off between claw; checksums STAGING/CHECKSUMS_CYCLE_2026-09-21.md
+- Plans: METAL_SAFETY_MONITOR_TREE.md, STAGING_VS_INTEGRATION.md, WHI_DB_COMPAT.md (idx missing)
+\n[2026-09-21 02:25 local] Paint debate: Qwen-Image-2.1 not Ollama; RTX5050 8GB ~1.5GB free; moondream see ok; defer metal paint; staging docs SKELETON/PAINT_WORKFLOW/PAINT_BOX_VS_METAL; WA skipped.\n\n[2026-09-21 02:46 local] Avatar/toolbox doctrine; HIL queue/packets cleared; ingest-drain wired; settlement brief SQL; midnight checksum on; paint parked.\n\n[2026-09-21 03:01 local] Varro: avatar path confirmed D:\\pg\\ai\\nova-ai\\agents\\avatar (~80 mp4); legacy video_player Linux paths; smoke panels from nova_Btyping; panel pipeline staged; Cassius RPG glass crossover noted.\n
+[2026-09-21 03:16 local] Avatar display/viseme PLAN + vision catalog JOB framed; paper module plan; Aurelius STEP timed out — steward wrote PAPER_SCHEMA/API + AVATAR_CATALOG_OUTLINE to nova-out+STAGING; Cassius pinged for Claw conflict.
+
+[2026-09-21 03:24 local] Doctrine: thumb=legacy shared; Documents=intentional WHI feed. Wrote STAGING/DOCS_WHI_INGEST_JOB_PLAN.md (3-day polite spaced jobs). Aurelius paper/avatar re-leash timed out again (Ls failed); steward drafts remain.
+
+
+[2026-09-21 03:39 local] Day1 Documents->WHI: wired nova/docs_ingest.py + jobs docs-scout@1d docs-ingest@3h; ingested 5 files (tech proposal, field worker BPC, clawbotinstructions, claw playbook, scratch odt) -> sectioned live chunks; live total ~196. WHI sometimes drifted (0x-WEB/Ax-OLLAMA) — tighten classify for file:// on Day2.
+[2026-09-21 04:00:13 CT] DOCS schedule COMPLETE Day2+Day3. Retag 21 chunks/facts -> 0x-DOC. Ingested 7 files / 28 sections all 0x-DOC. live=224 doc=49 file_uri=49 queue done=12. Reports STAGING/DAY23_DOCS_REPORT.md + DAY23_DOCS_INGEST.json. Used qwen2:0.5b.
+[2026-09-21 05:26:57 CT] NOVA handoff: live=246 doc=71 facts=1524; Hearthbeat og-ubuntu pong OK; gzu-dscl ingested; Claw freed for RPG. See STAGING/NOVA_STATUS_HANDOFF_2026-09-21.md
+[2026-09-21T10:37:27Z] NOVA DIARY: WHI: 58.0C
+Title: Palace Live
+Source: GPU 58.0C
+Zulu: VRAM free=1761.0
+[2026-09-22 00:08:13] Midnight checksum GREEN facts=1549 chunks=live:246/cleared:115/temp:0 queue_open=0 packets=del:106/fail:1/queued:16 newest_fact_age=18.5h VRAM_free_MiB=1519 sched.py=7B4108D8 ingest_pipe.py=C2141D70

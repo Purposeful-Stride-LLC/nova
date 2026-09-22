@@ -1,0 +1,52 @@
+﻿================================================================================
+CLAW CODING SUCCESS PLAYBOOK  —  automated STEPs that work
+Steward: Michael  |  Host: TUF  |  Updated: 2026-09-19
+Models: PRIMARY ollama/qwen3.5:9b   ARROW/FALLBACK ollama/llama3-groq-tool-use:8b
+        (then ollama/qwen3:8b). Keep lobster in the arrow slot for tiny tasks.
+================================================================================
+
+WHEN TO USE WHICH MODEL
+- Coding / file writes / multi-tool STEPs  -> PRIMARY qwen3.5:9b (32k)
+- Tiny classify / INCLUDE-EXCLUDE / one-liner opinion -> ARROW lobster 8b OK
+- Never load whole clawbotinstructions into context. ONE STEP only.
+
+WRITE PATH (non-negotiable)
+1) Write ONLY under: C:\Users\wuchy\.openclaw\workspace\nova-out\
+2) Steward/NOVA pulls + reviews into fieldkit nova\
+3) Documents\NOVA paths often get FALSE DONE — do not trust without proof
+
+BASIC TOOL LANGUAGE (template)
+TASK: write file
+PATH: C:\Users\wuchy\.openclaw\workspace\nova-out\<name>.py
+ACTION: write
+CONTENT:
+<full file>
+RULES: write tool only. that path only. no prose scripts for humans.
+REPLY:
+DONE: <one line>
+FILES: <path>
+PROOF: bytes=<n>
+NEXT: <id>
+
+AFTER WRITE
+- Prove: file exists and size > 0
+- Do not claim DONE if write tool was not used
+
+CODING RULES
+- Overlay nova\ only. Never wipe data\NOVA.db
+- Max ~40 new lines per STEP unless steward says batch
+- Prefer edit existing modules over inventing parallel APIs
+- HIL before destructive deletes / process kills / secrets
+- Same-host crawl; RAG gate filters prompt — facts stay precise
+
+QUEUED WORK (overnight list — steward pastes ONE at a time or claw-run)
+Q1  Finish docs if missing: README.txt / TUTORIAL.txt / DEVLOG.ai RAG+crawl sections
+Q2  Drain remaining board http queue (ingest) — report hit/miss counts
+Q3  Write nova-out/rag_gate_notes.md: how /rag INCLUDE-EXCLUDE should behave
+Q4  Review nova/crawl.py same_host+enqueue_web — fix any bug found (nova-out patch)
+Q5  Review nova/rag.py gate parse — first line INCLUDE|EXCLUDE only
+Q6  Optional: /rag smoke "textual widget CSS" — report kept cites
+Q7  STOP. Wait for steward tomorrow.
+
+Palace mail: handoff kind=task to openclaw@local with ONE Qi body.
+================================================================================

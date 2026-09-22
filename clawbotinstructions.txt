@@ -1,0 +1,197 @@
+﻿================================================================================
+CLAWBOT INSTRUCTIONS - gap-close leash loop (Grokbuild north star)
+Author: Grok Bot (higher-order)  |  Driver: ollama/llama3-groq-tool-use:8b
+Steward: Michael D. Wuchevich  |  Host: TUF
+Live kit: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4
+This file: C:\Users\wuchy\Documents\NOVA\clawbotinstructions.txt
+Mirror:    C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\STAGING\clawbotinstructions.txt
+
+RULE: Do ONE STEP at a time. Finish. Report 5 lines max. Wait for steward
+      (or next mail packet) before the next STEP. Short context. No giant dumps.
+================================================================================
+
+NORTH STAR (do not restate; obey)
+- Three processes stay three. NOVA = palace + jobs + WHI + HIL.
+  OpenClaw = crustacean servant on 127.0.0.1:18789. Qwen Code = coding valet
+  via `qwen --prompt` subprocess. Ollama = household. Grok/xAI = visiting
+  minister only (brain.complete later). Never merge Claw + Qwen + Ollama
+  into one Python process.
+- Overlay nova\ only. NEVER overwrite data\NOVA.db or wipe data\.
+- Human steps = parser contract: name outcome, list tools, one action,
+  inspect return, next or stop. LLM picks the next card only.
+- HIL before any file write that changes palace code or data secrets.
+  File writes from Qwen wait /approve. TerminateProcess stays dead tile.
+
+GAP SCAN 2026-09-19 (HAVE vs NEED)
+HAVE already on kit:
+  nova/leash.py (status + handoff mail)
+  nova/pocket.py multipart TTS against :8000
+  nova/breaklog.py, nova/brain.py, enriched masks, ensure_workforce
+  sched jobs: openclaw-status, qwen-status, workforce, cam/camsee, mail
+  TUI /tts; GUI deck tiles OPENCLAW/QWEN/BREAKS/BRAIN
+NEED (close in this order):
+  STAGING/FLOW.md (mermaid grand pipe + sub-loop)
+  nova/claw.py (HTTP chat door, not only TCP status)
+  awareness ai_runtime.openclaw_18789 probe
+  TUI /claw  and  /claw <task>
+  sched job claw-ping
+  nova/hands/qwen.py + TUI /qwen + job qwen:PATH (subprocess, HIL writes)
+  snap() -> data/artifacts/monitor.txt (TUI framebuffer stand-in)
+  Optional steward HIL: gateway.http.endpoints.chatCompletions.enabled
+
+HARD LIMITS
+1) One file or one command per STEP.
+2) Max 40 lines new code per STEP unless steward says "batch".
+3) After each STEP output exactly:
+   DONE: <one line>
+   FILES: <paths touched>
+   PROOF: <command + exit or short result>
+   NEXT: <step id>
+4) Stuck: stop. Tx-BREAK via breaklog or one-line note. No tool loops.
+5) No HF downloads. No WhatsApp sends. No inventing missing modules.
+6) Do not paste whole files into chat; edit by path.
+7) Prefer C:\Python314\python.exe from kit root.
+
+REPORT FORMAT ONLY those four lines. Steward pastes one STEP block into you.
+
+--------------------------------------------------------------------------------
+PHASE 1 - MAP (docs only, safe)
+--------------------------------------------------------------------------------
+STEP 1.1  Create STAGING/FLOW.md
+  Path: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\STAGING\FLOW.md
+  Contents must include both mermaid charts from Grokbuild:
+  (A) Grand pipe: Steward HIL -> TUI/GUI -> palace DB; daemon->tick->holmes/
+      ingest/mail; TUI /ask->Ollama, /claw->:18789, /qwen->qwen --prompt;
+      Claw/Qwen may visit Grok; Ollama->TTS :8000.
+  (B) Sub-loop: packet -> one tool -> ok? -> Tx then wing / report;
+      more? HIL yes -> next packet else done.
+  Also 5 bullets: three processes; servant not merger; HIL before writes;
+  Grok Automation != OpenClaw strap; snap != real HWND.
+  PROOF: type STAGING\FLOW.md | findstr /i mermaid
+
+STEP 1.2  Append one dated line to GrokBot.log.ai (do not wipe):
+  C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai
+  Note: FLOW.md landed; leash gap-close PHASE 1 done.
+
+--------------------------------------------------------------------------------
+PHASE 2 - OPENCLAW CHAT DOOR (crustacean servant)
+--------------------------------------------------------------------------------
+STEP 2.1  Create nova/claw.py (new file, overlay only)
+  Kit: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\nova\claw.py
+  API sketch (keep under 40 lines if possible; else steward says batch):
+    OPENCLAW_BASE = "http://127.0.0.1:18789"
+    def status() -> dict: TCP or GET / and optional GET /v1/models
+    def ask(text: str, timeout: float = 60) -> dict:
+      Prefer POST /v1/chat/completions if enabled
+      (messages=[{role:user,content:text}], model from env or default).
+      Auth header if OPENCLAW_AUTH_TOKEN or NOVA_CLAW_TOKEN set.
+      On 404/disabled: return {ok:False, error:"chatCompletions off",
+        hint:"enable gateway.http.endpoints.chatCompletions"}.
+      Stamp WHI Ax-CLAW or Tx-CLAW via db.put_fact; do not own NOVA.db schema.
+  Import style: from nova import db, breaklog, office (or leash helpers).
+  Do NOT start OpenClaw process from Python.
+  PROOF: python -c "from nova import claw; print(claw.status())"
+
+STEP 2.2  Extend awareness/_ai probe
+  File: nova/awareness/__init__.py
+  In _ai(): also probe TCP 127.0.0.1:18789 and/or GET /v1/models.
+  Add keys: openclaw_18789 (bool), openclaw_models (bool or note).
+  Keep ollama_loopback as today.
+  PROOF: python -c "from nova.awareness import run_probe; print(run_probe('ai_runtime'))"
+
+STEP 2.3  Wire TUI /claw
+  File: nova/tui/term.py inside handle()
+  /claw            -> claw.status() short text
+  /claw <rest>     -> claw.ask(rest) ; show ok/err and first 500 chars
+  Reuse same handle() path GUI ASTROCOMMS already uses.
+  PROOF: mention line numbers of new branches; do not run full TUI in this STEP.
+
+STEP 2.4  Job claw-ping
+  File: nova/sched.py
+  elif key == "claw-ping": call claw.status() (or ask "ping"); note[:200]
+  Register in forge/job list if there is a catalog of job names.
+  PROOF: python -c "from nova import sched; print(sched.run_named('claw-ping'))"
+  (If run_named needs job row first: /job add 120 claw-ping via steward.)
+
+STEP 2.5  Optional HIL only (steward must say GO)
+  Document in STAGING/CLAW_HTTP.txt how to enable:
+    gateway.http.endpoints.chatCompletions.enabled = true
+  Do NOT edit C:\Users\wuchy\.openclaw\openclaw.json unless steward says GO.
+  TCP-up still means "Claw is here"; chat waits for that flag or WS chat.send.
+
+--------------------------------------------------------------------------------
+PHASE 3 - QWEN CODE VALET (subprocess, not in-process)
+--------------------------------------------------------------------------------
+STEP 3.1  Create nova/hands/__init__.py if missing (empty or docstring).
+STEP 3.2  Create nova/hands/qwen.py
+  which = shutil.which("qwen"); if absent return ok:False absent (no fake).
+  def run_prompt(prompt: str, cwd: str | None = None, timeout: int = 120) -> dict:
+    subprocess: qwen --prompt <prompt>  (headless only; never swallow interactive qwen)
+    capture stdout/stderr; return {ok, stdout, stderr, cwd}
+    Stamp Tx-QWEN / Ax-QWEN. File writes from Qwen are NOT auto-applied;
+    steward /approve. First tester shot: cwd = fieldkit root, prompt asks
+    "list nova/*.py names only".
+  PROOF: python -c "from nova.hands import qwen; print(qwen.run_prompt('reply: pong')[:1] if False else qwen.run_prompt('Say pong in one word'))"
+
+STEP 3.3  TUI /qwen PROMPT  -> hands.qwen.run_prompt
+STEP 3.4  sched job key startswith "qwen:" -> path or prompt after colon;
+  packet to reviewer / qwen@local via leash.handoff. Prefer codesum still
+  for single-file summarize; qwen: is the valet for multi-file walks.
+
+--------------------------------------------------------------------------------
+PHASE 4 - GROK-O-VISION STAND-IN (not real HWND)
+--------------------------------------------------------------------------------
+STEP 4.1  Add snap() (TUI or small nova/snap.py)
+  Write current TUI chat/framebuffer text to data/artifacts/monitor.txt
+  Judgment aid only. Snapshot != pixel-true PySide6.
+  Optional still later -> ascii/brand or artifacts; not this STEP.
+  PROOF: file exists and size > 0 after one call.
+
+--------------------------------------------------------------------------------
+PHASE 5 - MAIL / LEASH PROOF (NOVA method)
+--------------------------------------------------------------------------------
+STEP 5.1  Prove handoff already works:
+  python -c "from nova import leash; print(leash.handoff('openclaw','task','STEP ack: ready for 1.1'))"
+STEP 5.2  Steward runs mail deliver (GUI Deliver 3 or job mail). You reply
+  in 3 lines max as openclaw mask when deliver_inbox runs.
+STEP 5.3  Do not inject Grok cloud Automations into the gateway.
+  OpenClaw->Grok is separate: openclaw models set xai/... on metal if steward wants.
+
+--------------------------------------------------------------------------------
+PHASE 6 - ACCEPTANCE
+--------------------------------------------------------------------------------
+STEP 6.1  Write STAGING/GAP_CLOSE_RESULTS.txt PASS/FAIL for STEPs 1.1-4.1.
+STEP 6.2  Append dated block to GrokBot.log.ai (human readable).
+STEP 6.3  Stop. Wait for steward.
+
+================================================================================
+HOW STEWARD / GROK BOT DRIVES YOU
+================================================================================
+Grok Bot mails ONE STEP body to openclaw@local via leash.handoff.
+You execute only that STEP. Return DONE/FILES/PROOF/NEXT.
+If context fills: new session "Resume PHASE x STEP y". Do not reload this
+whole file into the model - one STEP block only.
+
+Python: C:\Python314\python.exe
+cwd default: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4
+================================================================================
+
+--------------------------------------------------------------------------------
+LEASH LESSONS (2026-09-19) — READ BEFORE TOOL STEPS
+--------------------------------------------------------------------------------
+- Model: ollama/qwen3.5:9b for tool STEPs. Not llama3-groq-tool-use:8b (8k overflow).
+- WRITE PATH: always write under C:\Users\wuchy\.openclaw\workspace\nova-out\
+  Then steward/NOVA copies into the fieldkit. Writes to Documents\NOVA often
+  fabricate DONE without changing the file.
+- Steward reviews every pull (awareness rewrite once broke run_probe API).
+- Real Claw path: leash.handoff + leash.openclaw_run / sched claw-run.
+  deliver_inbox = Ollama mask only.
+
+
+--------------------------------------------------------------------------------
+2026-09-19 EOD QUEUE + MODEL SLOT RULE
+--------------------------------------------------------------------------------
+PRIMARY: ollama/qwen3.5:9b
+ARROW/FALLBACK: ollama/llama3-groq-tool-use:8b (keep — tiny tasks), then qwen3:8b
+See: C:\Users\wuchy\Documents\NOVA\claw_coding_playbook.txt
+Overnight STEPs Q1-Q7 in that playbook. One STEP per session.
