@@ -11,8 +11,7 @@ Need three processes eventually. Two are enough to talk.
   cd C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4
   python -m nova
   python -m nova.tui
-  python -m pocket_tts serve --default-voice anna
-  # Or: START_NOVA.bat  (titled TTS window + daemon + GUI)
+  python -m pocket_tts serve --default-voice alba
 
 >> /help
 Expect: slash list in the chat and the right pane.
@@ -60,18 +59,17 @@ Robust cases:
 PAGE 4  MODELS AND STAFF
 --------------------------------------------------------------------------------
 >> /models
-Expect: local tags. Writes Ax-OLLAMA. Binds staff rows (masks, not Modelfile jackets).
+Expect: local tags. Writes Ax-OLLAMA. Binds employee jackets.
 
 >> /staff
-Expect: brief@local v=anna model=qwen3:8b (or pinned) jobs=N
+Expect: brief@local v=alba model=llama3:8b jobs=N
 
 >> /model llama3-groq-tool-use:8b
 Expect: next /ask uses that tag.
 
 >> /mask list
->> /mask auto
 >> /mask chronicler
-Expect: header shows mask; auto picks by cue. See PAGE 15.
+Expect: header shows mask name.
 
 
 PAGE 5  WEB INJECT AND HUNT
@@ -122,10 +120,10 @@ Expect: rank-2 hardware-change cards close.
 >> /tts Queue is law.
 Expect: wav under artifacts if serve is up. Else slow generate.
 
->> /voice anna
+>> /voice alba
 
 Model may also emit:
-  [speak anna] Queue is law. [/speak]
+  [speak alba] Queue is law. [/speak]
 Parser peels that after /ask. Serve must be hot.
 
 
@@ -183,7 +181,7 @@ DEPENDENTS
 --------------------------------------------------------------------------------
 DEP python>=3.10
 DEP ollama :11434
-DEP pocket-tts serve :8000 (SERVE_BASE; default voice anna)
+DEP pocket-tts serve :8000
 DEP psutil
 DEP opencv-python-headless
 DEP pypdf
@@ -230,81 +228,9 @@ Deeper base: Textual + Qt. Later: arXiv white papers via crawl+ingest.
 
 PAGE 14  CHAMBER (MIXTURE OF EXPERTS)
 --------------------------------------------------------------------------------
-Design seats: claw + code + brief (qwen3:8b). Drop qwen2:0.5b from design
-(optional keep only as RAG INCLUDE/EXCLUDE gate). Opinions land as Tx-TEMP
-facts chamber/<case>/<seat> plus Ax-CHAMBER motion stamps.
-
-IMPORTANT: /rag only reads chunks.status=live. Chamber temps are NOT RAG-visible
-until promote_to_rag(case) copies them into live chunks.
+Steward orchestrates claw / qwen / codellama opinions in Tx-TEMP addresses
+chamber/<case>/<seat>, then Ax-CHAMBER verdict, then clear_temps.
 
 >> /chamber list CASE_ID
 >> /chamber clear CASE_ID
-
-
-PAGE 15  MASKS (NOT MODELFILE JACKETS)
---------------------------------------------------------------------------------
-Masks are activation cues + limits + loops in nova/masks.py. No jacket Modelfiles.
-
->> /mask list
-Expect: named masks including grokbot steward.
-
->> /mask auto
-Expect: cue-based pick for the next turn.
-
->> /mask NAME
-Expect: header shows mask; HELP lists /mask commands.
-
-
-PAGE 16  WHI INDEX + HUNT
---------------------------------------------------------------------------------
-Facts/chunks carry WHI wings. Indexes: idx_facts_whi, idx_chunks_whi.
-
->> /hunt Ax-CHAMBER
-Expect: chamber motion stamps (facts). Not the same as /rag live chunks.
-
->> /hunt Tx-TEMP
-Expect: unpromoted council opinions (still not in /rag until promote).
-
-Claw hexclass helper: nova.whi.claw_hexclass (1x03/1x04/G1000/1x00 style).
-
-
-PAGE 17  WHATSAPP LEAN + HIL
---------------------------------------------------------------------------------
-Bridge: /wa|nova.msg -> openclaw CLI -> gateway :18789 -> WhatsApp Web.
-Palace: Tx-MSG draft/HIL refuse; Ax-MSG status/send.
-Live DM needs user QR link first. Always HIL approve=True for send.
-
->> /wa link
-Expect: QR / login window when gateway up.
-
-
-PAGE 18  STARTUP TITLES + TTS FAIL
---------------------------------------------------------------------------------
-START_NOVA.bat / nova.launch: spawn_titled TTS serve, then daemon, then GUI.
-SERVE_BASE = http://127.0.0.1:8000  (not :3000).
-Default voice across seats/grammar/palace: anna.
-If speak fails, TUI may show TTS-FAIL art.
-
-
-PAGE 19  CLAW PROOF RULE (ACK != DONE)
---------------------------------------------------------------------------------
-Claw STEPs: Ack is not proof. Require PROOF: bytes=<n> before DONE.
-If Claw says DONE without copy, steward promotes from nova-out when files exist.
-
-Write path: ~/.openclaw/workspace/nova-out/  -> steward pull into fieldkit.
-
-
-PAGE 20  ASTROCOMMS GUI NOTES
---------------------------------------------------------------------------------
-python -m nova.gui
-ASTROCOMMS input is multiline (QTextEdit, ~3 lines, wrap, scroll).
-Ctrl+Enter or Send. Bottom margin clears Windows taskbar overlap.
-Deck tiles: live buttons open subscreens; dead tiles stay dead.
-
-END
-================================================================================
-
-
-=== Pets (trainer doctrine) ===
-See STAGING/NOVA_PETS_PLAYBOOK.md — steward = dog trainer; Aurelius/komodo/Holmes/Watson/Pocket obey PROOF, HIL, Pocket-only voice.
 

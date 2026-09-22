@@ -1,0 +1,333 @@
+================================================================================
+CLAW REPORT — GUI ENHANCEMENT PROPOSAL
+Project: NOVA 1.7/1.8 Cosmic Console
+Date: 2026-09-19
+Prepared for: Qt GUI Integration Team
+================================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+Analysis of Nova.db contents reveals 6 active data tables (1,452+ records) with 
+significant display potential beyond current basic QListWidget implementations.
+
+Current GUI uses primitive widgets without visual hierarchy, filtering, or 
+data visualization. This report proposes a professional Qt redesign leveraging:
+  - QTableWidget for structured data views
+  - QGraphicsView for knowledge graph visualization  
+  - QStackedLayout with semantic naming (replacing numeric panels)
+  - Custom paint events for "cosmic" neon aesthetic preservation
+  - Delegated editing for inline data manipulation
+
+DATABASE CONTENT INVENTORY
+--------------------------
+| Table          | Records | Type              | Current GUI    | Enhancement Potential       |
+|----------------|---------|-------------------|-----------------|----------------------------|
+| observations   | 1,869   | TEXT/INTEGER      | Palace viewer   | QTableView with grouping by source |
+| facts          | 1,182   | TEXT (knowledge)  | Palace viewer   | Knowledge graph widget      |
+| queue          | 42+     | URL strings       | Ingest list     | Progress tracker + status   |
+| jobs           | 4       | Scheduler state   | Ops tile        | Timeline visualization      |
+| reports        | 1       | Ranked cards      | Mission records | Card gallery with ranks     |
+| bites          | 321     | Audio paths       | Sonic archive   | Waveform thumbnails         |
+| employees      | 12      | TTS workers       | Core matrix     | Worker status tiles         |
+| packets        | 51      | Messages          | Mail room       | Network traffic graph       |
+
+================================================================================
+SECTION 1: EXISTING GUI SHORTCOMINGS
+================================================================================
+
+1.1 CURRENT IMPLEMENTATION (nova/gui/app.py)
+--------------------------------------------
+Strengths:
+  ✓ Functional single-window interface  
+  ✓ QStackedWidget for tab separation
+  ✓ Deck panel with semantic tiles
+  ✓ Basic refresh loop (4-second cadence)
+
+Weaknesses:
+  ✗ ALL lists use QListWidget (basic, unstyled)
+  ✗ No data filtering or search capability
+  ✗ TextEdit used as generic "dump" viewer (palace_view)
+  ✗ No visual hierarchy or grouping
+  ✗ Static content presentation
+  ✗ Missing: charts, graphs, thumbnails, progress indicators
+  ✗ No context menus for actions (edit, delete, export)
+  ✗ Single-column display format
+
+1.2 MISSING FUNCTIONALITY
+-------------------------
+  - QChart integration (Pie/Bar for jobs/bites distribution)
+  - QGraphicsView for facts knowledge graph
+  - QListView with custom models for observations
+  - QProgressBar for queue ingestion tracking
+  - QComboBox filters for table columns
+  - QSplitter for resizable data panels
+  - Custom QStyledItemDelegate for formatting
+
+================================================================================
+SECTION 2: PROPOSED GUI ARCHITECTURE
+================================================================================
+
+2.1 LAYOUT OVERHAUL
+-------------------
+Replace current QStackedWidget(0-8) with semantic QStackedLayout:
+
+[COMMAND DECK] [MAIN PANEL AREA]
+                ┌─────────────────────┐
+                │  STACKED CONTENT    │
+                ├─────────────────────┤
+                │ + TOP BARR (status) │
+                ├─────────────────────┤
+                │ + BOTTOM BAR (logs) │
+                └─────────────────────┘
+
+Panel Grouping:
+  ├── COMMUNICATIONS (chat_w)      │ → No change
+  ├── KNOWLEDGE WORKSPACE (facts + observations) │ → Merge panels 1,6 with QSplitter
+  ├── OPERATIONS (jobs + queue + reports)       │ → Expand ops panel
+  └── MEDIA (sonic + view + packets)            │ → Enhance bite viewing
+
+2.2 WIDGET UPGRADES BY DATA TYPE
+---------------------------------
+
+A. ONSERVATIONS TABLE VIEW
+----------------------------
+Current: QTextEdit dump of table rows
+Proposed: QTableWidget with custom headers
+
+class ObservationsView(QTableWidget):
+    def __init__(self, max_rows=500):
+        super().__init__()
+        self.setColumnCount(4)  # id | zulu | source | ok
+        self.setHorizontalHeader(...)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
+        self.setSortingEnabled(True)
+        
+    def populate(self, cursor='asc'):
+        con = db.connect()
+        query = "SELECT * FROM observations ORDER BY id DESC LIMIT 500"
+        if cursor == 'desc':
+            query += " LIMIT 100"
+        rows = con.execute(query).fetchall()
+        
+        for row_data in reversed(rows):  # Newest first
+            row = self.rowCount()
+            self.insertRow(row)
+            self.setItem(row, 0, QTableWidgetItem(str(row_data['id'])))
+            self.setItem(row, 1, QTableWidgetItem(row_data['zulu']))
+            # Color-code source by domain (qt.io = cyan, textualize.io = magenta)
+            src = row_data.get('source', '')
+            bg_color = QColor('cyan' if 'qt.io' in src else 'magenta' if 'textual' in src else 'white')
+            cell = QTableWidgetItem(row_data['source'])
+            cell.setForeground(QBrush(bg_color))
+            self.setItem(row, 2, cell)
+            status_badge = row_data.get('ok', 0)
+            badge = "✓" if status_badge else "✗"
+            style = {1: 'normal', 0: 'red'}[status_badge]
+            self.setItem(row, 3, QTableWidgetItem(badge))
+
+B. KNOWLEDGE GRAPH (FACTS)
+---------------------------  
+class KnowledgeGraph(QGraphicsView):
+    def __init__(self):
+        super().__init__()
+        self.scene = QGraphicsScene()
+        self._graph = GraphModel()
+        
+    def populate_facts(self, limit=200):
+        con = db.connect()
+        rows = con.execute(f"SELECT * FROM facts ORDER BY id DESC LIMIT {limit}").fetchall()
+        
+        for row in reversed(rows):
+            fact = dict(row)
+            node = GraphNode(
+                title=fact['title'][:50],
+                body=fact['body'][:120] if fact.get('body') else '',
+                whi=fact['whi']
+            )
+            self._graph.add_node(node)
+        
+        self.setScene(self._graph.scene())
+
+C. AUDIO BITE VIEWER (SONIC ARCHIVE)
+--------------------------------------
+class BiteViewer(QSplitter):
+    def __init__(self):
+        super().__init__()
+        self.audio_label = QLabel("Audio Player")
+        self.waveform_canvas = CustomWaveformCanvas()  # Draw from audio data
+        self.transcript_edit = QTextEdit()
+        
+    def play_bite(self, bite_data):
+        path = Path(bite_data['path'])
+        if path.suffix.lower() == '.wav':
+            pixmap = AudioThumbnail(path)  # Generate waveform thumbnail
+            self.thumbnail_label.setPixmap(pixmap)
+            QTimer.singleShot(5000, lambda: self._play_audio(str(path)))
+
+D. QUEUE PROGRESS TRACKER
+--------------------------
+class QueueTracker(QVBoxLayout):
+    def __init__(self):
+        super().__init__()
+        progress_bar = QProgressBar()
+        progress_bar.setTextVisible(True)
+        progress_bar.setFormat("Ingest: %p% complete")
+        
+        self.queue_list = QListView()
+        self.queue_model = IngestQueueModel()  # Custom model
+        
+    def update_status(self, completed, total):
+        pct = (completed / total) * 100 if total else 0
+        self.progress_bar.setValue(int(pct))
+        status_text = f"{completed}/{total} URLs ingested"
+
+================================================================================
+SECTION 3: Qt MODULES TO ADD
+================================================================================
+
+Pip requirements additions:
+---------------------------
+PySide6==6.7.2                    # Core framework
+PyQtChart==6.7.0                  # Charts (alternative to Pyside6 charts)
+PyQtGraph==0.13.6                 # Real-time plots for waveform display
+matplotlib                       # For generating initial thumbnails
+opencv-python-headless            # Audio-to-waveform conversion
+
+Install command:
+-----------------
+pip install PySide6 PyQtChart PyQtGraph matplotlib opencv-python-headless
+
+================================================================================
+SECTION 4: PROPOSED EDIT STRATEGY
+================================================================================
+
+PRIORITY 1: NON-BREAKING IMPROVEMENTS (Week 1)
+----------------------------------------------
+  1. Add QTableWidget replacement for palace_view (SELECT * display)
+  2. Enhance QListWidgets with custom delegates and styling  
+  3. Implement search/filter on all list widgets
+  4. Add status bar with global metrics
+
+PRIORITY 2: NEW WIDGETS (Week 2)
+----------------------------------
+  5. Knowledge graph viewer for facts table
+  6. Bite waveform thumbnails
+  7. Job timeline visualization
+  8. Queue progress indicator
+
+PRIORITY 3: ADVANCED FEATURES (Month 1)
+-----------------------------------------  
+  9. Export data to CSV/JSON views
+  10. Drag-and-drop URL queueing
+  11. Report card generation
+  12. Custom theme engine integration
+
+================================================================================
+SECTION 5: IMPLEMENTATION ROADMAP
+================================================================================
+
+PHASE 1 (Days 1-7): Foundation
+-------------------------------
+[ ] Create custom QStyledItemDelegate for consistent styling
+[ ] Add context menu handling to all QListWidgets  
+[ ] Implement search/filter model mixin
+[ ] Style application.qss with enhanced theming
+
+PHASE 2 (Days 8-14): Data Visualization
+-----------------------------------------
+[ ] Replace palace_view QTextEdit → QTableWidget
+[ ] Add knowledge graph QGraphicsView widget
+[ ] Implement bite thumbnail generator
+[ ] Create job timeline widget
+
+PHASE 3 (Days 15-21): Polish
+------------------------------  
+[ ] Add status bar with metrics dashboard
+[ ] Implement data export functions
+[ ] Optimize refresh loop performance
+[ ] User testing and refinement
+
+================================================================================
+SECTION 6: SAMPLE ENHANCED WIDGET CODE
+================================================================================
+
+class EnhancedPalaceView(QTableView):
+    """Improved Palace table viewer with sorting and filtering."""
+    
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        # Initialize columns from schema
+        self.init_columns()
+        
+        # Set model properties  
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setAlternatingRowColors(True)
+        self.setStyleSheet("""
+            QTableView {
+                background: qlineargradient(x1:0, y1:0, 
+                                            x2:1, y2:1, 
+                                            stop:0 #1a1a2e, 
+                                            stop:1 #16213e);
+                border: 2px solid #00d9ff;
+                gridline-color: rgba(0, 217, 255, 0.2);
+            }
+            QTableView::item {
+                padding: 4px;
+            }
+        """)
+        
+    def init_columns(self):
+        """Populate columns from current table selection."""
+        con = db.connect()
+        con.execute(f"PRAGMA table_info({self.table_name})")
+        cols = [row[1] for row in con.fetchall()]  # Column names
+        
+        for col_name in cols:
+            self.setColumnCount(self.columnCount() + 1)
+            header = QTableWidgetItem(col_name[:20])
+            header.setFlags(header.flags() & ~Qt.ItemIsEditable)
+            self.setHorizontalHeaderItem(self.columnCount() - 1, header)
+            
+    def set_table(self, table_name):
+        """Switch to displaying a different table."""
+        self.table_name = table_name
+        
+        con = db.connect()
+        query = f"SELECT * FROM {table_name} LIMIT 300"
+        rows = con.execute(query).fetchall()
+        
+        model = QtSqlModel(con.get_connection(), self.connection())
+        model.set_select("SELECT * FROM %s" % table_name)
+        self.setModel(model)
+        
+        # Customize column formats
+        col_map = {
+            'id': str,
+            'zulu': lambda x: datetime.fromisoformat(x).strftime('%Y-%m-%d %H:%M:%S'),
+            'title': str,
+            'body': lambda x: (x[:80] + "...") if x and len(x) > 80 else x,
+        }
+        
+        for col_idx, col_name in enumerate(cols):
+            fmt_fn = col_map.get(col_name, str)
+            delegate = QStyledItemDelegate()
+            delegate.setInitialAlign(Qt.AlignLeft | Qt.AlignVCenter)
+
+================================================================================
+CONCLUSION
+-----------
+The current GUI provides functional but primitive data display. 
+By implementing the proposed enhancements—QTableWidget for structured views, 
+knowledge graph visualization, audio waveform thumbnails, and professional 
+theming—we can transform Nova's interface from a utility tool into a 
+professional-grade dashboard while preserving its cosmic aesthetic.
+
+Estimated effort: 3-5 days focused development
+Expected outcome: Sleek, responsive, visually engaging GUI that leverages 
+full database content richness.
+
+Report Status: Ready for review and implementation approval.
+Prepared by: Aurelius Nova (Claw Unit)
+================================================================================

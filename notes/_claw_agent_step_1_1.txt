@@ -1,0 +1,16 @@
+﻿You are OpenClaw leashed to NOVA palace. Execute ONLY STEP 1.1. Short report.
+
+Create file:
+C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\STAGING\FLOW.md
+
+Include two mermaid flowcharts:
+1) Grand pipe: Steward HIL -> TUI/GUI -> palace DB; daemon tick -> holmes/ingest/mail; TUI /ask->Ollama, /claw->127.0.0.1:18789, /qwen->qwen --prompt; Ollama->TTS :8000. Claw and Qwen may visit Grok.
+2) Sub-loop: packet -> one tool -> ok? yes->Tx then wing / no->report; more? HIL yes->next packet else done.
+
+Add 5 bullets: three processes stay three; Claw is servant not merger; HIL before writes; Grok Automation is not OpenClaw strap; snap is not real HWND.
+
+Then reply exactly:
+DONE: <one line>
+FILES: <paths>
+PROOF: <command result>
+NEXT: 1.2

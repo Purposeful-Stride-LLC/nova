@@ -1,0 +1,4 @@
+﻿TASK: read playbook then do ONLY Q1
+PATH playbook: C:\Users\wuchy\.openclaw\workspace\nova-out\claw_coding_playbook.txt
+Q1: If README.txt / TUTORIAL.txt / DEVLOG.ai in fieldkit lack RAG+crawl sections, write missing text into nova-out/DOCS_PATCH.md for steward to merge. Do not overwrite Documents paths.
+BASIC language. PROOF file bytes. NEXT Q2 tomorrow.

@@ -1,0 +1,35 @@
+{
+  "case": "20260920T0749-65743edc",
+  "round": {
+    "case": "20260920T0749-65743edc",
+    "zulu": "2026-09-20T07:49:59Z",
+    "seats": {
+      "claw": {
+        "ok": true,
+        "address": "chamber/20260920T0749-65743edc/claw",
+        "chunk_id": 52,
+        "whi": "Tx-TEMP",
+        "opinion_head": "**1) Agree:** Yes. Porting Priority-1 QTableWidget + search into live `app.py` is lower-risk than fixing an already-synthesized `enhanced.py`. It maintains continuity with `deck.json`, avoids wiring untested connections, and respects the HI"
+      },
+      "qwen": {
+        "ok": true,
+        "address": "chamber/20260920T0749-65743edc/qwen",
+        "chunk_id": 53,
+        "whi": "Tx-TEMP",
+        "opinion_head": "I do not find any active memory or task related to case **20260920T0749-65743edc** in my current context. This seems to be either a new reference or from an earlier session that is no longer loaded.\n\nTo assist you properly, I need some clar"
+      },
+      "code": {
+        "ok": true,
+        "address": "chamber/20260920T0749-65743edc/code",
+        "chunk_id": 54,
+        "whi": "Tx-TEMP",
+        "opinion_head": "\n1) Agree with steward lean. It makes more sense to port the Priority-1 features into the live app.py file, rather than flipping __main__ to the enhanced version.\n2) Top 3 concrete next coding steps (ordered) for Claw or Qwen:\n* Port the Pr"
+      }
+    }
+  },
+  "opinions": {
+    "claw": "**1) Agree:** Yes. Porting Priority-1 QTableWidget + search into live `app.py` is lower-risk than fixing an already-synthesized `enhanced.py`. It maintains continuity with `deck.json`, avoids wiring untested connections, and respects the HIL (Human-In-Loop) principle of stable deployments first.\n\n**2) Next Steps:**\n   a. Extract working QTableWidget + search logic from `palace` into a module `nova/chamber/gui/widgets.py`.  \n   b. Wire its signals/slots directly into `nova.gui.app.main` without touching `app_enhanced.py`.  \n   c. Remove or isolate broken `self.addWidget(QFrame())` line in `enhanced.py` pending future refactor.\n\n**3) Risk:** Shipping `enhanced.py` as-is introduces a SyntaxError at startup, breaks deck persistence, and creates silent logic gaps (e.g., chat not hooked to term). This could stall operations overnight or during critical sessions.\n\n**4) Paper Markets:** Yes. Wait until Priority-1 GUI lands. Market tile deadness suggests it\u2019s non-critical; deprioritize until core RAG/search stability is verified in production.",
+    "qwen": "I do not find any active memory or task related to case **20260920T0749-65743edc** in my current context. This seems to be either a new reference or from an earlier session that is no longer loaded.\n\nTo assist you properly, I need some clarification:\n1.  **What action would you like me to take regarding this case?** (e.g., review related code/folders, create a task in project memory, investigate a specific issue)\n2.  **Is this related to the `documents-nova` project context** (`C:\\Users\\wuchy\\.qwen\\projects\\c--users-wuchy-documents-nova-nova-fieldkit-v1-4`)?\n\nPlease provide more details about what you expect me to do with this case ID.\n",
+    "code": "\n1) Agree with steward lean. It makes more sense to port the Priority-1 features into the live app.py file, rather than flipping __main__ to the enhanced version.\n2) Top 3 concrete next coding steps (ordered) for Claw or Qwen:\n* Port the Priority-1 features into the live app.py file.\n* Fix the syntax error in app_enhanced.py line 395.\n* Wire the enhanced GUI to the appropriate parts of the codebase.\n3) One risk if we ship enhanced as-is:\n* The enhanced GUI may not be fully functional or may cause unexpected issues with the rest of the codebase.\n4) Should paper markets wait until GUI Priority-1 lands?\n* Yes, we should wait until the Priority-1 features are fully integrated into the live app.py file before shipping the enhanced version."
+  }
+}

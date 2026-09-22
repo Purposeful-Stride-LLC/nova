@@ -1,0 +1,19 @@
+﻿HARD: write tool to C:\Users\wuchy\.openclaw\workspace\nova-out\tutorial_leash_pages.py
+File content is a Python list named EXTRA_PAGES with exactly 2 multiline strings:
+
+PAGE 7  CLAW LEASH
+OpenClaw is a servant on 127.0.0.1:18789 — not the palace.
+  /claw              status (TCP)
+  /claw do the thing ask via HTTP if chatCompletions on
+  /job add 120 claw-ping
+  /job add 300 claw-run
+Driver for tool STEPs: ollama/qwen3.5:9b (32k). lobster 8b overflows bootstrap.
+Write path rule: Claw writes under ~/.openclaw/workspace/nova-out/ then NOVA pulls.
+Never use deliver_inbox as real Claw (that is Ollama mask mail).
+
+PAGE 8  PALACE MAIL + RAG SEEDS
+leash.handoff -> packets table -> openclaw_run/claw-run -> stamp delivered + brief@local reply.
+Zulu clock is shared. WHI: Ax- ok, Tx- break/task, 0x- web/artifact.
+Next after leash: tighten RAG (facts/packets classifications), then web ingest into memory palace.
+
+Reply DONE/FILES/PROOF/NEXT only.

@@ -1,0 +1,120 @@
+﻿TASK: write file
+PATH: C:\Users\wuchy\.openclaw\workspace\nova-out\crawl.py
+ACTION: write
+CONTENT:
+"""NOVA crawl — g3crawler heritage. Depth-limited. Writes temp chunks; no DB wipe."""
+from __future__ import annotations
+import hashlib
+import random
+import time
+import urllib.request
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
+from nova import db
+
+UA = "NOVA-fieldkit-crawl/1.0 (+local; steward HIL)"
+MIN_DELAY, MAX_DELAY = 5.0, 15.0
+
+class _Text(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts, self.links, self.title, self._cap = [], [], "", False
+    def handle_starttag(self, tag, attrs):
+        d = dict(attrs)
+        if tag == "a" and d.get("href"):
+            self.links.append(d["href"])
+        if tag == "title":
+            self._cap = True
+    def handle_endtag(self, tag):
+        if tag == "title":
+            self._cap = False
+    def handle_data(self, data):
+        if self._cap:
+            self.title += data
+        elif data and data.strip():
+            self.parts.append(data.strip())
+
+def _ensure(con):
+    con.executescript("""
+    CREATE TABLE IF NOT EXISTS chunks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      zulu TEXT NOT NULL,
+      whi TEXT NOT NULL,
+      source_cite TEXT NOT NULL,
+      text TEXT NOT NULL,
+      hash TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'temp'
+    );""")
+
+def classify(text: str, url: str) -> str:
+    t = (text or "").lower(); u = (url or "").lower()
+    if "wikipedia" in u or "encyclopedia" in t: return "1x03"
+    if "news" in t or "article" in t: return "1x04"
+    if "gov" in u: return "G1000"
+    return "1x00"
+
+def fetch(url: str, timeout: float = 15.0) -> dict:
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        raw = r.read(200_000)
+    html = raw.decode("utf-8", errors="ignore")
+    p = _Text(); p.feed(html)
+    text = " ".join(p.parts)[:12000]
+    return {"ok": True, "title": (p.title or "")[:200], "text": text, "links": p.links[:40]}
+
+def ingest_temp(url: str, text: str, title: str, depth: int) -> int:
+    con = db.connect(); _ensure(con)
+    body = f"title={title}\ndepth={depth}\nurl={url}\n\n{text}"[:8000]
+    hx = hashlib.sha256(body.encode()).hexdigest()[:16]
+    code = classify(text, url)
+    con.execute(
+        "INSERT INTO chunks(zulu,whi,source_cite,text,hash,status) VALUES (?,?,?,?,?,?)",
+        (db.zulu(), "Tx-TEMP", f"crawl:{code}:{url}", body, hx, "temp"),
+    )
+    con.commit(); cid = int(con.execute("SELECT last_insert_rowid()").fetchone()[0]); con.close()
+    db.put_fact("Tx-TEMP", f"crawl/{hx}", body[:4000])
+    return cid
+
+def promote(chunk_id: int, summary: str) -> dict:
+    con = db.connect(); _ensure(con)
+    row = con.execute("SELECT * FROM chunks WHERE id=?", (chunk_id,)).fetchone()
+    if not row: con.close(); return {"ok": False, "error": "missing"}
+    summary = (summary or row["text"])[:2000]
+    con.execute("UPDATE chunks SET status='live', whi=?, text=? WHERE id=?", ("0x-WEB", summary, chunk_id))
+    con.commit(); con.close()
+    db.put_fact("0x-WEB", f"chunk/{chunk_id}", summary[:4000])
+    return {"ok": True, "id": chunk_id}
+
+def clear_temp_chunks(older_than_zulu: str | None = None) -> int:
+    con = db.connect(); _ensure(con)
+    if older_than_zulu:
+        n = con.execute("UPDATE chunks SET status='cleared' WHERE status='temp' AND zulu<?", (older_than_zulu,)).rowcount
+    else:
+        n = 0  # require explicit zulu or use chamber.clear_temps for opinions
+    con.commit(); con.close(); return int(n or 0)
+
+def crawl(start_url: str, max_pages: int = 5, max_depth: int = 3) -> dict:
+    start_url = (start_url or "").strip()
+    if not start_url.startswith("http"):
+        return {"ok": False, "error": "need http(s)"}
+    visited, q, pages, ids = set(), [(start_url, 0)], 0, []
+    while q and pages < max_pages:
+        url, depth = q.pop(0)
+        if url in visited or depth > max_depth: continue
+        visited.add(url)
+        try:
+            page = fetch(url)
+            cid = ingest_temp(url, page["text"], page["title"], depth)
+            ids.append(cid); pages += 1
+            if depth < max_depth:
+                for href in page.get("links") or []:
+                    abs_u = urljoin(url, href)
+                    if urlparse(abs_u).scheme in ("http", "https") and abs_u not in visited:
+                        q.append((abs_u, depth + 1))
+            time.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
+        except Exception as exc:
+            db.put_fact("Tx-CRAWL", "err", f"{url}:{exc}"[:2000])
+    return {"ok": True, "pages": pages, "chunk_ids": ids, "visited": len(visited)}
+
+RULES: write tool only to that path. no other files.
+REPLY: DONE/FILES/PROOF/NEXT

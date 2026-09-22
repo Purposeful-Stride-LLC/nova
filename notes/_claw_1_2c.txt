@@ -1,0 +1,10 @@
+﻿Use ONLY the exec tool once. No prose before the tool. No proposed scripts.
+
+Command to run exactly:
+powershell -NoProfile -Command "Add-Content -Path 'C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai' -Encoding utf8 -Value \"`r`n==== CLAW STEP 1.2 ====`r`nFLOW.md landed; driver qwen3.5:9b for tool STEPs.`r`nPalace: handoff -> openclaw_run -> stamp.`r`nNEXT PHASE 2 claw.py`r`n\""
+
+After tool returns, reply exactly:
+DONE: appended STEP 1.2
+FILES: C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai
+PROOF: ok
+NEXT: 2.1

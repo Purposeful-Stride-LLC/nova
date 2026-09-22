@@ -1,0 +1,13 @@
+﻿EXECUTE ONLY STEP 1.1 from clawbotinstructions.txt (do not load whole file).
+
+STEP 1.1  Create STAGING/FLOW.md
+Path: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\STAGING\FLOW.md
+Include both mermaid charts (grand pipe + sub-loop) and 5 bullets:
+three processes; servant not merger; HIL before writes; Grok Automation != OpenClaw strap; snap != real HWND.
+PROOF: type STAGING\FLOW.md | findstr /i mermaid
+
+Report exactly:
+DONE:
+FILES:
+PROOF:
+NEXT: 1.2

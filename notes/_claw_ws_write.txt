@@ -1,0 +1,4 @@
+﻿Use the write tool to create file exactly at:
+C:\Users\wuchy\.openclaw\workspace\nova-out\STEP_1_2.txt
+Content one line: CLAW_STEP_1_2_OK
+Then reply DONE/FILES/PROOF/NEXT only.

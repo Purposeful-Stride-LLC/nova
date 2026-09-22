@@ -1,0 +1,16 @@
+﻿HARD: Use write tool. Output path MUST be:
+C:\Users\wuchy\.openclaw\workspace\nova-out\awareness__init__.py
+
+Write a complete nova/awareness/__init__.py that:
+1) Keeps existing probes: hardware vision process network lan ai_runtime volumes
+2) In _ai(): probe ollama http://127.0.0.1:11434/api/tags as ollama_loopback bool
+3) TCP 127.0.0.1:18789 -> openclaw_18789 bool
+4) GET http://127.0.0.1:18789/v1/models -> openclaw_models bool (False on error)
+5) return {"source":"ai_runtime","ok":True,"zulu":_z(),"ollama_loopback":...,"openclaw_18789":...,"openclaw_models":...}
+6) Keep run_probe, PROBES, _z, other probe fns same style as before (inline, short).
+
+Reply:
+DONE:
+FILES:
+PROOF: (line count)
+NEXT: 2.3

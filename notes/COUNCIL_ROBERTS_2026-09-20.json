@@ -1,0 +1,179 @@
+{
+  "session": "20260921T0100-50c71291",
+  "zulu": "2026-09-21T01:00:45Z",
+  "seat_list": [
+    "small",
+    "code",
+    "claw"
+  ],
+  "motions": [
+    {
+      "id": "M1",
+      "title": "Voice / TTS / parser / system-prompt grammar",
+      "case": "20260921T0100-8c4579e9",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0100-8c4579e9/small",
+          "chunk_id": 58,
+          "whi": "Tx-TEMP",
+          "opinion": "I agree. The PAL should be updated with new options."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0100-8c4579e9/code",
+          "chunk_id": 59,
+          "whi": "Tx-TEMP",
+          "opinion": "\nI disagree with the proposal to change the default voice of the pocket TTS system from Anna to Eve. While Eve has a more masculine voice, I believe that Anna's voice is more suitable for a female-specific language model like Alba. Additionally, I think that using a more feminine voice for the system prompt would be more appropriate and help to create a more welcoming and inclusive environment for users.\n\nI would recommend adding a new voice, such as a more neutral or soothing voice, to the system instead of changing the default voice. This would allow users to choose from a variety of voices, while still maintaining the current voice of the system prompt.\n\nAs for the GRAMMAR, I believe that it is important to ensure that the system is able to handle any parseable speak/tool cues that a user may input. However, I think that it is important to also ensure that the system is able to handle any potential errors or inconsistencies that may arise from the use of a more complex grammar.\n\nI would recommend adding additional testing and validation to ensure that the system is able to handle any potential errors or inconsistencies that may arise from the use of a more complex grammar. This would help to ensure that the system is able to function correctly and provide accurate results for all users.\n\nOverall, I believe that it is important to ensure that the system is able to handle any potential errors or inconsistencies that may arise from the use of a more complex grammar. However, "
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0100-8c4579e9/claw",
+          "chunk_id": 60,
+          "whi": "Tx-TEMP",
+          "opinion": "AMEND. Risk: Pocket :8000 silent speech while GUI oversized/unscrollable breaks real-time ops; parser GRAMMARS mismatch prevents TTS triggers. Next cut: a) Daemonize Nova core in separate window b) Replace Alba with Anna voice c) Fix peel->speak mapping d) Resize/scroll fix for GUI e) Install OpenClaw browser automation agent f) Hook camera capture -> metadata (camera-id, geo, orient) -> Visual LLM g) Round-robin council: small-model qwen3.5:9b (or llama3.2:3b) to test vs current h) Analyze OpenClaw GUI patch method i) Approve task order via /approve before next run"
+        }
+      }
+    },
+    {
+      "id": "M2",
+      "title": "Startup: titled daemon + TTS windows then GUI",
+      "case": "20260921T0101-139f68b1",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0101-139f68b1/small",
+          "chunk_id": 61,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree"
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0101-139f68b1/code",
+          "chunk_id": 62,
+          "whi": "Tx-TEMP",
+          "opinion": "\nI would oppose the proposal to make the daemon and TTS windows always-visible. This would make the system less intuitive and more difficult to use, as users would have to constantly switch between windows in order to access the various features. Additionally, it would make the system more resource-intensive, as there would be more windows to manage and maintain.\n\nHowever, I would propose the following amendment: instead of making the daemon and TTS windows always-visible, we could make them accessible through a menu or a button on the GUI. This would allow users to easily access the daemon and TTS windows when they need to, while still keeping the system visually simple and intuitive.\n\nAs for the risk, I would suggest that the risk of making the daemon and TTS windows always-visible is relatively low, as they are already running in the background and can be easily accessed through the GUI. Additionally, the benefits of making the daemon and TTS windows always-visible, such as improved productivity and user experience, would outweigh the risks.\n\nNext cut: The next cut would be to test the system with a small group of users to gather feedback and make any necessary adjustments. This would help to ensure that the system is functioning properly and that any issues are addressed before it is rolled out to the wider user base."
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0101-139f68b1/claw",
+          "chunk_id": 63,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Title daemon/TTS windows at spawn using `nova-out/NOVA_FAST.splash` as transient UI anchor. Risk: Overhead of spawning titled windows + TTS daemon may fragment startup time if not batched; user could misattribute NOVA launch to “too slow” before GUI loads. Next cut: Batch-start TTS daemon, then immediately spawn titled daemon console with `--name=nova-tts` flag, followed by GUI in same turn (no idle gap >2s)."
+        }
+      }
+    },
+    {
+      "id": "M3",
+      "title": "GUI chrome: resize, scroll, buttons, palace table",
+      "case": "20260921T0102-6799e32a",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0102-6799e32a/small",
+          "chunk_id": 64,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree. Now, I agree to the motion regarding window resizing in the live app.py for the purpose of adding scroll buttons. Now, I am also proposing that the palace table widget should be moved to the app.py to allow for better usability with the live app. Now, I am also proposing to not ship the enhanced app due to the lack of compatibility issues in that enhanced version."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0102-6799e32a/code",
+          "chunk_id": 65,
+          "whi": "Tx-TEMP",
+          "opinion": "\nI agree with the suggestion to amend the code to include scroll and resize functionality in the live app.py file. This will ensure that the window is always large enough to display the content correctly, and that the user can easily scroll through the content when necessary.\n\nThe risk of not including this functionality is that the user may experience issues when trying to view or interact with the content in the window. Additionally, the lack of scroll and resize functionality may lead to a poor user experience, as the user may not be able to easily adjust the size of the window to their needs.\n\nNext cut: We should prioritize the development of the scroll and resize functionality in the live app.py file to ensure that the user has a positive experience when interacting with the content in the window."
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0102-6799e32a/claw",
+          "chunk_id": 66,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Risk: Over-scoped chrome changes could introduce regressions (e.g., resize handler leaks or scroll event storms) before HIL validation on TUF 8GB VRAM. Next cut: a) Implement QScrollArea wrapper for content pane with fixed viewport; b) Wire deck button signals to specific QWidget stacks via signal-slot; c) Replace `self.addWidget(QFrame())` in enhanced.py with commented stub + TODO; d) Commit only live app.py changes; e) Run HIL smoke test (window resize + scroll cycle)."
+        }
+      }
+    },
+    {
+      "id": "M4",
+      "title": "Mail leash / Claw tool-calling / browser plugin",
+      "case": "20260921T0103-d7a58654",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0103-d7a58654/small",
+          "chunk_id": 67,
+          "whi": "Tx-TEMP",
+          "opinion": "I agree."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0103-d7a58654/code",
+          "chunk_id": 68,
+          "whi": "Tx-TEMP",
+          "opinion": "\nI disagree with the suggestion to use a mail leash to call for help. While it may be a useful tool for some situations, it is not the best choice for this scenario. Instead, I suggest using a browser plugin to identify the page and click with HIL. This will allow for more precise control over the browser and can be more effective in certain situations. Additionally, using a browser plugin can help to prevent accidental clicks and ensure that the correct page and click are identified.\n\nThere are also risks associated with using a mail leash, as it can be difficult to maintain control over the browser and may not always work as expected. Additionally, there may be issues with the reliability of the mail leash and the need for frequent maintenance.\n\nOverall, I suggest using a browser plugin for this situation, as it is a more effective and reliable solution."
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0103-d7a58654/claw",
+          "chunk_id": 69,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Risk: Supervised browser smoke could trigger unintended interactions (e.g., auto-fill forms or click storms) if HIL oversight is delayed >30s on TUF chassis with 8GB VRAM; mail leash alone risks inbox bloat if not parsed via OpenClaw channels. Next cut: a) Spin up openclaw channel for `openclaw@local` as NOVA identity; b) Run `openclaw_run BASIC tool smoke` to validate core utilities; c) Enable browser-plugin with strict event listeners (no auto-clicks); d) Wait for manual confirmation before any page interaction; e) Log all HIL events to `nova-out/audit.log`."
+        }
+      }
+    },
+    {
+      "id": "M5",
+      "title": "Vision OpenCV cam metadata toward PoE",
+      "case": "20260921T0104-e401d3ce",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0104-e401d3ce/small",
+          "chunk_id": 70,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree. Meta-data for OpenCV cameras is crucial for PoE. Move to dynamic cameras using locations, orientations, and zulu. Allow PoE streams for dynamic cameras. Risk."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0104-e401d3ce/code",
+          "chunk_id": 71,
+          "whi": "Tx-TEMP",
+          "opinion": "\nAgree to amend the schema-first approach to incorporate metadata for cam0. Risk: Potential performance impact due to increased metadata processing requirements. Next cut: Implement a hybrid approach that combines schema-first and metadata-first approaches."
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0104-e401d3ce/claw",
+          "chunk_id": 72,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Risk: Blindly attaching metadata (orientation/geo) without schema risks polluting `Tx-CAM` with stale/inferred guesses; dynamic cams without geoloc may drift into “hallucinated” zulu timestamps. Next cut: a) Define SQLite schema for `cam_metadata(cam_id, fixed|dynamic, geo_latlon?, orientation_deg, tz_offset)`; b) Instrument `cv2.VideoCapture` to emit raw frame + metadata JSON on every capture; c) Log to `nova-out/cam_audit.log`; d) Wait for manual geo-verification via fieldkit before promoting to VLM; e) Run schema-migration HIL on `NOVA.db`."
+        }
+      }
+    },
+    {
+      "id": "M6",
+      "title": "SEPARATE: Claw GUI methodology vs live Priority-1 port",
+      "case": "20260921T0105-a4a1a75d",
+      "seats": {
+        "small": {
+          "ok": true,
+          "address": "chamber/20260921T0105-a4a1a75d/small",
+          "chunk_id": 73,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0105-a4a1a75d/code",
+          "chunk_id": 74,
+          "whi": "Tx-TEMP",
+          "opinion": "\nSESSION 20260921T0100-50c71291\nMOTION M6: SEPARATE: Claw GUI methodology vs live Priority-1 port\n\nOpinion: Agree\nRisk: The separation of the live app.py into a separate module may cause issues with the existing codebase and may require additional maintenance and testing to ensure it continues to function correctly.\nNext cut: The separation of the live app.py into a separate module may also cause additional complexity and increase the overall size of the codebase, which may negatively impact the maintainability and readability of the code."
+        },
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0105-a4a1a75d/claw",
+          "chunk_id": 75,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Keep live-port doctrine: porting Priority-1 QTableWidget + search directly into `app.py` is lower-risk than synthesizing `app_enhanced.py`. Risk: Splitting focus between enhanced vs. ported code could fragment effort and delay HIL validation on the 8GB VRAM TUF chassis. Next cut: a) Extract working widgets to `nova/chamber/gui/widgets.py`; b) Remove dead `app_enhanced.py` references; c) Wire signals in one commit; d) Run smoke test (resize/scroll); e) Archive `enhanced` to `STAGING/`."
+        }
+      }
+    }
+  ]
+}

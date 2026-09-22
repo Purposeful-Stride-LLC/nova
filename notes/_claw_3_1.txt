@@ -1,0 +1,46 @@
+﻿TASK: write file
+PATH: C:\Users\wuchy\.openclaw\workspace\nova-out\qwen.py
+ACTION: write
+CONTENT:
+"""Qwen Code valet. Subprocess only. HIL before applying file writes."""
+from __future__ import annotations
+import json
+import shutil
+import subprocess
+from pathlib import Path
+from nova import breaklog, db, office
+
+def which() -> str:
+    return shutil.which("qwen") or ""
+
+def run_prompt(prompt: str, cwd: str | None = None, timeout: int = 120) -> dict:
+    cli = which()
+    z = db.zulu()
+    if not cli:
+        body = {"ok": False, "zulu": z, "error": "qwen absent"}
+        breaklog.record("qwen-run", "absent", severity="warn", whi="Tx-QWEN", context=body)
+        db.put_fact("Tx-QWEN", "qwen-run", json.dumps(body)[:4000])
+        return body
+    root = cwd or str(Path(__file__).resolve().parents[2])
+    cmd = [cli, "--prompt", (prompt or "")[:2000]]
+    try:
+        proc = subprocess.run(cmd, cwd=root, capture_output=True, text=True, timeout=timeout, shell=False)
+        out = (proc.stdout or "")[-3000:]
+        err = (proc.stderr or "")[-1000:]
+        ok = proc.returncode == 0
+        body = {"ok": ok, "zulu": z, "cwd": root, "rc": proc.returncode, "stdout": out, "stderr": err}
+        whi = "Ax-QWEN" if ok else "Tx-QWEN"
+        db.put_fact(whi, "qwen-run", json.dumps({k: body[k] for k in ("ok","zulu","cwd","rc")})[:4000])
+        office.post_packet(dest="qwen@local", mask="qwen", whi=whi, kind="result", cite="hands.qwen", body=(out or err)[:3500])
+        office.bump("qwen@local", "jobs_run")
+        return body
+    except Exception as exc:
+        breaklog.record("qwen-run", str(exc), severity="error", whi="Tx-QWEN")
+        return {"ok": False, "zulu": z, "error": str(exc)}
+
+RULES: use write tool. path must be nova-out. no other files.
+REPLY:
+DONE: qwen.py
+FILES: path
+PROOF: bytes
+NEXT: 3.2

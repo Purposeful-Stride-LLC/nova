@@ -1,0 +1,11 @@
+# NOT IMPORTED. Daily news skeleton.
+# SEEDS = ["https://example.com", ...]   # steward owned
+# for url in SEEDS:
+#     pkt = web.fetch(url)
+#     if not pkt.get("ingested"): continue
+#     nouns = regex_caps(pkt.text)
+#     one = tiny_model("one line", pkt.text[:1500])
+#     db.put_fact("0x-NEWS", one, json.dumps({"url": url, "nouns": nouns}))
+# office.report(0, "daily news", "\n".join(oneliners))
+#
+# job name: brief-news   every_s: 86400

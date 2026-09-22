@@ -1,0 +1,17 @@
+﻿Execute ONLY STEP 1.2. Do not load whole clawbotinstructions.
+
+Append ONE dated block (do not wipe) to:
+C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai
+
+Block text exactly (fill local time if needed):
+==== CLAW STEP 1.2 ====
+FLOW.md landed via claw session nova-mail-2 model ollama/qwen3.5:9b
+Driver rule: tool STEPs use qwen3.5:9b not llama3-groq-tool-use:8b (8k overflow).
+Palace: leash.handoff -> claw-run/openclaw_run -> stamp packet + brief@local reply.
+NEXT PHASE 2 claw.py
+
+Report:
+DONE:
+FILES:
+PROOF: (last 5 lines of log via powershell Get-Content -Tail 5)
+NEXT: 2.1

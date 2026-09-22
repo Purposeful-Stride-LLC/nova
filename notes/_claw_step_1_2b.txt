@@ -1,0 +1,19 @@
+﻿HARD RULES: You are OpenClaw with tools. EXECUTE now. Do NOT propose code. Do NOT paste a script for a human. Call write or exec yourself.
+
+STEP 1.2 RETRY: Append to existing file (do not wipe) using your write/edit/exec tool:
+Path: C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai
+
+Append this exact block at the end:
+
+==== CLAW STEP 1.2 ====
+FLOW.md landed via claw; driver for tool STEPs = ollama/qwen3.5:9b not llama3-groq-tool-use:8b.
+Palace: handoff -> openclaw_run/claw-run -> stamp packet + brief@local.
+NEXT PHASE 2 claw.py
+
+Then run: powershell -Command "Get-Content 'C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai' -Tail 6"
+
+Reply ONLY:
+DONE: <one line>
+FILES: <path>
+PROOF: <tail lines>
+NEXT: 2.1

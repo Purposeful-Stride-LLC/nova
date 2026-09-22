@@ -1,0 +1,76 @@
+﻿HARD: Use write tool. Path MUST be under your workspace:
+C:\Users\wuchy\.openclaw\workspace\nova-out\claw.py
+
+Create that file with this Python module (exact). Do not write elsewhere.
+
+"""OpenClaw HTTP/TCP door. Servant only; NOVA owns the palace DB."""
+from __future__ import annotations
+import json, os, socket, urllib.error, urllib.request
+from nova import breaklog, db
+
+BASE = "http://127.0.0.1:18789"
+TOKEN = os.environ.get("NOVA_CLAW_TOKEN") or os.environ.get("OPENCLAW_AUTH_TOKEN") or ""
+
+def _headers():
+    h = {"Content-Type": "application/json"}
+    if TOKEN:
+        h["Authorization"] = f"Bearer {TOKEN}"
+    return h
+
+def status() -> dict:
+    tcp = False
+    try:
+        s = socket.create_connection(("127.0.0.1", 18789), timeout=1.5)
+        s.close()
+        tcp = True
+    except Exception:
+        tcp = False
+    models = False
+    err = ""
+    try:
+        req = urllib.request.Request(BASE + "/v1/models", headers=_headers())
+        with urllib.request.urlopen(req, timeout=3) as r:
+            models = r.status == 200
+    except Exception as exc:
+        err = str(exc)
+    ok = tcp
+    body = {"zulu": db.zulu(), "tcp_18789": tcp, "models": models, "error": err[:200]}
+    whi = "Ax-CLAW" if ok else "Tx-CLAW"
+    db.put_fact(whi, "claw-status", json.dumps(body)[:4000])
+    return {"ok": ok, **body}
+
+def ask(text: str, timeout: float = 60.0) -> dict:
+    payload = {
+        "model": os.environ.get("NOVA_CLAW_MODEL") or "ollama/qwen3.5:9b",
+        "messages": [{"role": "user", "content": (text or "")[:4000]}],
+        "stream": False,
+    }
+    try:
+        req = urllib.request.Request(
+            BASE + "/v1/chat/completions",
+            data=json.dumps(payload).encode(),
+            headers=_headers(),
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            data = json.loads(r.read().decode())
+        msg = ""
+        try:
+            msg = data["choices"][0]["message"]["content"]
+        except Exception:
+            msg = json.dumps(data)[:1500]
+        db.put_fact("Ax-CLAW", "claw-ask", msg[:2000])
+        return {"ok": True, "zulu": db.zulu(), "text": msg}
+    except urllib.error.HTTPError as exc:
+        hint = "enable gateway.http.endpoints.chatCompletions" if exc.code in (404, 501) else str(exc)
+        breaklog.record("claw-ask", hint, severity="warn", whi="Tx-CLAW")
+        return {"ok": False, "zulu": db.zulu(), "error": hint, "code": exc.code}
+    except Exception as exc:
+        breaklog.record("claw-ask", str(exc), severity="warn", whi="Tx-CLAW")
+        return {"ok": False, "zulu": db.zulu(), "error": str(exc)}
+
+After write, reply:
+DONE: claw.py in nova-out
+FILES: C:\Users\wuchy\.openclaw\workspace\nova-out\claw.py
+PROOF: bytes
+NEXT: 2.2

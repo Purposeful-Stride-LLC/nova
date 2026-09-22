@@ -1,0 +1,46 @@
+QMainWindow, QWidget {
+    background-color: #0A0A0F;
+    color: #00F0FF;
+    font-family: "Consolas", "Share Tech Mono", monospace;
+}
+#CommandDeck {
+    background-color: #07070C;
+    border-right: 2px solid #00F0FF;
+}
+QPushButton {
+    background-color: #111119;
+    color: #00F0FF;
+    border: 2px solid #00F0FF;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 13px;
+}
+QPushButton:hover {
+    border-color: #FF00E6;
+    color: #FF00E6;
+}
+QPushButton:pressed {
+    background-color: #1A1A25;
+}
+QLabel {
+    color: #00F0FF;
+}
+QListWidget, QTextEdit, QLineEdit, QPlainTextEdit {
+    background-color: #050508;
+    color: #FFB000;
+    border: 1px solid #00F0FF;
+    font-family: "Consolas", monospace;
+    font-size: 12px;
+}
+QListWidget::item:selected {
+    background: #1A1A25;
+    color: #00FF88;
+}
+QPushButton#neonCyan { border-color: #00F0FF; color: #00F0FF; }
+QPushButton#neonMagenta { border-color: #FF00E6; color: #FF00E6; }
+QPushButton#neonAmber { border-color: #FFB000; color: #FFB000; }
+QPushButton#neonGreen { border-color: #00FF88; color: #00FF88; }
+QPushButton#neonRed { border-color: #FF3355; color: #FF3355; }
+QPushButton#neonYellow { border-color: #F8FF00; color: #F8FF00; }
+QPushButton#neonPink { border-color: #FF6EC7; color: #FF6EC7; }
+QPushButton#neonBlue { border-color: #3D7EFF; color: #3D7EFF; }

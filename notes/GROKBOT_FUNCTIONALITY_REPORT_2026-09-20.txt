@@ -1,0 +1,112 @@
+﻿GROKBOT FUNCTIONALITY REPORT — Project NOVA fieldkit v1.4
+Date: 2026-09-20 America/Chicago | Steward: Grok Bot
+Host: TUF | Kit: C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4
+DB: data\NOVA.db (NOT wiped) | Method: import/compile smoke + SQLite audit + leash probes
+Companion checklist: docs\AI_CODE_TESTING_CHECKLIST.md
+============================================================
+
+1. EXECUTIVE ANSWERS
+--------------------
+Q1. Are the programs running correctly?
+    PARTIAL / MOSTLY YES for the live metal path.
+    - Core nova modules import and py_compile clean.
+    - Live GUI nova/gui/app.py compiles; app_enhanced.py does NOT (SyntaxError L395) — scrap, do not ship.
+    - OpenClaw gateway HTTP ok; leash.openclaw_status ok=True; tcp :18789 up.
+    - claw.status tcp ok but models probe HTTP 404 (awareness/models endpoint drift) — non-fatal for agent runs, fix later.
+    - Sched jobs present: holmes/maintain/whistle/cam:0 enabled, last_err empty.
+    - Board: 20 pending_urls; queue mostly done (41 done / 1 queued).
+    - Packets: 49 still queued vs 8 delivered / 1 fail — backlog, not a crash.
+
+Q2. Is information at each stage formatted correctly?
+    PARTIAL.
+    - Pipeline contracts exist in code (web→matrix→0x-WEB|Tx-REJECT; crawl→chunks; chamber→Tx-TEMP→Ax-CHAMBER).
+    - Good: live chunks carry cite like crawl:1x00:https://... and readable text snippets; rag.search returns scored hits.
+    - Weak: some fact titles truncated/noisy (0x-WEB title is raw page noise); Tx-REJECT sample body empty; some Tx-TEMP titles empty while body has url/depth.
+    - Chamber clear stamps Ax-CHAMBER with JSON body — good.
+    - Packet bodies are JSON-ish task packets — shape OK; many remain queued (format OK, drain incomplete).
+
+Q3. Is WHI properly implemented for the classifications provided?
+    YES for wing prefixes; PARTIAL for deep hexclass (1x*) library codes.
+    - facts.whi: 1196 rows, 0 bad prefixes (all Ax-|Tx-|0x-).
+    - packets.whi: 58 rows, 0 bad prefixes.
+    - Top facts WHI: Ax-OLLAMA 723, Tx-CAM 126, 0x-WEB 116, Tx-CODE 110, Tx-TEMP 46, Tx-HUNT-MISS 24, Ax-CLAW 20, Tx-PDF 13, Ax-QWEN 5, Tx-REJECT 4, Ax-CHAMBER 4, …
+    - hexclass.txt present under data\reference (1x* Dewey-like taxonomy). Crawl cites embed 1xNN in source_cite (e.g. crawl:1x04:…, crawl:1x00:…).
+    - Gap: facts.whi itself stores wings (0x-WEB), not full 1x* codes as the primary whi column — by design today; library class lives in cite/body. Confirm this remains the rule in docs.
+    - WHCS vs wings: wings = Ax/Tx/0x lifecycle; 1x* = subject library — both needed; do not conflate.
+
+2. RUNTIME SMOKE TABLE
+----------------------
+Component              Result     Evidence
+nova.db … gui.app      IMPORT_OK  18 modules
+py_compile core        OK         db office matrix board leash claw chamber rag crawl sched app.py term.py
+py_compile enhanced    FAIL       app_enhanced.py L395 unmatched ')'
+leash.openclaw_status  OK         gateway_http 200; driver_hint qwen3.5:9b
+claw.status            PARTIAL    tcp_18789 True; models False; HTTP 404
+office.staff           OK         12 employees
+board.pending_urls     OK         20
+rag.search             OK         list hits; textual widget score=8 cite crawl:1x04:…
+chamber.list_temps     API note   requires case id (not a crash)
+pocket/snap            IMPORT_OK  (speak/serve not re-probed this pass)
+openclaw WhatsApp      BENCH      enabled not linked (separate capability matrix)
+
+DB counts: facts 1196 | packets 58 | chunks 54 (live 34, temp 10, cleared 10) |
+observations 1967 | bites 343 | queue 42 | jobs 4 | reports 1 | employees 12
+
+3. WHI CLASSIFICATION AUDIT
+---------------------------
+Wing rules (established): facts/packets whi MUST be Ax-* | Tx-* | 0x-* only.
+  Full scan: PASS (0 orphans).
+
+Intended meanings (from diary + code use):
+  Tx-*  transient / tool / reject / cam / temp deliberation
+  0x-*  kept corpus (e.g. 0x-WEB)
+  Ax-*  accepted / actor returns (Ax-CLAW, Ax-QWEN, Ax-CHAMBER, Ax-OLLAMA, Ax-RAG)
+
+Library codes (hexclass 1x*): copied to data\reference\hexclass.txt.
+  Used in crawl source_cite prefix crawl:1xNN:URL — PASS for sampled live chunks.
+  Not duplicated into facts.whi column — document as intentional.
+
+Chamber addressing: chunks/facts used chamber/<case>/<seat> in cite; cleared after verdict — PASS for case 20260920T0749-65743edc.
+
+4. STAGE FORMATTING AUDIT
+-------------------------
+Stage                 Expect                         Observed
+raw URL / cam         path or URL in queue/obs        queue done + obs volume high — OK
+parser / matrix       keep or reject                 0x-WEB + Tx-REJECT present — OK
+Tx fact               whi+title+body                 some empty body/title — WEAK
+report / HIL          reports table + status         only 1 report row — THIN usage
+Ax promote            Ax-* stamp                     Ax-CLAW/CHAMBER/QWEN present — OK
+crawl chunk           status temp|live|cleared       10/34/10 — OK; 10 temp remain (review)
+RAG retrieve          score+cite+snippet             OK
+packet mail           dest mask whi kind status      OK schema; queued backlog HIGH
+claw nova-out         write then steward pull        process OK historically; not re-run this pass
+
+5. FAILURES / RISKS
+-------------------
+1. app_enhanced.py SyntaxError — must not become __main__.
+2. claw.status models 404 — fix awareness probe or accept degraded status.
+3. Packet queue backlog (49 queued) — drain or expire policy needed.
+4. Thin/empty bodies on some Tx-REJECT / Tx-TEMP — format contract incomplete.
+5. Noisy 0x-WEB titles — title should be page title not first garbled tokens.
+6. WhatsApp not linked — outbound phone DM not functional yet.
+7. Real email not installed — palace mail ≠ SMTP.
+8. Remaining chunk status=temp (10) — decide promote/clear/purge with HIL if aggressive.
+
+6. RECOMMENDED FIXES (ordered)
+------------------------------
+1. Keep __main__ on nova.gui.app; quarantine or delete ship path to enhanced.
+2. Tighten put_fact writers: require non-empty title; REJECT body reason string; WEB title from <title>.
+3. Fix claw models probe (404) or document status.models as optional.
+4. Packet maintain job: age-out or retry queued claw/qwen packets.
+5. Clear or promote leftover temp chunks with steward pass.
+6. Link WhatsApp + install one email plugin (capability matrix).
+7. Port palace QTableWidget+search into live app.py (prior council).
+8. Ingest this report + AI_CODE_TESTING_CHECKLIST into RAG as 0x-ADVICE / live chunk.
+
+7. VERDICT
+----------
+Live NOVA metal is operational enough for continued leash development.
+WHI wing discipline is solid. Stage formatting needs tighter contracts on titles/bodies.
+Do not ship enhanced GUI. Treat outbound messaging as not ready until WA link + email plugin.
+
+============================================================

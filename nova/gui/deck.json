@@ -1,0 +1,173 @@
+{
+  "note": "Edit this file to add, rename, color, or kill a deck tile. app.py reads it at boot. Dead tiles stay visible so the human sees the hole.",
+  "tiles": [
+    {
+      "id": "comms",
+      "label": "ASTROCOMMS",
+      "neon": "neonCyan",
+      "panel": 0,
+      "live": true,
+      "why": "Chat + slash. Same handle() as TUI."
+    },
+    {
+      "id": "sonic",
+      "label": "SONIC ARCHIVE",
+      "neon": "neonMagenta",
+      "panel": 1,
+      "live": true,
+      "why": "Bite queue after jobs."
+    },
+    {
+      "id": "core",
+      "label": "AI CORE MATRIX",
+      "neon": "neonAmber",
+      "panel": 2,
+      "live": true,
+      "why": "Staff masks and voices (not Modelfile jackets)."
+    },
+    {
+      "id": "ops",
+      "label": "SYSTEM OPS",
+      "neon": "neonGreen",
+      "panel": 3,
+      "live": true,
+      "why": "Jobs + URL drop + agency queue."
+    },
+    {
+      "id": "records",
+      "label": "MISSION RECORDS",
+      "neon": "neonRed",
+      "panel": 4,
+      "live": true,
+      "why": "Report cards HIL."
+    },
+    {
+      "id": "mail",
+      "label": "MAIL ROOM",
+      "neon": "neonYellow",
+      "panel": 5,
+      "live": true,
+      "why": "Packet inbox / deliver_inbox."
+    },
+    {
+      "id": "palace",
+      "label": "PALACE",
+      "neon": "neonPink",
+      "panel": 6,
+      "live": true,
+      "why": "SQLite table viewer."
+    },
+    {
+      "id": "view",
+      "label": "VIEWPORT",
+      "neon": "neonBlue",
+      "panel": 7,
+      "live": true,
+      "why": "Stills wav cam0 moondream."
+    },
+    {
+      "id": "spawn",
+      "label": "SPAWN",
+      "neon": "neonCyan",
+      "panel": 8,
+      "live": true,
+      "why": "PID registry from spawnutil."
+    },
+    {
+      "id": "ingest",
+      "label": "INGEST",
+      "neon": "neonMagenta",
+      "panel": 3,
+      "live": true,
+      "why": "Alias to SYSTEM OPS URL board."
+    },
+    {
+      "id": "jobs",
+      "label": "JOBS",
+      "neon": "neonAmber",
+      "panel": 3,
+      "live": true,
+      "why": "Alias to SYSTEM OPS job list."
+    },
+    {
+      "id": "kill",
+      "label": "KILL",
+      "neon": "neonRed",
+      "panel": null,
+      "live": false,
+      "why": "Dead on purpose. Killing PIDs is HIL. Wire later with /approve."
+    },
+    {
+      "id": "status",
+      "label": "STATUS",
+      "neon": "neonGreen",
+      "panel": 8,
+      "live": true,
+      "why": "Same pane as SPAWN."
+    },
+    {
+      "id": "tui",
+      "label": "TUI",
+      "neon": "neonYellow",
+      "panel": null,
+      "live": false,
+      "why": "Dead. TUI is CLI only: python -m nova.tui"
+    },
+    {
+      "id": "webgate",
+      "label": "WEB GATE",
+      "neon": "neonBlue",
+      "panel": 3,
+      "live": true,
+      "why": "Same ingest path as /web."
+    },
+    {
+      "id": "claw",
+      "label": "OPENCLAW",
+      "neon": "neonAmber",
+      "panel": 5,
+      "live": true,
+      "why": "Mail openclaw@local status/handoffs. Leash not swallow."
+    },
+    {
+      "id": "qwen",
+      "label": "QWEN CODE",
+      "neon": "neonGreen",
+      "panel": 5,
+      "live": true,
+      "why": "Mail qwen@local coder handoffs. codellama brain."
+    },
+    {
+      "id": "breaks",
+      "label": "BREAKS",
+      "neon": "neonRed",
+      "panel": 4,
+      "live": true,
+      "why": "Tx-BREAK reports + tool-break cards."
+    },
+    {
+      "id": "brain",
+      "label": "BRAIN",
+      "neon": "neonCyan",
+      "panel": 2,
+      "live": true,
+      "why": "brain.complete seam ollama|openai.compat|xai stub."
+    },
+    {
+      "id": "paper",
+      "label": "PAPER MARKETS",
+      "neon": "neonGreen",
+      "panel": null,
+      "live": false,
+      "why": "Dead until nova/paper.py + yfinance. LLM paper wallets; see STAGING/PAPER_MARKETS.md"
+    },
+    {
+      "id": "whatsapp",
+      "label": "WHATSAPP",
+      "neon": "neonGreen",
+      "panel": 0,
+      "live": true,
+      "why": "Phone DM via OpenClaw. Chat: /wa link (QR window) | /wa status | /wa send approve TEXT"
+    }
+  ]
+}

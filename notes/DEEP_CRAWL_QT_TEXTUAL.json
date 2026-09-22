@@ -1,0 +1,294 @@
+{
+  "z0": "2026-09-19T13:59:14Z",
+  "z1": "2026-09-19T14:01:24Z",
+  "results": [
+    {
+      "seed": "https://textual.textualize.io/guide/",
+      "ok": true,
+      "pages": 10,
+      "chunk_ids": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "visited": 10,
+      "enqueued": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "host": "textual.textualize.io"
+    },
+    {
+      "seed": "https://textual.textualize.io/guide/CSS/",
+      "ok": true,
+      "pages": 6,
+      "chunk_ids": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "visited": 6,
+      "enqueued": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "host": "textual.textualize.io"
+    },
+    {
+      "seed": "https://doc.qt.io/qtforpython/",
+      "ok": true,
+      "pages": 10,
+      "chunk_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "visited": 10,
+      "enqueued": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "host": "doc.qt.io"
+    },
+    {
+      "seed": "https://doc.qt.io/qtforpython-6/quickstart.html",
+      "ok": true,
+      "pages": 1,
+      "chunk_ids": [
+        51
+      ],
+      "visited": 1,
+      "enqueued": [
+        42
+      ],
+      "host": "doc.qt.io"
+    }
+  ],
+  "drained": [
+    {
+      "id": 16,
+      "url": "https://textual.textualize.io/guide/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 17,
+      "url": "https://textual.textualize.io/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 18,
+      "url": "https://textual.textualize.io/getting_started/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 19,
+      "url": "https://textual.textualize.io/tutorial/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 20,
+      "url": "https://textual.textualize.io/widget_gallery/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 21,
+      "url": "https://textual.textualize.io/reference/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 22,
+      "url": "https://textual.textualize.io/api/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 23,
+      "url": "https://textual.textualize.io/how-to/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 24,
+      "url": "https://textual.textualize.io/FAQ/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 25,
+      "url": "https://textual.textualize.io/roadmap/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 26,
+      "url": "https://textual.textualize.io/guide/CSS/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 27,
+      "url": "https://textual.textualize.io/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 28,
+      "url": "https://textual.textualize.io/getting_started/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 29,
+      "url": "https://textual.textualize.io/tutorial/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 30,
+      "url": "https://textual.textualize.io/guide/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 31,
+      "url": "https://textual.textualize.io/widget_gallery/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 32,
+      "url": "https://doc.qt.io/qtforpython/",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 33,
+      "url": "https://doc.qt.io/qtforpython/gettingstarted.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 34,
+      "url": "https://doc.qt.io/qtforpython/faq/whatisqt.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 35,
+      "url": "https://doc.qt.io/qtforpython/faq/whichide.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 36,
+      "url": "https://doc.qt.io/qtforpython/faq/whatisshiboken.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 37,
+      "url": "https://doc.qt.io/qtforpython/faq/typesoffiles.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 38,
+      "url": "https://doc.qt.io/qtforpython/faq/distribution.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 39,
+      "url": "https://doc.qt.io/qtforpython/faq/whyqtforpython.html",
+      "ingested": true,
+      "label": "ingest"
+    },
+    {
+      "id": 40,
+      "url": "https://doc.qt.io/qtforpython/faq/porting_from2.html",
+      "ingested": true,
+      "label": "ingest"
+    }
+  ],
+  "new_chunks": 27,
+  "promoted": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "cleared_python_org": 2
+}

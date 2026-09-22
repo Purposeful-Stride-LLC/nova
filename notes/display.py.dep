@@ -1,0 +1,19 @@
+# NOT IMPORTED. Sketch for /open and nested brief lines.
+# Windows: os.startfile(path)
+# Linux: subprocess ["xdg-open", path]
+#
+# def open_artifact(path):
+#     p = Path(path)
+#     if not p.is_file(): return {"ok": False}
+#     if os.name == "nt":
+#         os.startfile(p)
+#     else:
+#         subprocess.Popen(["xdg-open", str(p)])
+#     return {"ok": True, "path": str(p)}
+#
+# Brief line format (TUI right pane):
+#   R2 2026-09-18T12:00Z  fuse vision+ear
+# /expand 12
+#   80-word
+#   nouns: ...
+#   /open data/artifacts/vision/Ax-CAM-0_steward_....jpg

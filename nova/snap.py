@@ -1,0 +1,13 @@
+"""TUI framebuffer stand-in. Not a real HWND."""
+from __future__ import annotations
+from pathlib import Path
+from nova import db
+
+def snap(text: str = "", out: str | None = None) -> dict:
+    root = Path(__file__).resolve().parents[1]
+    path = Path(out) if out else root / "data" / "artifacts" / "monitor.txt"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    z = db.zulu()
+    body = f"zulu={z}\n" + (text or "(empty snap)\n")
+    path.write_text(body[:20000], encoding="utf-8")
+    return {"ok": True, "zulu": z, "path": str(path), "bytes": path.stat().st_size}
