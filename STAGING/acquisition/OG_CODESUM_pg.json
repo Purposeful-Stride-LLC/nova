@@ -1,0 +1,1416 @@
+{
+"verb": "fs.codesum",
+"node": "og-ubuntu",
+"root": "/home/mike/pg",
+"files": 281,
+"bytes_total": 213459461,
+"skipped": 58,
+"elapsed_s": 0.34,
+"tree": [
+{
+"path": "requirements.txt",
+"bytes": 2735,
+"sha256": "21acfe26adb2c705aa25f7059fc7b7848e6019812eccc04b1e05dd463d24beb2"
+},
+{
+"path": "AI Scheduler Refactoring and Database Integration - Grok.pdf",
+"bytes": 255644,
+"sha256": "c10b3e0b03af2de299fd2ecab72c9a4677915db6aa300a3f2d20fcd0dc8aad92"
+},
+{
+"path": "apt_packages.txt",
+"bytes": 166015,
+"sha256": "f086b8eda225f1cd294afa3dc107f3acf0077f32b9c0694f29ded593a422bb6e"
+},
+{
+"path": "nova-tentacle-og.tar.gz",
+"bytes": 3017,
+"sha256": "100b3330a3919cf8ace5002c4a5568d4fc34d73d9f6dd324fc6ea89d66e242d5"
+},
+{
+"path": "pgback.sh",
+"bytes": 1961,
+"sha256": "9e643c5fb961a4044281021502777b217395fb21bc2a1aecea84754e6459ce81"
+},
+{
+"path": "nova-tentacle/README.md",
+"bytes": 230,
+"sha256": "f70ca1cd691e2c7a921292a717622a06d251b1c8cdf9aa8e7ce7f2dc4326de1a"
+},
+{
+"path": "nova-tentacle/MESH.json",
+"bytes": 88,
+"sha256": "13999d17ee562da39f2c350cfb98f568b8b804790837c9139b1ddd29fa3a9130"
+},
+{
+"path": "nova-tentacle/NODE_ID",
+"bytes": 10,
+"sha256": "79dd7c1644afb30d8a47560d19adb63028a6544d940c126be17650fee2983acb"
+},
+{
+"path": "nova-tentacle/outbox/hub-map-1.err.txt",
+"bytes": 293,
+"sha256": "c0c8ea6efbd63e41d480ed7b6f46d0ab1d97b4ea6eb2ce1149a6b3409062ce2f"
+},
+{
+"path": "nova-tentacle/outbox/boot-discover.result.json",
+"bytes": 1608,
+"sha256": "d61151d609ac82fa45ef50a30f7d6a6ee9162605ea911792b4de682ecfdd4be3"
+},
+{
+"path": "nova-tentacle/outbox/hub-map-1.result.json",
+"bytes": 8954,
+"sha256": "29b500191a08706e5925ee0932c648f2965d36715c4e2b9bc45d932179a23732"
+},
+{
+"path": "nova-tentacle/outbox/hub-map-2.result.json",
+"bytes": 8953,
+"sha256": "6d729ed42c5f12f9c00b81f60d4cd277be57e3feb8d0ecd05ae6bfebac193fe0"
+},
+{
+"path": "nova-tentacle/outbox/hub-discover-1.result.json",
+"bytes": 1685,
+"sha256": "f7846ecc2f5df9ad99c3066f0f1b19350bb265475fb35d2f3b438b9f223b09aa"
+},
+{
+"path": "nova-tentacle/outbox/hub-discover-1.err.txt",
+"bytes": 293,
+"sha256": "c0c8ea6efbd63e41d480ed7b6f46d0ab1d97b4ea6eb2ce1149a6b3409062ce2f"
+},
+{
+"path": "nova-tentacle/outbox/ffmpeg-still.result.json",
+"bytes": 121,
+"sha256": "cfa71ffea1f806bae18453b74fe6b348f32a022e29d8a1650990c2ffb6120d9d"
+},
+{
+"path": "nova-tentacle/outbox/freecad-headless.result.json",
+"bytes": 789,
+"sha256": "121bc73894d49d4fe984aa58a615940a8764347caa4fbb698c00c2711feef051"
+},
+{
+"path": "nova-tentacle/outbox/curl-scout.result.json",
+"bytes": 203,
+"sha256": "85059fd7f147c6c604f841a71edad6a29ac4afdd17cbbad2e5229551b50baad2"
+},
+{
+"path": "nova-tentacle/log/tentacle.stderr",
+"bytes": 0,
+"sha256": null
+},
+{
+"path": "nova-tentacle/log/metrics.jsonl",
+"bytes": 3153,
+"sha256": "d3b14043fe3b9bdcbb28c83a4cd00282e5de9f509f9ba41c518548ac1c3d32aa"
+},
+{
+"path": "nova-tentacle/log/tentacle.pid",
+"bytes": 6,
+"sha256": "635eaafaf8769eb132b1a32b3e6590cf9978f42c6f9c8d744a8edf1db904f0b0"
+},
+{
+"path": "nova-tentacle/log/tentacle.stdout",
+"bytes": 170,
+"sha256": "2a2d9240bdc2fa465e744b581a6e6470e023e9859bceb5cd06e986f2d739def8"
+},
+{
+"path": "nova-tentacle/bin/start.sh",
+"bytes": 406,
+"sha256": "56e4bf94ba5ecc64d99bd193545f50ec11ba3f1596fec04190227b52223234fc"
+},
+{
+"path": "nova-tentacle/bin/tentacle_node.py",
+"bytes": 9749,
+"sha256": "f06f1067221105fcde59e89628e17198dec74cebd28ff414c8de5ebc8113c359"
+},
+{
+"path": "nova-tentacle/captures/scout_example.html",
+"bytes": 559,
+"sha256": "ff67a9d764d6a2367a187734e697f6a53217db9a21c101d410a113ca871a299d"
+},
+{
+"path": "nova-tentacle/captures/fc_headless.py",
+"bytes": 237,
+"sha256": "6896ef107588dc12e57778982681e39bc9b154f95182200c46dfc742fece49cc"
+},
+{
+"path": "nova-tentacle/captures/still_20260921T101210Z.jpg",
+"bytes": 16356,
+"sha256": "0d4420bae029f5ed1de698de48bf43fac4387081709294f0a940db3a70329449"
+},
+{
+"path": "nova-tentacle/captures/nova_probe_box.FCStd",
+"bytes": 2342,
+"sha256": "4d702ffbcc82f139e976d2b92582d932265708ffd0c96835f0c5ff0bd6d937d0"
+},
+{
+"path": "nova-tentacle/inbox/hub-map-1.json.done",
+"bytes": 92,
+"sha256": "0936a0ec8380911bacb3a000b5c42e0eb3d42fbb5272cbb410f9ef4ef51c399c"
+},
+{
+"path": "nova-tentacle/inbox/hub-discover-1.json.done",
+"bytes": 67,
+"sha256": "86c0fbbcc34c9a0c052ab7bacb59aadc241aa3ec83ff101cc01c07ea0ff83599"
+},
+{
+"path": "nova-tentacle/inbox/hub-map-2.json.done",
+"bytes": 92,
+"sha256": "95ce899d759cf22752e7ac18034d920f797d46aa9003f8d41053297cb400b585"
+},
+{
+"path": "ai/modfiletest.txt",
+"bytes": 5393,
+"sha256": "5f684aa30752e23cdd3415dcb9d7e7cc6906b6d766f2498cca75d87e30f1787b"
+},
+{
+"path": "ai/python_homestead_deps.py",
+"bytes": 3385,
+"sha256": "b5d7dd8f5a19c9156a5263e1dcac08638a40c96044a821ae7fe2ba97dfb0b754"
+},
+{
+"path": "ai/master_probe.py",
+"bytes": 4939,
+"sha256": "602fca19e7d568be5a6445f1b594ecf16b25ff53f1b67b00f9ddff364b2a544e"
+},
+{
+"path": "ai/software_inventory.py",
+"bytes": 3409,
+"sha256": "d2a52e769f2f6dfbf538a60e9a594ac5399b532f3f6d9a5a4cb9b3aeebcc605d"
+},
+{
+"path": "ai/cronjob.txt",
+"bytes": 303,
+"sha256": "91dd904b0df13671bd4871101d88abbdd487d1691e7a9943c5735d76da7701e8"
+},
+{
+"path": "ai/network_spyder2.py",
+"bytes": 4096,
+"sha256": "23bf62ab0de68bbf5cc449fd55a1e5c702a2cc5015aa0aea6753a889c43d2a72"
+},
+{
+"path": "ai/udp_dns_client.py",
+"bytes": 791,
+"sha256": "55e81b8c10fe19981ba3f7745cabb6f407be95465d01c3121dba5d49a9d701d6"
+},
+{
+"path": "ai/hardware_probe.py",
+"bytes": 3890,
+"sha256": "e52a037664add73c7155ab555bb30fdc202f0e52193b6da6f2650bbf4324438b"
+},
+{
+"path": "ai/network_spyder.py",
+"bytes": 3954,
+"sha256": "c38cd9d76b5174095b1ed238477b8ed1184f801f71ef1bddb82a88d8b567f2d7"
+},
+{
+"path": "ai/system_doc2.py",
+"bytes": 5480,
+"sha256": "64494e23ab68a426e4b734e928f47fa29b8b982296fa0d89532cf8be5abbfbe2"
+},
+{
+"path": "ai/pync.py",
+"bytes": 4576,
+"sha256": "81e39ae26da0195f0df5d0e360085dd2da0cc1a038fb316d3b88f7552d1f4c97"
+},
+{
+"path": "ai/hardware_alt_probe2.py",
+"bytes": 4824,
+"sha256": "1393658c859f8e6b5e2f2b8c57faa8b41e9432d34f015a03abcb4fb61494f043"
+},
+{
+"path": "ai/network_probe2.py",
+"bytes": 4973,
+"sha256": "7b9ebe4c92f6255ff7f37c66f9d436976f4162e7d6b1e47cf17d7afcb4428d88"
+},
+{
+"path": "ai/hexclass.txt",
+"bytes": 6945,
+"sha256": "63564e24c8b9fe7ae455244882532083f57e871e4b4bebcf134c5adafe35adee"
+},
+{
+"path": "ai/speak_phrases.sh",
+"bytes": 703,
+"sha256": "979b3266678de0bcf0f4dcc611fa080e9bbb9cc62614d7d4f3e9a4da5f847bad"
+},
+{
+"path": "ai/tcp_proxy.py",
+"bytes": 2960,
+"sha256": "fc22700f4d2472e8da530133f82307265c31c7fe744cbff7bf628cdbf5489006"
+},
+{
+"path": "ai/network_probe.py",
+"bytes": 3358,
+"sha256": "d663de03cdea2ba5abfb78b37ddf10312df6ada8e7232f4816dbbf437ebeea8b"
+},
+{
+"path": "ai/host_ping.py",
+"bytes": 942,
+"sha256": "48efeb4555f38a1480471d437b1b55fdc6177ba0ee2a011b2c20874b048d986e"
+},
+{
+"path": "ai/system_spec.py",
+"bytes": 2990,
+"sha256": "45074fd18014b51ad58a5da8784879c01c96b1cba9c8ec1aaf27182adf326135"
+},
+{
+"path": "ai/master_report.py",
+"bytes": 2134,
+"sha256": "a8eca70ab7d22bf2d2d47f0c46bf451e284d68b2d88a1bf4b0a6eab86297d563"
+},
+{
+"path": "ai/cbSum.py",
+"bytes": 6080,
+"sha256": "b7279ea93dc8cf25d14fe09845f767fa0005118765c143f41d72188f15ac45fd"
+},
+{
+"path": "ai/lan_probe.py",
+"bytes": 2359,
+"sha256": "8daa7dda8cbcddace67ea237789a58e7b73b87a93dbe809e564c300dc7e01bb2"
+},
+{
+"path": "ai/vtparagraphs.txt",
+"bytes": 2366,
+"sha256": "4b97a438c1c6f7934813e141fb69e4a06eb9c51015a54322cd8a3f29e47c685d"
+},
+{
+"path": "ai/hardware_alt_probe.py",
+"bytes": 3967,
+"sha256": "93feff67ad616e5bbbefb2e29415728435aa19310d45afd29618cc5fda499ee0"
+},
+{
+"path": "ai/codebase_1.txt",
+"bytes": 86075,
+"sha256": "36c57c2193f32a1b53a08973098d4752c9e03e4082ee4becad24435890dc8c6a"
+},
+{
+"path": "ai/AI_tool_kit.txt",
+"bytes": 49680,
+"sha256": "6bc538f415256a959c02db5a3c2022c6180627c37eeda0c762665e1fed06d974"
+},
+{
+"path": "ai/tcp_client.py",
+"bytes": 1756,
+"sha256": "443e2708391422770ff0bdf835032a90e1130d8c3f8e621bdb4af9808d298d75"
+},
+{
+"path": "ai/tcp_server.py",
+"bytes": 2017,
+"sha256": "2df786b5b85dacea60592536c86c5db13876f9ded0f4af5f23d750eda655cc1a"
+},
+{
+"path": "ai/banterlist.txt",
+"bytes": 100452,
+"sha256": "96c4adfa080766f61ae83d47e61899df5580a3002f042f5842a414ef55651332"
+},
+{
+"path": "ai/system_doc.py",
+"bytes": 5480,
+"sha256": "64494e23ab68a426e4b734e928f47fa29b8b982296fa0d89532cf8be5abbfbe2"
+},
+{
+"path": "ai/cbSumcolor.py",
+"bytes": 6753,
+"sha256": "46199a1924cfc67f13031c17698a76a7c00595bfee6f48aa9064a2994bfea6f9"
+},
+{
+"path": "ai/Cornerman86.py",
+"bytes": 4120,
+"sha256": "08052b270c8488b0b469a0b28cbd221238d7dfb0d6f6d7aa21955a7d8b8b6bc7"
+},
+{
+"path": "ai/holmes.py",
+"bytes": 1727,
+"sha256": "f2c8ae63cac66464138ac41112c9979d549da9cc870b8e1a1d4864c10252bff5"
+},
+{
+"path": "ai/test_client.py",
+"bytes": 338,
+"sha256": "acbdbe40840d116706e64adb722a49e3fb656863f8bbc8782476a317f4ddbe0a"
+},
+{
+"path": "ai/mylilspider.py",
+"bytes": 1361,
+"sha256": "8ec5693a3f01604d3dc558537d918e91a8e7caeb39bb6d52c746bc97255377f7"
+},
+{
+"path": "ai/nova-ai/.nova_Tv3.py.swp",
+"bytes": 1024,
+"sha256": "8e2cb423b59abbf886770cdded86c9ae04d1a2473a45a2ab95e73427fbde2072"
+},
+{
+"path": "ai/nova-ai/example.txt",
+"bytes": 183,
+"sha256": "a206f26f4a903f96238e958782613fe44c6ae7c017f00a7af065e9bdec55626d"
+},
+{
+"path": "ai/nova-ai/nova_terminal.py",
+"bytes": 18009,
+"sha256": "ec7e9960cc2ad764689bfb6de594256262ebf9c8955e7d28d56cb7e97004e495"
+},
+{
+"path": "ai/nova-ai/tts_output.wav",
+"bytes": 3133484,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/.~lock.ProjectNOVA.odt#",
+"bytes": 73,
+"sha256": "2f2c1ae743cf2da680ab3a0e653d6ea606e565b6fb41e60c04c00682c90f2e2e"
+},
+{
+"path": "ai/nova-ai/oldnovaconvos.log",
+"bytes": 27738,
+"sha256": "5edbcee6ccc8db4c60957537d2711ebe27e37a393c747c8d31fbd3341417ff62"
+},
+{
+"path": "ai/nova-ai/nova_terminal_v2.py",
+"bytes": 5287,
+"sha256": "402b8f74c8cfbf70623a1355621ac592a41c57457f318d811a6cad3dc8eefb75"
+},
+{
+"path": "ai/nova-ai/ai_main.py",
+"bytes": 7441,
+"sha256": "7f12753543715b9a44bd55091b9b954690d2ddd3d97764f9203595ace5562cf6"
+},
+{
+"path": "ai/nova-ai/nova_diary.txt",
+"bytes": 24097,
+"sha256": "325091352e61fa8bc2e651f0d8d6942ae93161227e3e91c547452fec7dfb9266"
+},
+{
+"path": "ai/nova-ai/nova_Tv3.py",
+"bytes": 11944,
+"sha256": "51ec9cdde975d43d2544afe3cec1000bd8887832bf54fa5b64a4558a57d155ae"
+},
+{
+"path": "ai/nova-ai/nova_debug.log",
+"bytes": 222655,
+"sha256": "336ce4df362eb56732fba1663ffd348526ff0ce3e2d2d2778606101653b3abc1"
+},
+{
+"path": "ai/nova-ai/nova_diary.py",
+"bytes": 2298,
+"sha256": "c844d03d3f92c1da1f05d31d6b7a8437569418a6c229dd3900e274d82add8247"
+},
+{
+"path": "ai/nova-ai/oldnova.db",
+"bytes": 20480,
+"sha256": "3dcbb95aa24fdb25a7702f6171dc900b1678f25dd043bb02ebed9bcfff6aeff9"
+},
+{
+"path": "ai/nova-ai/pocket-tts.txt",
+"bytes": 4281,
+"sha256": "cb82705b2100af3b8b7a6139abc4090126fe68286edad8b43c3f2429c5c11dda"
+},
+{
+"path": "ai/nova-ai/chat.db",
+"bytes": 12288,
+"sha256": "a77ebfcfa5572e93d4a4438dce59f8ada9d3561e5e7fe31efc703d68afd1b005"
+},
+{
+"path": "ai/nova-ai/nova_conversations.log",
+"bytes": 52773,
+"sha256": "1ede61a262db413cf5819586a58dbbd0b3e63616401b5688f9254c1d2b1340d1"
+},
+{
+"path": "ai/nova-ai/nova_history.json",
+"bytes": 80594,
+"sha256": "8a90d99b4805e811c1faa59de9e2bbd7fe6e9651a96636af2152ef2572d40dba"
+},
+{
+"path": "ai/nova-ai/NOVA.db",
+"bytes": 94208,
+"sha256": "db98fc727235083299036755672cbf70e060daba7e3d881366edb7b4f6b9d6d9"
+},
+{
+"path": "ai/nova-ai/orchestrator.py",
+"bytes": 13823,
+"sha256": "7e2279ad51c22c4c556142addbbb2a7292c31c1bc75d1eeb7080fa48cc9dbaf8"
+},
+{
+"path": "ai/nova-ai/oldchat.db",
+"bytes": 24576,
+"sha256": "127e6e20758c70ebe64c2438eda1c8f3ebc983fcb0780542c87ef59a87bd9329"
+},
+{
+"path": "ai/nova-ai/web.db",
+"bytes": 11497472,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/nova_tts.py",
+"bytes": 4423,
+"sha256": "a3ed2c37f941c4fbd66d2800b16dff92c237c3bb304629d2c3ca12e62138058f"
+},
+{
+"path": "ai/nova-ai/Grokconvowebcrawl.txt",
+"bytes": 745,
+"sha256": "edab3f47a56c7716ca7d1d451ce0f9e14205d2ca1c487e57dceb9fa8640e4003"
+},
+{
+"path": "ai/nova-ai/agents/t1/Modelfile-nova-t1",
+"bytes": 1349,
+"sha256": "a192e8ac9d9312610450ad7526cb7646601334b8ce8907e242dd70484ec2aa77"
+},
+{
+"path": "ai/nova-ai/agents/t1/Modfile-nova-gx-t1",
+"bytes": 2394,
+"sha256": "4eb3d5c68261524bfe42dd119bac6b70c7a69251b783b3161d0e96da846a2426"
+},
+{
+"path": "ai/nova-ai/agents/t1/modelfile-nova-c3",
+"bytes": 10418,
+"sha256": "d699cdc41b0dcbc36e22e3f61149921535cca387c80fc7b7fc9a1ec5c3ffb51b"
+},
+{
+"path": "ai/nova-ai/agents/t1/Modelfile-nova-c1",
+"bytes": 4879,
+"sha256": "df14fef7a3d2008c291e79b12ec0a75872e5efb7ba3ab2101ee7733de22e6079"
+},
+{
+"path": "ai/nova-ai/agents/t0/Modelfile-nova-t0",
+"bytes": 1143,
+"sha256": "8db91df26ede670781dfe84659cc4ee454da083de5645df03b047cdabf6a7706"
+},
+{
+"path": "ai/nova-ai/agents/modfile/Modelfile",
+"bytes": 14427,
+"sha256": "c381cd0b0c22017b11361c90cb1c352f612b922782862f7fa0af1af78ff1222b"
+},
+{
+"path": "ai/nova-ai/agents/modfile/nova-c0Modfile",
+"bytes": 2654,
+"sha256": "55c41e9eb7a962a2ca11cde98eca702c1f1ce904e9ac614d8326177e59b4dd72"
+},
+{
+"path": "ai/nova-ai/agents/modfile/nova-c1Modfile",
+"bytes": 2653,
+"sha256": "f26d9b00bc86ae436d49352ae26fea999a2f0c9dd40ac282f4f3bfd29c16d11e"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-35-03.mp4",
+"bytes": 1913741,
+"sha256": "68839803b60d3b743f2b148b9e35e13e8d89d9c81b26ea886f49452516295601"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-04-35.mp4",
+"bytes": 2416975,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_frontdoor.mp4",
+"bytes": 1541172,
+"sha256": "765bd749383671a7ea30d3cb0743d34116499402200ddf3998a75c7b1f8e907e"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_banana.mp4",
+"bytes": 1992280,
+"sha256": "8b9214bfefc0978c215e988e59716c1bf0113faa719b10a3a59b96af169f9763"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_happycry.mp4",
+"bytes": 2535042,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_5min.mp4",
+"bytes": 1672034,
+"sha256": "02c8cde57ba83527e38ee0e3771a07faad8190fa41224acf3fc2ddfa2e216c64"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-02-01-14-55-18.mp4",
+"bytes": 2369317,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bsmooch.mp4",
+"bytes": 2456296,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Blaughing.mp4",
+"bytes": 3771931,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-17-42-23.mp4",
+"bytes": 2683458,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bmovie.mp4",
+"bytes": 2383033,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-44-46.mp4",
+"bytes": 3026550,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-16-35-41.mp4",
+"bytes": 2186050,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bquiet.mp4",
+"bytes": 1758795,
+"sha256": "e2515497d634b9b1fb13d994831bddeb835128cd54286f50d46922d2388dafcd"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-29-16-29-12.mp4",
+"bytes": 2275847,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-22-26-19.mp4",
+"bytes": 2120984,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Btyping.mp4",
+"bytes": 2201951,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_morning.mp4",
+"bytes": 1509191,
+"sha256": "2524fb3be8a5cec33ea7df6d3b82b27fbf93ca89388322f80dac92564eb233ce"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_promptprompt.mp4",
+"bytes": 1663160,
+"sha256": "b7e3c11d7b23d3efd41f2aa3d3c92c6944cba1df0a12f962e32c50e4fd9e20f7"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_systemfine.mp4",
+"bytes": 2006125,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bembaresedsmug.mp4",
+"bytes": 3253061,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-21-08-09.mp4",
+"bytes": 3622295,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-36-38.mp4",
+"bytes": 1989811,
+"sha256": "4cbd568d1a1c365503c5b63cef0e613755c43e9c96c4e879dddba937e608d681"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bangry.mp4",
+"bytes": 2916198,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_bikerbye.mp4",
+"bytes": 3153036,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-58-20.mp4",
+"bytes": 1067874,
+"sha256": "d7f89c651056bfdbf7d52f8df2016aebd05d40452c050a48973d25f1cab62f15"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_systemresources.mp4",
+"bytes": 1991015,
+"sha256": "c1bbd0dbd1bf6c51b48988dcabf230af5cf04649a43b1531798be7981551085b"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-29-16-27-45.mp4",
+"bytes": 3065739,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-18-19-14.mp4",
+"bytes": 3681294,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_potentialproblem.mp4",
+"bytes": 2600873,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-52-43.mp4",
+"bytes": 1690016,
+"sha256": "a0e230b408775db3a4c87d9033ca0e4f80133faed5620ab951d56fefc3e63812"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-47-55.mp4",
+"bytes": 1546981,
+"sha256": "21eb2c30a1a3835564584865f00db8afb450008020e612dbf9102c2dc40e266b"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-00-31.mp4",
+"bytes": 2275847,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bmusic.mp4",
+"bytes": 3459245,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-10-58-40.mp4",
+"bytes": 3722123,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-13-37-19.mp4",
+"bytes": 1909767,
+"sha256": "58b4482030c42662d458047588ef745d9222367eedbe78cba784e354a8e8a31f"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-13-43-00.mp4",
+"bytes": 2501698,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_hot.jpg",
+"bytes": 404536,
+"sha256": "1aa7261a1c5ac017a404bcdb0b8500ff9f69ba0eba5af12ebb2a97af23aa2b6e"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_mikeXnotif2.mp4",
+"bytes": 2397571,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bnaughty.mp4",
+"bytes": 2428498,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-22-32-48.mp4",
+"bytes": 3108623,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_terminal.jpg",
+"bytes": 567898,
+"sha256": "82b79f5f85b66b61cda1f6a415a7e0e33f8ac18ff1712d37e63b7087bcfd4b8e"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-02-03-14-43-46.mp4",
+"bytes": 2526201,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-31-19-56-39.mp4",
+"bytes": 2914496,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_15min.mp4",
+"bytes": 1939642,
+"sha256": "1db63a2531f4c3621abe2f0df047a6f2294bad2ccd5d5654a04d3c4d260ea3e2"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-19-19-21.mp4",
+"bytes": 3120831,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-17-39-51.mp4",
+"bytes": 1833056,
+"sha256": "de96255c15a8b4fa65ca2d1f0d28cdfe7a1a59b5fd6d9dfe44f497c8937205c3"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_confused.mp4",
+"bytes": 2706999,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bflash.mp4",
+"bytes": 3155374,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/video_player.config",
+"bytes": 3106,
+"sha256": "4c73f48bb845d5e68d1ff465bbacdbdb6036bfad6a0a203797b10ba6e86720cf"
+},
+{
+"path": "ai/nova-ai/agents/avatar/novaonline.mp4",
+"bytes": 2683458,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-29-16-25-03.mp4",
+"bytes": 1746697,
+"sha256": "f631a3cbfd99bcd1238febbcb6f7d02cdd53b75b71bcc2aa5cdfa5189d2df4f6"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bwhistle.mp4",
+"bytes": 2441098,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bchasekite.mp4",
+"bytes": 2352108,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_mikeyXnotification.mp4",
+"bytes": 2295338,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-07-05.mp4",
+"bytes": 2133413,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-21-05-24.mp4",
+"bytes": 1030371,
+"sha256": "87733bc0e5c591c5a4d8143e882e2d2735f47825685265f36519bd1e119672e5"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-18-06-50.mp4",
+"bytes": 2548343,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bparty.mp4",
+"bytes": 3438089,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_ilikeit.mp4",
+"bytes": 2402450,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/aikittens_bandpic.jpg",
+"bytes": 672617,
+"sha256": "58cf8a2b73376b149df1f3dceb2c9108c8a9dfb8d6e6504839b236142b136774"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_unzip.mp4",
+"bytes": 2563082,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-09-31.mp4",
+"bytes": 2312776,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/video_player.py",
+"bytes": 3100,
+"sha256": "853730d7b5820a7808e1fd5b3dc051061d9592576a8369f11faa088065efc81a"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-28-14-32-37.mp4",
+"bytes": 1320146,
+"sha256": "aae56a3dcab14fb6d599332e2a8cfd4fe6cfa7a764b201b81f69f70fe109df54"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_bellringmindblown.mp4",
+"bytes": 3359903,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-16-38-25.mp4",
+"bytes": 1563597,
+"sha256": "8485596bf995e934a2883ba3cd31968358c3458c575471ad34d77df44fd30e8b"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-02-01-14-56-35.mp4",
+"bytes": 1683511,
+"sha256": "21b860d12f2a02bf93d4cba569afbb6eef0bf84811aa2396e2439c2747f31c67"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-37-56.mp4",
+"bytes": 3325204,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bquiet2.mp4",
+"bytes": 1758795,
+"sha256": "e2515497d634b9b1fb13d994831bddeb835128cd54286f50d46922d2388dafcd"
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-42-46.mp4",
+"bytes": 4622555,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-22-20-05.mp4",
+"bytes": 3138498,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_newemail.mp4",
+"bytes": 1833056,
+"sha256": "de96255c15a8b4fa65ca2d1f0d28cdfe7a1a59b5fd6d9dfe44f497c8937205c3"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bangle.mp4",
+"bytes": 2856039,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Breflective.mp4",
+"bytes": 2223720,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bsad_resigned.mp4",
+"bytes": 2458436,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-25-22-24-59.mp4",
+"bytes": 4254947,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-40-48.mp4",
+"bytes": 3917519,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-28-14-24-08.mp4",
+"bytes": 3471848,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-50-55.mp4",
+"bytes": 2069567,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-27-10-53-33.mp4",
+"bytes": 1723165,
+"sha256": "6208d095371b738062d98e4c37773a3aa34d5387ddc6409e9a93b161c3c68a29"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_Bgettinghot.mp4",
+"bytes": 2515841,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/agents/avatar/grok_video_2026-01-30-15-59-34.mp4",
+"bytes": 1465676,
+"sha256": "97a178b6d1d205ad6a20922c4820893861d59fe09711f91e0da25fdedf6d6fcb"
+},
+{
+"path": "ai/nova-ai/agents/avatar/nova_codecomplete.mp4",
+"bytes": 2512942,
+"sha256": null
+},
+{
+"path": "ai/nova-ai/awareness/vuln_analyzer.py",
+"bytes": 1951,
+"sha256": "01d36a2a5e8041a2c180b03ce8158bad2ef07b7b446071c68ddfc92e3b90584d"
+},
+{
+"path": "ai/nova-ai/awareness/starship_core.py",
+"bytes": 12826,
+"sha256": "349e0802ac9532bc5bc04a196a1ffdedc21ccf117b9efe0b34b643b03d5b9eb2"
+},
+{
+"path": "ai/nova-ai/awareness/drive_map.py",
+"bytes": 2584,
+"sha256": "5d8027cad24e8431c2b72654a2a9206e283d376196b700b87ec055f0f9d9633a"
+},
+{
+"path": "ai/nova-ai/awareness/process_scan.py",
+"bytes": 1097,
+"sha256": "73d33fa5873df67b6812f6832a5b981b8c1fbee0aeeeeac13cba8c4b09123ec3"
+},
+{
+"path": "ai/nova-ai/awareness/holmes1_1.py",
+"bytes": 2774,
+"sha256": "82f6be8f0c9715d86eff1e1f5d4bfca5b055481124d8c143ab898ee6010bc431"
+},
+{
+"path": "ai/nova-ai/awareness/ai_detector.py",
+"bytes": 1601,
+"sha256": "059bf82b8f0904a0d1b87b9334140bb472c8f4b600b61fdfe5b06f1dc6ef0eb0"
+},
+{
+"path": "ai/nova-ai/awareness/udp_scanner.py",
+"bytes": 2481,
+"sha256": "e2f007908bf30dde378fc58b282b576b6b535a6ca2d300321154ca4b83dcf457"
+},
+{
+"path": "ai/nova-ai/awareness/holmes.py",
+"bytes": 5566,
+"sha256": "f3e82b8d3b20f2ec245e740d817400c0c7c7081d187846f8fe216a19e2316d4f"
+},
+{
+"path": "ai/nova-ai/awareness/security_ai_loop.py",
+"bytes": 7212,
+"sha256": "7746d1855924111d607c056003bd164e93fe6f4d515751dd305056f14db39290"
+},
+{
+"path": "ai/nova-ai/awareness/data/nova.devlog",
+"bytes": 6466,
+"sha256": "95053ba8297992b326c4dc533eb13f4e5b077caa602522ae079339fdade061a4"
+},
+{
+"path": "ai/nova-ai/awareness/data/gen_website.log",
+"bytes": 506,
+"sha256": "7b2947722c70966359c5410cce866128f2c4d8aceba98ee1c6acf5c8eb981961"
+},
+{
+"path": "ai/nova-ai/awareness/data/market/generate_companies.py",
+"bytes": 7704,
+"sha256": "86d41187c6b657d72447ad4b865d77a1633c69b785f064b61bdc4227a913a281"
+},
+{
+"path": "ai/nova-ai/awareness/data/market/GalacticMarket.db",
+"bytes": 12288,
+"sha256": "4147f04d50d644c61e7ab74f3162cb65e4a2a3a3c8cec0964575e417712b6a52"
+},
+{
+"path": "ai/nova-ai/awareness/data/market/generate_companies1.py",
+"bytes": 7809,
+"sha256": "48c6627a80cea1d3ab89fb02489f69d3e9f63c831f59c6c8592faea6203379d2"
+},
+{
+"path": "ai/nova-ai/awareness/data/market/prompts/system_base.txt",
+"bytes": 2949,
+"sha256": "52209701ad4dd09e6121f75a5bba0e1f566379da0c9673fdbaa83194b9f292cc"
+},
+{
+"path": "ai/nova-ai/awareness/data/market/prompts/user_template.txt",
+"bytes": 446,
+"sha256": "43814fcfe608988968c56df5e297bfbf689832fa16b2aaf1dfd26115f17fe484"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzerkiss.py",
+"bytes": 7224,
+"sha256": "0fd7dd8d48e0455c00aab294530161bed45c60ee270d174847a835628ef720da"
+},
+{
+"path": "ai/nova-ai/awareness/tools/html_llm.log",
+"bytes": 35871,
+"sha256": "d96aee39ac05944a50152cf5c159b4f00ef3a180e4028a508a603dd282f881cd"
+},
+{
+"path": "ai/nova-ai/awareness/tools/code_summary_20260205_210404_nova.txt",
+"bytes": 14788,
+"sha256": "8b87dc2df799923c406b66225a4102e720134647600cfc6fda5a0ad0224320ca"
+},
+{
+"path": "ai/nova-ai/awareness/tools/html_llm3.sh",
+"bytes": 3229,
+"sha256": "5c7dc747480861ed4364e2b36557bf6fce9e650868a647b2bccf3b2875bad27a"
+},
+{
+"path": "ai/nova-ai/awareness/tools/system_state.py",
+"bytes": 2880,
+"sha256": "3ae9f8ee35ffc90b7498d99771e89dbb8cb0be2833cf951d0839effecedffa40"
+},
+{
+"path": "ai/nova-ai/awareness/tools/run_crawls.sh",
+"bytes": 609,
+"sha256": "c87a5011caa265ef031bb19338fdfcf27b138430f5e6a742fdc140c83117a0aa"
+},
+{
+"path": "ai/nova-ai/awareness/tools/code_analysis_log.txt",
+"bytes": 17573,
+"sha256": "15c794f7263dff7bfabfa0824a2d1d298057b84202e7c066263c5446eb4bbac5"
+},
+{
+"path": "ai/nova-ai/awareness/tools/html_llm2.sh",
+"bytes": 2002,
+"sha256": "47b369cc7c1332d03d98f081c1bd5b48cb567bb12d324c72fe7ea515edef7b00"
+},
+{
+"path": "ai/nova-ai/awareness/tools/seeds.txt",
+"bytes": 5668,
+"sha256": "5b288ae1b986a3044546da138df37b8e6947fa893c722e9be1162a88f496094a"
+},
+{
+"path": "ai/nova-ai/awareness/tools/html_llm.sh",
+"bytes": 1210,
+"sha256": "a536a8d065e87582824cd9cef67960797c11aea86633c28ebfaff908f7b92495"
+},
+{
+"path": "ai/nova-ai/awareness/tools/post_parser.py",
+"bytes": 1532,
+"sha256": "ac9dc975b379cd28776b75e4ca3722e922a2d9815a585aeb41d946c6d2ebdc5d"
+},
+{
+"path": "ai/nova-ai/awareness/tools/web_spider_summarizer.py",
+"bytes": 8136,
+"sha256": "3b8383ea72f2e3a45503e9d96c8ad68283989e3ab1767ea380ebef93365ad2e4"
+},
+{
+"path": "ai/nova-ai/awareness/tools/system_specs.txt",
+"bytes": 774,
+"sha256": "15bb59c83bed179ba5e4316b229d381b6eca42d2e0f5c680e5f26afb8a46c118"
+},
+{
+"path": "ai/nova-ai/awareness/tools/system_spec.py",
+"bytes": 5324,
+"sha256": "7054a37daea1b4f495443da203c544ce5bf8f9ddfee4ea76273affba573b34b7"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzerkiss_v2.py",
+"bytes": 7334,
+"sha256": "f83a8d5cacccc5314a5202d826304b74a328bb4e08fea24fd7555ad92429aee8"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzer_2.py",
+"bytes": 6760,
+"sha256": "017c7fb16a9cac36623f2ba795d296135ddf9e3bc533deae9cf20de742b25d36"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzer_3.py",
+"bytes": 8982,
+"sha256": "d9474c6731bf8fd32227fa370eba6cf057b2d8cf8e37b34f4dc5f6032d47f7c7"
+},
+{
+"path": "ai/nova-ai/awareness/tools/db.py",
+"bytes": 2217,
+"sha256": "5ca07abd78fa2d79dba5c7241dbba5d088e2389619f664b86fa825d88e71e0e8"
+},
+{
+"path": "ai/nova-ai/awareness/tools/oldseeds.txt",
+"bytes": 1322,
+"sha256": "c91f977cb06773ec703b476d8cbcc56285e773e54bc5f491b3111108a7a12ee2"
+},
+{
+"path": "ai/nova-ai/awareness/tools/pre_parser.py",
+"bytes": 2669,
+"sha256": "e1ae2d144d3d755b001e061c5290a49dd7fc6efaa47cdd1a92dcaece9f5752a7"
+},
+{
+"path": "ai/nova-ai/awareness/tools/web_crawl.log",
+"bytes": 171,
+"sha256": "d26c24575b4f7fe09e92938cbfb110116f7f69d9a24095f75e1dfbc4c87fefbc"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codesum.py",
+"bytes": 11053,
+"sha256": "ecfce5f98ae9ef466fc5f3866188fb76097f16939c886895b7520b236f94288c"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzer.py",
+"bytes": 10152,
+"sha256": "be7b48d7965e2905c229f7cfb5efcadb146b96ee511091487c3511100b325a3b"
+},
+{
+"path": "ai/nova-ai/awareness/tools/code_summary_20260205_220208_nova.txt",
+"bytes": 40846,
+"sha256": "44a73cc13ac119bd7f1eb8658c03907bf5298d855e685f27c9a800d4c88290ad"
+},
+{
+"path": "ai/nova-ai/awareness/tools/codeanalyzer_1.py",
+"bytes": 5278,
+"sha256": "be35d9dc2600e5b32d2ca1fe03c4444f3fe34a50fcde3444a0a000b1a134df6f"
+},
+{
+"path": "ai/nova-ai/project_docs/projectnova_DARPA_contntpg3_MilesSchedTeamQual.md",
+"bytes": 3699,
+"sha256": "0734288882310cbdc785e1973df4f1c08b04c5180a33b442d39fcb2938c9a463"
+},
+{
+"path": "ai/nova-ai/project_docs/projectnova_DARPA_contntpg2_NATSECAPP_TieredVarr.md",
+"bytes": 3386,
+"sha256": "932bb5fa583d9423bdd5a89fbad53427491d470f5f342a1b30b21fcefd3b3c6d"
+},
+{
+"path": "ai/nova-ai/project_docs/projectnova_DARPA_contntpg4_COSTCOMPRSKMIT.md",
+"bytes": 3209,
+"sha256": "753cf08b2931eb640d1cfbeefafbcdcd1bb53f2c7b8352f7f43d2b5319e66598"
+},
+{
+"path": "ai/nova-ai/project_docs/darpa_nova_skeleton.md",
+"bytes": 4072,
+"sha256": "617adf718644d64df513d40e33d65415dd9420fc65548c10d2a5c3ecc2da1fd6"
+},
+{
+"path": "ai/nova-ai/project_docs/projectnova_DARPA_contntpg1_techapproah_innovation.md",
+"bytes": 3154,
+"sha256": "18c80d5f467fe8b219e536b3328a061e4949c3b7442eaeaa132f789a8009bd56"
+},
+{
+"path": "ai/nova-ai/project_docs/shieldDocv01.md",
+"bytes": 5094,
+"sha256": "5181786ec283e8bbab08e8a7048696f60c69498c7be4a6d71c96c0322e307f68"
+},
+{
+"path": "ai/nova-ai/project_docs/projectnova_DARPA_COverpage.md",
+"bytes": 2525,
+"sha256": "42137ad6fdd4473faca91ea1f5859a3f6258b674876964831bf60d52683e2e42"
+},
+{
+"path": "ai/nova-ai/project_docs/ProjectNOVA.odt",
+"bytes": 26871,
+"sha256": "ecbf7937e2f668b1b947919b39a2b01fcb200a79c168546213aaf374378e8399"
+},
+{
+"path": "crawl/mylilspider15.py",
+"bytes": 6627,
+"sha256": "b964b4c2f92465921bebcaa022c3f2e77aad0a71665770a0b54e70da782045ed"
+},
+{
+"path": "crawl/mylilspider3.py",
+"bytes": 3366,
+"sha256": "22440d5bb6fb6361b7236d73ac7c9ae2194443e51ca21234266a0dfbae0c2b22"
+},
+{
+"path": "crawl/g3crawler.py",
+"bytes": 5359,
+"sha256": "7b7885eeffb35fed0c60aabe9a49e17b6e0c3a65a7d389ee60515a6b2b3d3b8b"
+},
+{
+"path": "crawl/readspider8.py",
+"bytes": 284,
+"sha256": "e0e072dabc70bbed4b5c038658b501b8644c7e3f33c9df5cf434d9861d8caab2"
+},
+{
+"path": "crawl/mylilspider11.py",
+"bytes": 6071,
+"sha256": "ae65bd4d848e0d1d7e89d9d6c8a03840c35ea002852a2d0c7e3d2ea02c8f49f9"
+},
+{
+"path": "crawl/mylilspider2.py",
+"bytes": 3244,
+"sha256": "8f8e0d86cc1d4ff507734c133ad590b60dc5dc294912bf317459b6324a4be083"
+},
+{
+"path": "crawl/mylilspider7.py",
+"bytes": 4697,
+"sha256": "9d7bbd1193901b39e4d6c437ae562b47ac0dc901efca458cd1a538a8ac4901bb"
+},
+{
+"path": "crawl/mylilspider4.py",
+"bytes": 3492,
+"sha256": "03c284e5fe95b6741dfbbbb612e3556fc7d9db4c7ee00e4906214501f95ba879"
+},
+{
+"path": "crawl/mylilspider18.py",
+"bytes": 7156,
+"sha256": "a6e254aa7e7af4cd8e15e655ac31e7ddda4f4b415993b582d3a2b383b51c545e"
+},
+{
+"path": "crawl/mylilspider6.py",
+"bytes": 3794,
+"sha256": "a7f0e79fb9e58bccdb8f07d1e26a1bde7cdac3ac167c4d4fa9328d80f84251b8"
+},
+{
+"path": "crawl/mylilspider9.py",
+"bytes": 4697,
+"sha256": "06948e0bd768bdf47c550c067591f25305a048c002c5d599ea9e0984891173b3"
+},
+{
+"path": "crawl/mylilspider16.py",
+"bytes": 6778,
+"sha256": "ad79d96b0aeaa6e3fb63f0f136bf4ee55c17352dc8a01954835faa5ad005f042"
+},
+{
+"path": "crawl/mylilspider8.py",
+"bytes": 4697,
+"sha256": "06948e0bd768bdf47c550c067591f25305a048c002c5d599ea9e0984891173b3"
+},
+{
+"path": "crawl/mylilspider17.py",
+"bytes": 7076,
+"sha256": "635661e52db6bb706235293872b3894ce8ca691963d0bd2519093d25a9599e4f"
+},
+{
+"path": "crawl/mylilspider5.py",
+"bytes": 3793,
+"sha256": "6a02e043a1e95140ab88d4d1222e289ecdbefca8cb607853cd6f130b36facb2e"
+},
+{
+"path": "crawl/mylilspider19.py",
+"bytes": 7387,
+"sha256": "182918e3a8a9da12b3a5c7aff64f8a8a5454d33148fef9ffa9045a541c58c89a"
+},
+{
+"path": "crawl/mylilspider13.py",
+"bytes": 6333,
+"sha256": "b7568663358e28dfde8160d49b29e7ab718e0803cbe62c44a8596e3d34a690c0"
+},
+{
+"path": "crawl/mylilspider20.py",
+"bytes": 2412,
+"sha256": "5d52504108254c909cc95fb7fc591e0d9f896308529e0892cdfdfbb74e6ad5e3"
+},
+{
+"path": "crawl/mylilspider14.py",
+"bytes": 6599,
+"sha256": "bca87b671491ab78e99735802dfabeb8587080295d31bc9795490036cd20907c"
+},
+{
+"path": "crawl/whcs_desc.txt",
+"bytes": 6730,
+"sha256": "ca9c48f8634f9b3e9a43d54699ca33384159b7f0c76978280e160eeb8bffdc2c"
+},
+{
+"path": "crawl/crawlLog.log",
+"bytes": 36315,
+"sha256": "b4986b842aef27bf9120652ebbe64c01dcfb0ff35945ab92491e7357e8f75074"
+},
+{
+"path": "crawl/mylilspider.py",
+"bytes": 3227,
+"sha256": "96a75e9077f567cd4a2ef668f3f765bc8abac98c06f8f2468653b1d24a28790e"
+},
+{
+"path": "crawl/mylilspider12.py",
+"bytes": 6175,
+"sha256": "1a03447001f5b6e8888e957dc35e67032200ec9b62aaaff5361566d9645749e1"
+},
+{
+"path": "crawl/DevLog/Crawl.devlog",
+"bytes": 5462,
+"sha256": "831684917da58ab9a9db02d99738c2a4fbbb251778e2b24f64d5262471c67970"
+},
+{
+"path": "profiles/usa.txt",
+"bytes": 3289,
+"sha256": "c390aac5508638565718b8aafc9b3aa61efcb839a2e7435a568e3976e96872dc"
+},
+{
+"path": "profiles/email.txt",
+"bytes": 73,
+"sha256": "08a04fe317e102572dc6c45b798a2e1b9d0d4d86f8b8a8ad267b537d7396e0ef"
+},
+{
+"path": "profiles/xprof.txt",
+"bytes": 113,
+"sha256": "6cb76b42c42e32d206ea6f9bb981c56520569d08651c326f932546af952e5758"
+},
+{
+"path": "test/ollama_Archlinux_101.txt",
+"bytes": 5656,
+"sha256": "130fa8e00deab460d4e75eea00b6b44f8b998ebdf29278518a2f2409978948d1"
+},
+{
+"path": "test/typescript",
+"bytes": 9226,
+"sha256": "def7cd4b499be57290c2eaa88a6fae5167011412a9b2ce2a353355c2355ce919"
+},
+{
+"path": "test/novaterm1.py",
+"bytes": 7504,
+"sha256": "4043ccbe1e6ce5caf151936c1c486de47b11b66a580bc52c9e1331838b808fb3"
+},
+{
+"path": "test/novaterm0.py",
+"bytes": 8093,
+"sha256": "f2168e1e1cbce55c803a3406db852ab72455514c4c986995213c1ea90c0ae3c3"
+},
+{
+"path": "test/sim/mars_nuke.py",
+"bytes": 2379,
+"sha256": "0f58f906808ae3d39d4cf779f08a7af06564600462a8c522dff985d5db06e386"
+},
+{
+"path": "test/sim/neptune.py",
+"bytes": 10411,
+"sha256": "3d78a936d1a1669480bfffcfdba32eb7041773a8a71f8a0ceeafe6946c147b9d"
+},
+{
+"path": "test/sim/frostshield_v1.py",
+"bytes": 4660,
+"sha256": "c50116b9de353cd07f149c3a616c306be68f213683e4dc3f411b95b53f4e3332"
+},
+{
+"path": "test/sim/frostshield_v2.py",
+"bytes": 4614,
+"sha256": "f599f25c81adfb6a72c74c543cd1af488c2480b2a16139bfea864a9de672d77d"
+},
+{
+"path": "test/sim/frostshield_v2",
+"bytes": 4614,
+"sha256": "f599f25c81adfb6a72c74c543cd1af488c2480b2a16139bfea864a9de672d77d"
+},
+{
+"path": "test/sim/frostshield_v3.py",
+"bytes": 8321,
+"sha256": "4ddfca0b8933e2f6d7bb67daabf2b0588e8be8dae8e6850b9609f187e99a78cb"
+},
+{
+"path": "test/script/species_gene_2_1.py",
+"bytes": 1398,
+"sha256": "28aa834699ace3bee7c30ea5b0614e21c75131f2ec03a8a7322f14b21b0fc41f"
+},
+{
+"path": "test/script/species.json",
+"bytes": 9181,
+"sha256": "64c972d2bc7785a2e50f22a1e53538c8aa00628aafd08392493b13bc22e97214"
+},
+{
+"path": "test/script/shipclasses.json",
+"bytes": 5293,
+"sha256": "50cb012d8c12d7c645aaedd08363d1c6788aa5a19436e397fc878b281d1e0f07"
+},
+{
+"path": "test/script/rotatingcube_bldnr.py",
+"bytes": 543,
+"sha256": "bd9f26c076a504640d90493afea209a36f84946106284a70aa921f068baae994"
+},
+{
+"path": "test/script/helloworld_game.py",
+"bytes": 801,
+"sha256": "b18c3bd52ae7af046f4b67bdb475a0f765afff1a227622f62fa2805d49716ae6"
+},
+{
+"path": "test/script/battery_email.py",
+"bytes": 2337,
+"sha256": "8f0de39da4a1053fc483e6921a708bc31b3ec6be51c6d0d78c9f562e93923e62"
+},
+{
+"path": "test/script/companies.json",
+"bytes": 1530,
+"sha256": "a00ced33a609f58fa0c6a9a65eb6eb4b5a47ae0c7c7e96a15d91e8a3ad18faa0"
+},
+{
+"path": "test/script/species.json.d",
+"bytes": 9181,
+"sha256": "64c972d2bc7785a2e50f22a1e53538c8aa00628aafd08392493b13bc22e97214"
+},
+{
+"path": "test/script/companyMFG.py",
+"bytes": 1178,
+"sha256": "d9d5e2623b47f2b454c959e3a2a48d2c262085e0793b11dea74cc33fd2bee1db"
+},
+{
+"path": "test/script/species_gene_2_0.py",
+"bytes": 1777,
+"sha256": "2d7cff3ec6e6380cfd3b5d819693bbcfde27468ae84c6f7a19c1d6c7e564133a"
+},
+{
+"path": "test/script/hexID.py",
+"bytes": 245,
+"sha256": "54f962c45e218cc07d1802c8e3023786a42cec663c7244a641ecd83f03db10e7"
+},
+{
+"path": "test/script/species_gene_2_2.py",
+"bytes": 1224,
+"sha256": "494ecc9158d83754a25c7c48145ff5eb08a17d8a161e003e673c955b3668fbd0"
+},
+{
+"path": "test/script/shrink_model.py",
+"bytes": 1028,
+"sha256": "b577e4883bc0e83682f565a63583b0aee2118943e1c63ced75bd52fdbabdb8c8"
+},
+{
+"path": "test/script/spaceXcoin.py",
+"bytes": 4116,
+"sha256": "5fcafd533afc86f917d7317e1b4e662a3f866f22a5b4d099c68c344f44f902ef"
+},
+{
+"path": "test/script/species_gene.py",
+"bytes": 1273,
+"sha256": "324dcbffb90f274991d586ad0b47fd5a503b3112479984d26160354741d5bd78"
+}
+]
+}

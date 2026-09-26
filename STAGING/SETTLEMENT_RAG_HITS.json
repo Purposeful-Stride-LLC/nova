@@ -1,0 +1,302 @@
+[
+  {
+    "section": "habitat structures and moonbase/mars habitat design",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 13,
+        "id": 115,
+        "cite": "web:e621c08aa3fb5cbe:https://en.wikipedia.org/wiki/Mars_habitat"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 98,
+        "cite": "web:bf45142f904c3a8c:https://en.wikipedia.org/wiki/Colonization_of_Mars"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 10,
+        "id": 105,
+        "cite": "web:2c7b263fba1ac723:https://en.wikipedia.org/wiki/Lunar_regolith"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 9,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      }
+    ]
+  },
+  {
+    "section": "life support systems ECLSS air water",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 22,
+        "id": 114,
+        "cite": "web:b86bb80762d162e9:https://en.wikipedia.org/wiki/Life_support_system"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 8,
+        "id": 104,
+        "cite": "web:86c6ec498ea80bfb:https://en.wikipedia.org/wiki/In-situ_resource_utilization"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 4,
+        "id": 101,
+        "cite": "web:d3d0a06afd32044f:https://en.wikipedia.org/wiki/Closed_ecological_system"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 4,
+        "id": 100,
+        "cite": "web:50eaf635214f51a2:https://en.wikipedia.org/wiki/Space_transportation"
+      }
+    ]
+  },
+  {
+    "section": "power energy nuclear solar for settlements",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 14,
+        "id": 102,
+        "cite": "web:691c73fa93be7d00:https://en.wikipedia.org/wiki/Solar_power_satellite"
+      },
+      {
+        "whi": "Ax-CHAMBER",
+        "score": 6,
+        "id": 182,
+        "cite": "chamber/20260921T0649-3b777cb1/code"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 6,
+        "id": 105,
+        "cite": "web:2c7b263fba1ac723:https://en.wikipedia.org/wiki/Lunar_regolith"
+      },
+      {
+        "whi": "Ax-CHAMBER",
+        "score": 5,
+        "id": 206,
+        "cite": "chamber/20260921T0657-8180964e/code"
+      }
+    ]
+  },
+  {
+    "section": "space medicine radiation health",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 20,
+        "id": 106,
+        "cite": "web:ddc4daa3475f07cb:https://en.wikipedia.org/wiki/Health_threat_from_cosmic_rays"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 15,
+        "id": 107,
+        "cite": "web:228caead6b4c47ec:https://en.wikipedia.org/wiki/Space_medicine"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 12,
+        "id": 110,
+        "cite": "web:287b474191d08bd2:https://en.wikipedia.org/wiki/Space_law"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      }
+    ]
+  },
+  {
+    "section": "communications deep space network interplanetary internet",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 18,
+        "id": 108,
+        "cite": "web:e69400268a81bda8:https://en.wikipedia.org/wiki/Deep_Space_Network"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 15,
+        "id": 109,
+        "cite": "web:1502b8a453f48562:https://en.wikipedia.org/wiki/Interplanetary_Internet"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 12,
+        "id": 110,
+        "cite": "web:287b474191d08bd2:https://en.wikipedia.org/wiki/Space_law"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      }
+    ]
+  },
+  {
+    "section": "space law outer space treaty governance",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 24,
+        "id": 110,
+        "cite": "web:287b474191d08bd2:https://en.wikipedia.org/wiki/Space_law"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 112,
+        "cite": "web:5fd2e759173929f0:https://en.wikipedia.org/wiki/Space_colonization"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 8,
+        "id": 113,
+        "cite": "web:0b53051e694a672f:https://en.wikipedia.org/wiki/Lunar_base"
+      }
+    ]
+  },
+  {
+    "section": "space manufacturing ISRU industry",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 18,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 12,
+        "id": 110,
+        "cite": "web:287b474191d08bd2:https://en.wikipedia.org/wiki/Space_law"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 8,
+        "id": 112,
+        "cite": "web:5fd2e759173929f0:https://en.wikipedia.org/wiki/Space_colonization"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 8,
+        "id": 100,
+        "cite": "web:50eaf635214f51a2:https://en.wikipedia.org/wiki/Space_transportation"
+      }
+    ]
+  },
+  {
+    "section": "space colonization settlement logistics",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 14,
+        "id": 112,
+        "cite": "web:5fd2e759173929f0:https://en.wikipedia.org/wiki/Space_colonization"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 12,
+        "id": 110,
+        "cite": "web:287b474191d08bd2:https://en.wikipedia.org/wiki/Space_law"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 11,
+        "id": 111,
+        "cite": "web:fb9d7ebc6271c4e9:https://en.wikipedia.org/wiki/Space_manufacturing"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 9,
+        "id": 97,
+        "cite": "web:b777e6b49cd627d7:https://en.wikipedia.org/wiki/Space_habitat"
+      }
+    ]
+  },
+  {
+    "section": "thermal dust regolith environment",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 12,
+        "id": 105,
+        "cite": "web:2c7b263fba1ac723:https://en.wikipedia.org/wiki/Lunar_regolith"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 3,
+        "id": 104,
+        "cite": "web:86c6ec498ea80bfb:https://en.wikipedia.org/wiki/In-situ_resource_utilization"
+      },
+      {
+        "whi": "Ax-CHAMBER",
+        "score": 2,
+        "id": 188,
+        "cite": "chamber/20260921T0651-1fccfb58/code"
+      },
+      {
+        "whi": "Ax-CHAMBER",
+        "score": 1,
+        "id": 175,
+        "cite": "chamber/20260921T0550-0d3fa46d/claw"
+      }
+    ]
+  },
+  {
+    "section": "crew psychology social systems closed habitat",
+    "n": 4,
+    "hits": [
+      {
+        "whi": "0x-WEB",
+        "score": 8,
+        "id": 97,
+        "cite": "web:b777e6b49cd627d7:https://en.wikipedia.org/wiki/Space_habitat"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 7,
+        "id": 101,
+        "cite": "web:d3d0a06afd32044f:https://en.wikipedia.org/wiki/Closed_ecological_system"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 5,
+        "id": 115,
+        "cite": "web:e621c08aa3fb5cbe:https://en.wikipedia.org/wiki/Mars_habitat"
+      },
+      {
+        "whi": "0x-WEB",
+        "score": 5,
+        "id": 114,
+        "cite": "web:b86bb80762d162e9:https://en.wikipedia.org/wiki/Life_support_system"
+      }
+    ]
+  }
+]

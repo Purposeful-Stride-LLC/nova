@@ -1,0 +1,525 @@
+{
+  "zulu_start": "2026-09-19T13:49:05Z",
+  "zulu_end": "2026-09-19T13:50:42Z",
+  "queued": [
+    {
+      "id": 6,
+      "url": "https://doc.qt.io/qtforpython/"
+    },
+    {
+      "id": 7,
+      "url": "https://doc.qt.io/qtforpython-6/quickstart.html"
+    },
+    {
+      "id": 8,
+      "url": "https://textual.textualize.io/guide/"
+    },
+    {
+      "id": 9,
+      "url": "https://textual.textualize.io/guide/CSS/"
+    },
+    {
+      "id": 10,
+      "url": "https://rich.readthedocs.io/en/stable/introduction.html"
+    },
+    {
+      "id": 11,
+      "url": "https://rich.readthedocs.io/en/stable/console.html"
+    },
+    {
+      "id": 12,
+      "url": "https://python-prompt-toolkit.readthedocs.io/en/stable/"
+    },
+    {
+      "id": 13,
+      "url": "https://docs.python.org/3/library/curses.html"
+    },
+    {
+      "id": 14,
+      "url": "https://urwid.org/manual/overview.html"
+    },
+    {
+      "id": 15,
+      "url": "https://blessed.readthedocs.io/en/latest/"
+    }
+  ],
+  "web_drains": [
+    {
+      "id": 2,
+      "url": "https://grok.com/project/f7dfc3d0-98bc-4788-b1fa-524719a14700?chat=adbad3b3-0656-4536-8297-083a2e02fd90",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 3,
+      "url": "https://zippy-trail-apex-zinc.grok.me/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 4,
+      "url": "https://ivory-jolly-sapphire-lark.grok.me/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 5,
+      "url": "https://solar-crisp-palm-fire.grok.me/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 6,
+      "url": "https://doc.qt.io/qtforpython/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 7,
+      "url": "https://doc.qt.io/qtforpython-6/quickstart.html",
+      "ingested": false,
+      "ok": true,
+      "label": "reject-thin",
+      "error": null
+    },
+    {
+      "id": 8,
+      "url": "https://textual.textualize.io/guide/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 9,
+      "url": "https://textual.textualize.io/guide/CSS/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 10,
+      "url": "https://rich.readthedocs.io/en/stable/introduction.html",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 11,
+      "url": "https://rich.readthedocs.io/en/stable/console.html",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 12,
+      "url": "https://python-prompt-toolkit.readthedocs.io/en/stable/",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    },
+    {
+      "id": 13,
+      "url": "https://docs.python.org/3/library/curses.html",
+      "ingested": true,
+      "ok": true,
+      "label": "ingest",
+      "error": null
+    }
+  ],
+  "crawl": [
+    {
+      "url": "https://doc.qt.io/qtforpython/",
+      "pages": 2,
+      "chunk_ids": [
+        6,
+        7
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://doc.qt.io/qtforpython-6/quickstart.html",
+      "pages": 1,
+      "chunk_ids": [
+        8
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://textual.textualize.io/guide/",
+      "pages": 2,
+      "chunk_ids": [
+        9,
+        10
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://textual.textualize.io/guide/CSS/",
+      "pages": 2,
+      "chunk_ids": [
+        11,
+        12
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://rich.readthedocs.io/en/stable/introduction.html",
+      "pages": 2,
+      "chunk_ids": [
+        13,
+        14
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://rich.readthedocs.io/en/stable/console.html",
+      "pages": 2,
+      "chunk_ids": [
+        15,
+        16
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://python-prompt-toolkit.readthedocs.io/en/stable/",
+      "pages": 2,
+      "chunk_ids": [
+        17,
+        18
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://docs.python.org/3/library/curses.html",
+      "pages": 2,
+      "chunk_ids": [
+        19,
+        20
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://urwid.org/manual/overview.html",
+      "pages": 2,
+      "chunk_ids": [
+        21,
+        22
+      ],
+      "ok": true,
+      "error": null
+    },
+    {
+      "url": "https://blessed.readthedocs.io/en/latest/",
+      "pages": 2,
+      "chunk_ids": [
+        23,
+        24
+      ],
+      "ok": true,
+      "error": null
+    }
+  ],
+  "facts_new": [
+    {
+      "id": 977,
+      "zulu": "2026-09-19T13:49:05Z",
+      "whi": "0x-WEB",
+      "title": "grok next https static chunks projects assistant built spacexai chat create imag"
+    },
+    {
+      "id": 978,
+      "zulu": "2026-09-19T13:49:07Z",
+      "whi": "0x-WEB",
+      "title": "rock wall first water about tunnel hold later frost metres seal settlement"
+    },
+    {
+      "id": 979,
+      "zulu": "2026-09-19T13:49:07Z",
+      "whi": "0x-WEB",
+      "title": "parked command nova idle latest queue memory palace awareness ledger steward sov"
+    },
+    {
+      "id": 980,
+      "zulu": "2026-09-19T13:49:08Z",
+      "whi": "0x-WEB",
+      "title": "frontinus purposeful stride method briefing engineered hydrothermal mineral harv"
+    },
+    {
+      "id": 981,
+      "zulu": "2026-09-19T13:49:09Z",
+      "whi": "0x-WEB",
+      "title": "pyside drender qtcore qtgui dextras danimation dcore qtgraphs dinput qtdesigner "
+    },
+    {
+      "id": 982,
+      "zulu": "2026-09-19T13:49:10Z",
+      "whi": "Tx-REJECT",
+      "title": "reject-thin"
+    },
+    {
+      "id": 983,
+      "zulu": "2026-09-19T13:49:10Z",
+      "whi": "0x-WEB",
+      "title": "textual guide widgets reference layout events content introduction tutorial blog"
+    },
+    {
+      "id": 984,
+      "zulu": "2026-09-19T13:49:10Z",
+      "whi": "0x-WEB",
+      "title": "textual widgets selector dock styles rules nesting color header rule widget file"
+    },
+    {
+      "id": 985,
+      "zulu": "2026-09-19T13:49:10Z",
+      "whi": "0x-WEB",
+      "title": "rich pretty print color import python console terminal install introduction insp"
+    },
+    {
+      "id": 986,
+      "zulu": "2026-09-19T13:49:11Z",
+      "whi": "0x-WEB",
+      "title": "console rich will print terminal output style text import color which example"
+    },
+    {
+      "id": 987,
+      "zulu": "2026-09-19T13:49:11Z",
+      "whi": "0x-WEB",
+      "title": "prompt toolkit python input about more bindings rendering adding getting started"
+    },
+    {
+      "id": 988,
+      "zulu": "2026-09-19T13:49:11Z",
+      "whi": "0x-WEB",
+      "title": "curses window terminal return mode color character value screen used colors will"
+    }
+  ],
+  "chunks_new": [
+    {
+      "id": 6,
+      "zulu": "2026-09-19T13:49:12Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://doc.qt.io/qtforpython/",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 7,
+      "zulu": "2026-09-19T13:49:19Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://doc.qt.io/qtforpython/#furo-main-content",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 8,
+      "zulu": "2026-09-19T13:49:23Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://doc.qt.io/qtforpython-6/quickstart.html",
+      "status": "temp",
+      "n": 68
+    },
+    {
+      "id": 9,
+      "zulu": "2026-09-19T13:49:27Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x04:https://textual.textualize.io/guide/",
+      "status": "temp",
+      "n": 6605
+    },
+    {
+      "id": 10,
+      "zulu": "2026-09-19T13:49:32Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x04:https://textual.textualize.io/guide/#guide",
+      "status": "temp",
+      "n": 6611
+    },
+    {
+      "id": 11,
+      "zulu": "2026-09-19T13:49:36Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 12,
+      "zulu": "2026-09-19T13:49:41Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/#textual-css",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 13,
+      "zulu": "2026-09-19T13:49:46Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/introduction.html",
+      "status": "temp",
+      "n": 4347
+    },
+    {
+      "id": 14,
+      "zulu": "2026-09-19T13:49:51Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/index.html",
+      "status": "temp",
+      "n": 2581
+    },
+    {
+      "id": 15,
+      "zulu": "2026-09-19T13:49:54Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/console.html",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 16,
+      "zulu": "2026-09-19T13:49:58Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/index.html",
+      "status": "temp",
+      "n": 2581
+    },
+    {
+      "id": 17,
+      "zulu": "2026-09-19T13:50:03Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://python-prompt-toolkit.readthedocs.io/en/stable/",
+      "status": "temp",
+      "n": 5682
+    },
+    {
+      "id": 18,
+      "zulu": "2026-09-19T13:50:08Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://python-prompt-toolkit.readthedocs.io/en/stable/#sidebar-filte",
+      "status": "temp",
+      "n": 5697
+    },
+    {
+      "id": 19,
+      "zulu": "2026-09-19T13:50:13Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://docs.python.org/3/library/curses.html",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 20,
+      "zulu": "2026-09-19T13:50:17Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://www.python.org/",
+      "status": "temp",
+      "n": 45
+    },
+    {
+      "id": 21,
+      "zulu": "2026-09-19T13:50:23Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://urwid.org/manual/overview.html",
+      "status": "temp",
+      "n": 3030
+    },
+    {
+      "id": 22,
+      "zulu": "2026-09-19T13:50:29Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://urwid.org/genindex.html",
+      "status": "temp",
+      "n": 8000
+    },
+    {
+      "id": 23,
+      "zulu": "2026-09-19T13:50:33Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://blessed.readthedocs.io/en/latest/",
+      "status": "temp",
+      "n": 3991
+    },
+    {
+      "id": 24,
+      "zulu": "2026-09-19T13:50:37Z",
+      "whi": "Tx-TEMP",
+      "cite": "crawl:1x00:https://blessed.readthedocs.io/en/latest/#",
+      "status": "temp",
+      "n": 3992
+    }
+  ],
+  "queue": [
+    {
+      "id": 6,
+      "status": "done",
+      "url": "https://doc.qt.io/qtforpython/"
+    },
+    {
+      "id": 7,
+      "status": "done",
+      "url": "https://doc.qt.io/qtforpython-6/quickstart.html"
+    },
+    {
+      "id": 8,
+      "status": "done",
+      "url": "https://textual.textualize.io/guide/"
+    },
+    {
+      "id": 9,
+      "status": "done",
+      "url": "https://textual.textualize.io/guide/CSS/"
+    },
+    {
+      "id": 10,
+      "status": "done",
+      "url": "https://rich.readthedocs.io/en/stable/introduction.html"
+    },
+    {
+      "id": 11,
+      "status": "done",
+      "url": "https://rich.readthedocs.io/en/stable/console.html"
+    },
+    {
+      "id": 12,
+      "status": "done",
+      "url": "https://python-prompt-toolkit.readthedocs.io/en/stable/"
+    },
+    {
+      "id": 13,
+      "status": "done",
+      "url": "https://docs.python.org/3/library/curses.html"
+    },
+    {
+      "id": 14,
+      "status": "queued",
+      "url": "https://urwid.org/manual/overview.html"
+    },
+    {
+      "id": 15,
+      "status": "queued",
+      "url": "https://blessed.readthedocs.io/en/latest/"
+    }
+  ]
+}

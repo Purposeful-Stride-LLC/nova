@@ -143,3 +143,16 @@ CHECKSUM THIS LOOP
   Docs: STAGING/* + docs/* + notes/COUNCIL_SERIES_SCHED_NOTES.md
   Code: council-series stub in sched/forge; queue dirs; STEPs templates
   Not done: live OG systemd, live paper.py, full leash proof_tree patch
+
+
+LOOP 2026-09-26  GUI mint + public GitHub publish
+--------------------------------------------------------------------------------
+GUI chrome: four theme PNGs under STAGING/gui_art/ (Diffusers SD1.5 path when
+ComfyUI hit AppLocker friction on TUF). Music beds minted via
+STAGING/mint_gui_assets.py — WAVs stay local (gitignore). How-to:
+docs/REPORT_GUI_ART_MUSIC_HOWTO_2026-09-26.md
+
+Public publish intent: scrubbed tree + proprietary LICENSE (All Rights Reserved,
+Purposeful Stride LLC) + README.md / DEVLOG.md / TUTORIAL.md for the org repo
+Purposeful-Stride-LLC/nova. No secrets, no live DB, no wavs in git.
+VERSION → 1.9.0 public publish + GUI chrome assets.

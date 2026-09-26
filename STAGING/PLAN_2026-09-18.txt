@@ -1,0 +1,105 @@
+================================================================================
+STAGING PACKET  PLAN_2026-09-18
+Not executable. Circle-back file. Renditions live here as *.py.dep
+================================================================================
+
+0. TOO MUCH FOR ONE CUT?
+   Yes. Next executable cut is BRIEF + DISPLAY + NEWS SKELETON only.
+   X/Grok plug, 5-min video elevate, GIS, subscription-brain bus = later packets.
+
+1. WHAT WE HAVE (live metal)
+   Daemon jobs          holmes hw-check ollama-catalog whistle cam:N web:URL
+                        codesum:PATH pdf:PATH history
+   TUI                  ANSI split chat | artifact text. No pixel pane.
+   Palace               facts + Tx/0x/Ax + packets + reports + employees
+   Parsers              html matrix, speak peel, OpenCV features, wav RMS/ZCR
+   Hands                /web /pdf /history /see /hear /cam /codesum
+   Mail                 to=employee@  mask=  kind=  cite=path
+   Missing VLM on roster unless steward pulls moondream
+
+2. TUI DISPLAY  (must settle)
+   ANSI cannot decode JPEG/WAV/MP4.
+   Briefing contract:
+     LEFT   nested text (one-liner -> expand)
+     RIGHT  paths + ranks + job ids
+     OPEN   OS handler only on /open PATH  (Photos / ffplay / start)
+   Pseudo:
+     BRIEF
+       line1  rank title zulu          # collapsed
+       /expand ID
+         summary 80 words
+         /expand ID.article
+           nouns[] places[] orgs[]
+           cite url
+           img_paths[]   -> /see PATH optional VLM
+     /open artifacts/vision/Ax-CAM-0_....jpg
+       subprocess: Windows start file, Linux xdg-open
+   Video: never in the box. OpenCV trigger writes a clip path; /open plays it.
+
+3. NEWS / FINANCE / TRENDS  (templates, not crawlers)
+   Seeds (steward list, not "the whole internet"):
+     example.com  reuters.com/world  bbc.com/news  (text pages)
+   Pipe:
+     web:URL
+       -> matrix keepers
+       -> noun pass (caps spans, simple regex)  NO LLM
+       -> packet chronicler  kind=article
+       -> 0.5b one-liner
+       -> 8b 80-word only if steward expands OR daily job
+     Store:
+       facts 0x-NEWS  title=one-liner  body=summary+nouns+url
+       daily rollup job 86400  name=brief-news
+   Financial / trends = SAME template different seed list.
+   Do not schedule 30s cam and 30s news together on 16 GB.
+
+4. 5-MIN STILL LOOP + ELEVATE
+   job cam:0 every 300s already.
+   Elevate rule (no video yet):
+     if motion_blobs > N: packet seer + report rank 2
+     0.5b: "motion? y/n"
+     8b: only if y and steward /approve describe
+   Continuous 0.5b+8b together = TUF heat. Default: OpenCV only.
+
+5. VISION ON WEB PAGES
+   After strip, collect <img src> abs URLs cap 3
+   Save under artifacts/vision/Tx-WEB-...
+   /see PATH if vision tag exists
+   Else OpenCV features only
+   Public pages only. No login walls.
+
+6. X.COM / GROK / SUBSCRIPTION BRAIN  (later packet)
+   Interface: Brain protocol
+     complete(system, user, images=[]) -> text
+   Adapters:
+     ollama.local     HAVE
+     xai.grok         key in data/secrets  never git
+     openai.compat    same
+   X ingest: official API only, public posts, cite tweet id.
+   Not this cut.
+
+7. PRIVACY
+   Public pages and public profiles are public.
+   History ingest is steward machine, Tx-HIST, no auto /web.
+   Do not build face-search on random people.
+
+8. RENDITION FOLDER
+   STAGING/
+     PLAN_2026-09-18.txt          this
+     brief.py.dep                 next cut sketch
+     display.py.dep               /open /expand
+   Live code stays nova\
+   *.py.dep is never imported by daemon.
+
+9. NEXT EXECUTABLE CUT (if steward says go)
+   A. /open PATH
+   B. /brief          prints today's open reports + last 5 0x-NEWS
+   C. job brief-news 86400 with 3 steward URLs
+   D. noun regex on ingested text
+   NOT: X, Grok key, video encoder, GIS, 5-min dual LLM
+
+10. ROUTING CHECKSUM
+    raw -> parser -> Tx -> report -> HIL -> Ax
+    LLM sees packets not HTML
+    Display sees paths not pixels
+    Brain adapter later swaps only the complete() call
+================================================================================

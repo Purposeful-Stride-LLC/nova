@@ -1,0 +1,63 @@
+{
+  "zulu": "2026-09-26T16:14:43Z",
+  "images_backend": "diffusers+SD1.5 (ComfyUI cold_start blocked by AppLocker on scipy highs DLL)",
+  "music_backend": "procedural WAV (stdlib wave; NOVA-inspired ambient beds)",
+  "images": [
+    {
+      "name": "nova_gui_bg_dark_homestead_2026-09-26.png",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_dark_homestead_2026-09-26.png",
+      "bytes": 582909,
+      "sha256": "ea2bfac40f82f0b160520eef5a481d44237275e56e9acc1d33fd6d00b18b0c83"
+    },
+    {
+      "name": "nova_gui_bg_frostshield_glass_2026-09-26.png",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_frostshield_glass_2026-09-26.png",
+      "bytes": 790835,
+      "sha256": "a78c71270b5d23e4310c50d0331ff736bc12f16adaf83a53a6d8d6896d9f9455"
+    },
+    {
+      "name": "nova_gui_bg_lunar_command_2026-09-26.png",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_lunar_command_2026-09-26.png",
+      "bytes": 636603,
+      "sha256": "a6d83b6512c0840a7de60472fd6c51fa8af393d5543c64c3e950dce35c3664dc"
+    },
+    {
+      "name": "nova_gui_bg_warm_forge_2026-09-26.png",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_warm_forge_2026-09-26.png",
+      "bytes": 717500,
+      "sha256": "9edd0cbe2bfa48c8fa46c1517999861182c78f87cf0a50d0ec8c57a78f96d9b7"
+    }
+  ],
+  "music": [
+    {
+      "name": "nova_gui_ambient_forge_2026-09-26.wav",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_music\\nova_gui_ambient_forge_2026-09-26.wav",
+      "bytes": 3880844,
+      "sha256": "ec447b9debbeb7e2e065c7f1257bf3b68c6b478bfc09d2e8589fa71a36afc799"
+    },
+    {
+      "name": "nova_gui_ambient_frostshield_2026-09-26.wav",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_music\\nova_gui_ambient_frostshield_2026-09-26.wav",
+      "bytes": 4586444,
+      "sha256": "7202b232ae896cd0012ea115ccf99412e81cc413f24e9356b9c8dddcb0b0496d"
+    },
+    {
+      "name": "nova_gui_ambient_homestead_2026-09-26.wav",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_music\\nova_gui_ambient_homestead_2026-09-26.wav",
+      "bytes": 4233644,
+      "sha256": "71ba55008cc073c558ce1e4c7e91aee8f467d67403f8a3948cd0e199cfe79e57"
+    },
+    {
+      "name": "nova_gui_ambient_lunar_2026-09-26.wav",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_music\\nova_gui_ambient_lunar_2026-09-26.wav",
+      "bytes": 4939244,
+      "sha256": "f7881b97a7686022d09dd1d970a757a13890367c8a3b094d89a1af784845ef89"
+    },
+    {
+      "name": "nova_gui_sting_focus_2026-09-26.wav",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_music\\nova_gui_sting_focus_2026-09-26.wav",
+      "bytes": 220544,
+      "sha256": "e1932de8ee62b4adc956696724507986aae040b59da50168a5bea9d63a57ea64"
+    }
+  ]
+}

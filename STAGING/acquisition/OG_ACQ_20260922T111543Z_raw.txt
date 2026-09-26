@@ -1,0 +1,276 @@
+﻿===META===
+ts=20260922T111541Z
+node=og-ubuntu
+host=LinuxBox1
+===OS===
+Linux LinuxBox1 6.8.0-138-generic #138~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug  7 13:43:15 UTC  x86_64 x86_64 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+locale=LANG=en_US.UTF-8;LANGUAGE=;LC_CTYPE="en_US.UTF-8";LC_NUMERIC="en_US.UTF-8";LC_TIME="en_US.UTF-8";
+===CPU_MEM===
+Architecture:                            x86_64
+CPU(s):                                  8
+On-line CPU(s) list:                     0-7
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+CPU max MHz:                             3400.0000
+CPU min MHz:                             400.0000
+NUMA node0 CPU(s):                       0-7
+               total        used        free      shared  buff/cache   available
+Mem:           7.5Gi       2.5Gi       616Mi       324Mi       4.4Gi       4.4Gi
+Swap:          8.0Gi       8.0Mi       8.0Gi
+===DISK_MOUNTS===
+NAME          SIZE TYPE FSTYPE   MOUNTPOINT                                   MODEL
+loop0           4K loop squashfs /snap/bare/5                                 
+loop1        63.8M loop squashfs /snap/core20/2866                            
+loop3        63.8M loop squashfs /snap/core20/2922                            
+loop4          74M loop squashfs /snap/core22/2437                            
+loop5        66.8M loop squashfs /snap/core24/1587                            
+loop6        66.8M loop squashfs /snap/core24/1643                            
+loop7          74M loop squashfs /snap/core22/2955                            
+loop8       260.3M loop squashfs /snap/firefox/8763                           
+loop9       350.1M loop squashfs /snap/freeorion/491                          
+loop10      531.4M loop squashfs /snap/gnome-42-2204/247                      
+loop11      376.4M loop squashfs /snap/freeorion/521                          
+loop12      531.5M loop squashfs /snap/gnome-42-2204/263                      
+loop13      606.1M loop squashfs /snap/gnome-46-2404/153                      
+loop14      614.5M loop squashfs /snap/gnome-46-2404/164                      
+loop15       91.7M loop squashfs /snap/gtk-common-themes/1535                 
+loop16      437.3M loop squashfs /snap/kde-frameworks-5-99-qt-5-15-7-core20/7 
+loop17        395M loop squashfs /snap/mesa-2404/1165                         
+loop18        402M loop squashfs /snap/mesa-2404/1839                         
+loop19       56.9M loop squashfs /snap/mumble/1731                            
+loop20      845.3M loop squashfs /snap/open-webui/158                         
+loop21      846.3M loop squashfs /snap/open-webui/160                         
+loop22      627.3M loop squashfs /snap/pioneer/19                             
+loop23      625.3M loop squashfs /snap/pioneer/9                              
+loop24       12.9M loop squashfs /snap/snap-store/1113                        
+loop25       12.2M loop squashfs /snap/snap-store/1216                        
+loop26       50.1M loop squashfs /snap/snapd/27710                            
+loop27       50.3M loop squashfs /snap/snapd/27738                            
+loop28        580K loop squashfs /snap/snapd-desktop-integration/361          
+loop29        828K loop squashfs /snap/snapd-desktop-integration/391          
+loop30      108.2M loop squashfs /snap/sqlitebrowser/4598                     
+loop31        4.4M loop squashfs /snap/tree/54                                
+loop32      261.3M loop squashfs /snap/firefox/8929                           
+nvme0n1     238.5G disk                                                       SAMSUNG MZVLW256HEHP-000L7
+Γö£ΓöÇnvme0n1p1   512M part vfat     /boot/efi                                    
+ΓööΓöÇnvme0n1p2   238G part ext4     /                                            
+Filesystem     Type      Size  Used Avail Use% Mounted on
+tmpfs          tmpfs     771M  4.4M  766M   1% /run
+/dev/nvme0n1p2 ext4      234G   90G  132G  41% /
+tmpfs          tmpfs     3.8G     0  3.8G   0% /dev/shm
+tmpfs          tmpfs     5.0M  4.0K  5.0M   1% /run/lock
+efivarfs       efivarfs  154K   40K  110K  27% /sys/firmware/efi/efivars
+/dev/nvme0n1p1 vfat      511M  6.1M  505M   2% /boot/efi
+tmpfs          tmpfs     771M  136K  771M   1% /run/user/1000
+tmpfs          tmpfs     771M   76K  771M   1% /run/user/128
+===USB_MOUNTS===
+NAME          SIZE TYPE TRAN   VENDOR MODEL                      MOUNTPOINT
+loop0           4K loop                                          /snap/bare/5
+loop1        63.8M loop                                          /snap/core20/2866
+loop3        63.8M loop                                          /snap/core20/2922
+loop4          74M loop                                          /snap/core22/2437
+loop5        66.8M loop                                          /snap/core24/1587
+loop6        66.8M loop                                          /snap/core24/1643
+loop7          74M loop                                          /snap/core22/2955
+loop8       260.3M loop                                          /snap/firefox/8763
+loop9       350.1M loop                                          /snap/freeorion/491
+loop10      531.4M loop                                          /snap/gnome-42-2204/247
+loop11      376.4M loop                                          /snap/freeorion/521
+loop12      531.5M loop                                          /snap/gnome-42-2204/263
+loop13      606.1M loop                                          /snap/gnome-46-2404/153
+loop14      614.5M loop                                          /snap/gnome-46-2404/164
+loop15       91.7M loop                                          /snap/gtk-common-themes/1535
+loop16      437.3M loop                                          /snap/kde-frameworks-5-99-qt-5-15-7-core20/7
+loop17        395M loop                                          /snap/mesa-2404/1165
+loop18        402M loop                                          /snap/mesa-2404/1839
+loop19       56.9M loop                                          /snap/mumble/1731
+loop20      845.3M loop                                          /snap/open-webui/158
+loop21      846.3M loop                                          /snap/open-webui/160
+loop22      627.3M loop                                          /snap/pioneer/19
+loop23      625.3M loop                                          /snap/pioneer/9
+loop24       12.9M loop                                          /snap/snap-store/1113
+loop25       12.2M loop                                          /snap/snap-store/1216
+loop26       50.1M loop                                          /snap/snapd/27710
+loop27       50.3M loop                                          /snap/snapd/27738
+loop28        580K loop                                          /snap/snapd-desktop-integration/361
+loop29        828K loop                                          /snap/snapd-desktop-integration/391
+loop30      108.2M loop                                          /snap/sqlitebrowser/4598
+loop31        4.4M loop                                          /snap/tree/54
+loop32      261.3M loop                                          /snap/firefox/8929
+nvme0n1     238.5G disk nvme          SAMSUNG MZVLW256HEHP-000L7 
+Γö£ΓöÇnvme0n1p1   512M part nvme                                     /boot/efi
+ΓööΓöÇnvme0n1p2   238G part nvme                                     /
+SOURCE           FSTYPE        SIZE   USED  AVAIL USE% TARGET
+udev             devtmpfs      3.7G      0   3.7G   0% /dev
+tmpfs            tmpfs       770.3M   4.3M   766M   1% /run
+/dev/nvme0n1p2   ext4        233.2G  89.5G 131.8G  38% /
+tmpfs            tmpfs         3.8G      0   3.8G   0% /dev/shm
+tmpfs            tmpfs           5M     4K     5M   0% /run/lock
+/dev/loop0       squashfs      128K   128K      0 100% /snap/bare/5
+/dev/loop1       squashfs     63.9M  63.9M      0 100% /snap/core20/2866
+/dev/loop3       squashfs     63.9M  63.9M      0 100% /snap/core20/2922
+/dev/loop5       squashfs     66.9M  66.9M      0 100% /snap/core24/1587
+/dev/loop4       squashfs       74M    74M      0 100% /snap/core22/2437
+/dev/loop6       squashfs     66.9M  66.9M      0 100% /snap/core24/1643
+/dev/loop9       squashfs    350.1M 350.1M      0 100% /snap/freeorion/491
+/dev/loop8       squashfs    260.4M 260.4M      0 100% /snap/firefox/8763
+/dev/loop12      squashfs    531.5M 531.5M      0 100% /snap/gnome-42-2204/263
+/dev/loop11      squashfs    376.5M 376.5M      0 100% /snap/freeorion/521
+/dev/loop10      squashfs    531.4M 531.4M      0 100% /snap/gnome-42-2204/247
+/dev/loop13      squashfs    606.1M 606.1M      0 100% /snap/gnome-46-2404/153
+/dev/loop14      squashfs    614.6M 614.6M      0 100% /snap/gnome-46-2404/164
+/dev/loop15      squashfs     91.8M  91.8M      0 100% /snap/gtk-common-themes/1535
+/dev/loop17      squashfs      395M   395M      0 100% /snap/mesa-2404/1165
+/dev/loop16      squashfs    437.4M 437.4M      0 100% /snap/kde-frameworks-5-99-qt-5-15-7-core20/7
+/dev/loop19      squashfs     56.9M  56.9M      0 100% /snap/mumble/1731
+/dev/loop18      squashfs      402M   402M      0 100% /snap/mesa-2404/1839
+/dev/loop21      squashfs    846.4M 846.4M      0 100% /snap/open-webui/160
+/dev/loop20      squashfs    845.4M 845.4M      0 100% /snap/open-webui/158
+/dev/loop22      squashfs    627.4M 627.4M      0 100% /snap/pioneer/19
+/dev/loop23      squashfs    625.4M 625.4M      0 100% /snap/pioneer/9
+/dev/loop24      squashfs       13M    13M      0 100% /snap/snap-store/1113
+/dev/loop25      squashfs     12.3M  12.3M      0 100% /snap/snap-store/1216
+/dev/loop27      squashfs     50.4M  50.4M      0 100% /snap/snapd/27738
+/dev/loop26      squashfs     50.1M  50.1M      0 100% /snap/snapd/27710
+/dev/loop28      squashfs      640K   640K      0 100% /snap/snapd-desktop-integration/361
+/dev/loop29      squashfs      896K   896K      0 100% /snap/snapd-desktop-integration/391
+/dev/loop31      squashfs      4.5M   4.5M      0 100% /snap/tree/54
+/dev/loop30      squashfs    108.3M 108.3M      0 100% /snap/sqlitebrowser/4598
+/dev/nvme0n1p1   vfat          511M   6.1M 504.9M   1% /boot/efi
+tmpfs[/snapd/ns] tmpfs       770.3M   4.3M   766M   1% /run/snapd/ns
+tmpfs            tmpfs       770.3M   136K 770.2M   0% /run/user/1000
+portal           fuse.portal                           /run/user/1000/doc
+===NET===
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp0s31f6        DOWN           
+wlp6s0           UP             192.168.0.76/24 2600:8804:5306:b900::ab32/128 2600:8804:5306:b900:f24a:2549:89a9:4e1/64 2600:8804:5306:b900:7c11:7be1:baeb:2a6b/64 fe80::f4e8:1737:39ae:bd9f/64 
+wwan0            DOWN           
+default via 192.168.0.1 dev wlp6s0 proto dhcp metric 600 
+169.254.0.0/16 dev wlp6s0 scope link metric 1000 
+192.168.0.0/24 dev wlp6s0 proto kernel scope link src 192.168.0.76 metric 600 
+===GPU===
+00:02.0 VGA compatible controller: Intel Corporation UHD Graphics 620 (rev 07)
+nvidia-smi:none
+===OLLAMA_MODELS===
+NAME                           ID              SIZE      MODIFIED     
+nova-gx:latest                 e3d3d1274259    395 MB    4 months ago    
+nova-phi3:latest               990df135a8fb    2.2 GB    7 months ago    
+phi3:mini                      4f2222927938    2.2 GB    7 months ago    
+nova:latest                    079d36cdb8fa    1.3 GB    7 months ago    
+nova-c1:latest                 b554615b44b4    725 MB    7 months ago    
+nova-c0:latest                 fb2815ef1051    725 MB    7 months ago    
+smollm2:360m                   297281b699fc    725 MB    7 months ago    
+qwen:0.5b                      b5dc5e784f2a    394 MB    7 months ago    
+qwen3-vl:2b                    0635d9d857d4    1.9 GB    8 months ago    
+moondream:latest               55fc3abd3867    1.7 GB    8 months ago    
+llama3.2:1b                    baf6a787fdff    1.3 GB    8 months ago    
+llama3.2:3b-instruct-q5_K_M    7709c7357e6d    2.3 GB    8 months ago    
+llama3.2:3b                    a80c4f17acd5    2.0 GB    9 months ago    
+===LANG_TOOLS===
+python3: Python 3.10.12
+python: missing
+pip: pip 26.0.1 from /home/mike/.local/lib/python3.10/site-packages/pip (python 3.10)
+pip3: pip 26.0.1 from /home/mike/.local/lib/python3.10/site-packages/pip (python 3.10)
+node: missing
+npm: missing
+rustc: missing
+go: missing
+java: missing
+gcc: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+g++: g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+make: GNU Make 4.3
+ffmpeg: ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+freecad: qt.qpa.xcb: could not connect to display 
+curl: curl 7.81.0 (x86_64-pc-linux-gnu) libcurl/7.81.0 OpenSSL/3.0.2 zlib/1.2.11 brotli/1.0.9 zstd/1.4.8 libidn2/2.3.2 libpsl/0.21.0 (+libidn2/2.3.2) libssh/0.9.6/openssl/zlib nghttp2/1.43.0 librtmp/2.3 OpenLDAP/2.5.20
+wget: GNU Wget 1.21.2 built on linux-gnu.
+git: missing
+jq: jq-1.6
+===PYTHON_PKGS_SAMPLE===
+Package                Version
+---------------------- ----------------
+annotated-doc          0.0.4
+annotated-types        0.7.0
+anyio                  4.12.0
+appdirs                1.4.4
+apturl                 0.5.2
+attrs                  21.2.0
+Babel                  2.8.0
+bcrypt                 3.2.0
+beartype               0.22.9
+beautifulsoup4         4.14.3
+beniget                0.4.1
+blinker                1.4
+Brlapi                 0.8.3
+Brotli                 1.0.9
+certifi                2025.11.12
+cffi                   2.0.0
+chardet                4.0.0
+charset-normalizer     3.4.4
+click                  8.3.1
+click-plugins          1.1.1
+colorama               0.4.4
+coloredlogs            15.0.1
+command-not-found      0.3
+cryptography           3.4.8
+cuda-bindings          13.2.0
+cuda-pathfinder        1.4.4
+cuda-toolkit           13.0.2
+cupshelpers            1.0
+curl_cffi              0.13.0
+cycler                 0.11.0
+dbus-python            1.2.18
+decorator              4.4.2
+defer                  1.0.6
+distro                 1.7.0
+distro-info            1.1+ubuntu0.2
+dnspython              2.1.0
+duplicity              0.8.21
+einops                 0.8.2
+===SERVICES_NOVA===
+active
+UNCONN 0      0                                 0.0.0.0:41776      0.0.0.0:*    users:(("python3",pid=20986,fd=3))
+UNCONN 0      0                                 0.0.0.0:41777      0.0.0.0:*    users:(("python3",pid=20986,fd=5))
+===HOME_AI_TREE===
+204M	/home/mike/pg/ai
+252K	/home/mike/pg/AI Scheduler Refactoring and Database Integration - Grok.pdf
+164K	/home/mike/pg/apt_packages.txt
+196K	/home/mike/pg/crawl
+4.0K	/home/mike/pg/db
+156K	/home/mike/pg/nova-tentacle
+4.0K	/home/mike/pg/nova-tentacle-og.tar.gz
+4.0K	/home/mike/pg/pgback.sh
+16K	/home/mike/pg/profiles
+4.0K	/home/mike/pg/requirements.txt
+184K	/home/mike/pg/test
+total 40
+drwxrwxr-x 7 mike mike 4096 Sep 21 05:12 .
+drwxrwxr-x 8 mike mike 4096 Sep 21 04:54 ..
+drwxrwxr-x 2 mike mike 4096 Sep 21 04:54 bin
+drwxrwxr-x 2 mike mike 4096 Sep 21 05:12 captures
+drwxrwxr-x 2 mike mike 4096 Sep 21 04:55 inbox
+drwxrwxr-x 2 mike mike 4096 Sep 21 04:54 log
+-rw-rw-r-- 1 mike mike   88 Sep 21 04:54 MESH.json
+-rw-rw-r-- 1 mike mike   10 Sep 22 06:03 NODE_ID
+drwxrwxr-x 2 mike mike 4096 Sep 21 05:12 outbox
+-rw-rw-r-- 1 mike mike  230 Sep 21 04:54 README.md
+===THERMAL===
+50000
+20000
+30050
+33000
+50050
+===END===

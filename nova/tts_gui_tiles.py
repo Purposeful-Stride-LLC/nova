@@ -21,7 +21,7 @@ def create_tile_files():
     with open(batch_path, 'w') as f:
         f.write('''@echo off
 title NOVA Pocket TTS Quick Access
-cd C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4
+cd Documents\\NOVA\\NOVA_fieldkit_v1_4
 python.exe -c "from nova.tts_tool import speak; speak('Hello, I am Nova. How may I assist you today?', seat='brief')"
 pause
 ''')
@@ -50,7 +50,7 @@ def create_menu_items():
     # Main launcher
     main_path = menu_dir / "Pocket TTS Launcher.lnk"
     with open(main_path.parent / "Pocket TTS Launcher.lnk", 'w') as f:
-        f.write(f'@echo off\ncd {"C:\\Users\\wuchy\\Documents\\NOVA\\NOVA_fieldkit_v1_4"}\npython.exe -m nova.tts_tool\npause\n')
+        f.write(f'@echo off\ncd {"Documents\\NOVA\\NOVA_fieldkit_v1_4"}\npython.exe -m nova.tts_tool\npause\n')
     
     print(f"Menu items created in: {menu_dir}")
 
@@ -64,11 +64,11 @@ def create_config():
         "tiles": {
             "quick_access": {
                 "label": "NOVA TTS Quick Access",
-                "command": "C:\\Users\\wuchy\\Desktop\\NOVA_TTS_QuickAccess.bat"
+                "command": "Desktop\\NOVA_TTS_QuickAccess.bat"
             },
             "voice_select": {
                 "label": "Select Voice & Speak",
-                "command": "C:\\Users\\wuchy\\Desktop\\NOVA_TTS_VoiceSelect.bat"
+                "command": "Desktop\\NOVA_TTS_VoiceSelect.bat"
             }
         },
         "seats_available": list(__import__('nova.pocket').pocket.SEATS.keys())

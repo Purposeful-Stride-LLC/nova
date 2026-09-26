@@ -1,0 +1,95 @@
+{
+  "session": "20260921T0306-50c71291",
+  "zulu": "2026-09-21T03:06:18Z",
+  "seat_list": [
+    "claw",
+    "code",
+    "brief"
+  ],
+  "motions": [
+    {
+      "id": "A",
+      "title": "Promote chamber temps into RAG after verdict?",
+      "case": "20260921T0306-f109fa8c",
+      "seats": {
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0306-f109fa8c/claw",
+          "chunk_id": 88,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Auto-promote chamber temps into RAG after verdict ensures opinions aren\u2019t lost in `Tx-TEMP` silos; defaulting to promotion aligns with NOVA\u2019s sovereignty principle of audit-capable persistence. Risk: Blind auto-promote may inflate `chunks(LIVE)` beyond optimal 8GB VRAM cache if verdict confidence is low or decay rules misfire. Next cut: a) Add `chamber.promote_to_rag(case)` with `confidence_threshold=0.7`; b) Log each promote/decline to `nova-out/audit.log`; c) Run HIL vacuum before bulk insert; d) Wire small-model llama3.2:3b for verdict confidence scoring."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0306-f109fa8c/code",
+          "chunk_id": 89,
+          "whi": "Tx-TEMP",
+          "opinion": "\nI can understand the desire to promote chamber temperatures to the RAG by default after a verdict is reached. This would make it easier for the Ollama to see the latest opinions on a case and would allow them to more easily compare them to other opinions.\n\nHowever, I also understand the concern that this could lead to a large number of opinions being promoted to the RAG, potentially causing a lot of noise and clutter in the system. It would be important to carefully consider the implications of this decision and to ensure that it is done in a way that is fair and equitable.\n\nIn the end, I would recommend considering a combination of both options, with the ability to manually promote opinions to the RAG as well as an automatic promotion based on certain criteria, such as a clear or verdict. This would allow for a balance between keeping the system clean and allowing for easy access to the latest opinions."
+        },
+        "brief": {
+          "ok": true,
+          "address": "chamber/20260921T0306-f109fa8c/brief",
+          "chunk_id": 90,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree. Risk: Unverified data may enter RAG. Next cut: Pilot auto-promote with manual review."
+        }
+      }
+    },
+    {
+      "id": "B",
+      "title": "Next 3 metal cuts after WA QR?",
+      "case": "20260921T0307-dc3992cb",
+      "seats": {
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0307-dc3992cb/claw",
+          "chunk_id": 91,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Metal-cut priority: 1) WA QR+DM link completion (core identity); 2) nightly news job daemon (sovereignty loop); 3) feedback counters wire (audit trail). Risk: Metal cuts risk thermal throttling on TUF 8GB VRAM if batched without yieldMs; glass/xAI/GIS deferred to macOS subagent. Next cut: a) Spin WA QR+DM link HIL with 15s delay between fetch/post; b) Schedule nightly news job via `openclaw automations`; c) Implement feedback counters in `nova/tui/term` before GUI chrome updates."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0307-dc3992cb/code",
+          "chunk_id": 92,
+          "whi": "Tx-TEMP",
+          "opinion": "\nAGREE.\n\nNext cuts:\n\n1. WA QR+DM\n2. Email plugin\n3. Nightly news job"
+        },
+        "brief": {
+          "ok": true,
+          "address": "chamber/20260921T0307-dc3992cb/brief",
+          "chunk_id": 93,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree. Risk: Overlooking dependencies between WA QR+DM and email plugin. Next cut: email plugin."
+        }
+      }
+    },
+    {
+      "id": "C",
+      "title": "Enforce PROOF + feedback wiring?",
+      "case": "20260921T0308-da826775",
+      "seats": {
+        "claw": {
+          "ok": true,
+          "address": "chamber/20260921T0308-da826775/claw",
+          "chunk_id": 94,
+          "whi": "Tx-TEMP",
+          "opinion": "AGREE. Enforce PROOF: `Claw STEP` templates must output `PROOF: bytes=N` to confirm artifacts before acceptance; zero counters indicate broken audit trail on 8GB VRAM TUF. Risk: Over-enforcement may stall HIL if small-model llama3.2:3b fails to parse proof strings under latency spikes. Next cut: a) Modify `nova/chamber/gui/widgets.py` to require PROOF token in step output; b) Wire feedback counters to `nova-out/audit.log`; c) Run smoke test with 10-byte dummy file to validate counter increment."
+        },
+        "code": {
+          "ok": true,
+          "address": "chamber/20260921T0308-da826775/code",
+          "chunk_id": 95,
+          "whi": "Tx-TEMP",
+          "opinion": "\nAmend.\n\nReason: To ensure accurate alignment with the PROOF-based templates, it is recommended to enforce PROOF on the STEP templates. This will help ensure that the Playbook remains up-to-date and accurate in its reporting of the nova-out write path."
+        },
+        "brief": {
+          "ok": true,
+          "address": "chamber/20260921T0308-da826775/brief",
+          "chunk_id": 96,
+          "whi": "Tx-TEMP",
+          "opinion": "Agree: Enforcing PROOF ensures data integrity. Risk: Stale playbook may conflict with new templates. Next cut: Update playbook to align with PROOF requirements."
+        }
+      }
+    }
+  ]
+}

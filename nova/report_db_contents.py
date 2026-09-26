@@ -96,8 +96,8 @@ if __name__ == "__main__":
     print()
     
     # Read existing GUI files
-    gui_app = read_gui_file("C:/Users/wuchy/Documents/NOVA/NOVA_fieldkit_v1_4/nova/gui/app.py")
-    gui_deck = read_gui_file("C:/Users/wuchy/Documents/NOVA/NOVA_fieldkit_v1_4/nova/gui/deck.json")
+    gui_app = read_gui_file("Documents/NOVA/NOVA_fieldkit_v1_4/nova/gui/app.py")
+    gui_deck = read_gui_file("Documents/NOVA/NOVA_fieldkit_v1_4/nova/gui/deck.json")
     
     if gui_app:
         print("Existing GUI files detected:")

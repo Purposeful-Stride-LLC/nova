@@ -1,0 +1,63 @@
+================================================================================
+GUI DIRECTION  PySide6
+STAGING packet  2026-09-18
+TUI remains python -m nova.tui
+GUI is python -m nova.gui     (not built this hour)
+================================================================================
+
+REBUTTAL — why not stay on tkinter
+  Prior suggestion: tkinter because stdlib, no wheel, stills via PhotoImage.
+  That is correct for /open's little preview.
+  It is incorrect for "website-parity homestead console":
+    - no first-class video (need a player process anyway)
+    - PDF = external or a weak canvas
+    - layout of nested briefs is box-packer pain
+    - one big mainloop fight with the daemon
+
+WHY PYSIDE6 OVER THE OTHER QT BINDING
+  PyQt6     GPL / commercial. Fine at home, ugly if Purposeful Strides ships.
+  PySide6   official Qt for Python, LGPL. Link dynamically, ship.
+  Same widgets: QLabel/QPixmap stills, QMediaPlayer + QVideoWidget clips,
+                QPdfView (Qt Pdf) or QWebEngineView for HTML briefs,
+                QTextBrowser for TUTORIAL.txt
+  Signals/slots map cleanly onto packets + reports.
+  Windows wheels exist for CPython 3.10–3.13. 3.14: verify wheel
+  before you promise the TUF. If 3.14 has no wheel, venv 3.12 for GUI only.
+
+WHY NOT ELECTRON / WEBVIEW-ONLY
+  Website already exists as glass. Metal GUI should be Python talking to
+  the same db/jobs as the daemon — not a second JS stack.
+
+ARCHITECTURE
+  nova.gui is a CLIENT of the same NOVA.db
+    polls reports, facts 0x-NEWS, artifacts/vision|hearing
+    never owns the scheduler
+  Daemon stays python -m nova
+  TUI stays python -m nova.tui
+  GUI starts optional: python -m nova.gui
+
+PANES (website parity, local)
+  1 COP / brief     nested one-liners  expand 80-word
+  2 Artifact        pixmap / video / pdf path from cite
+  3 Queue + HIL     approve deny ack
+  4 Staff           jackets voices models
+  5 Chat            same ask() as TUI
+
+TUI WORK THIS DIRECTION STILL OWES
+  Header from ascii/INDEX.txt
+  Fixed columns
+  No pulse redraw during input  (already)
+  Pretty is contrast + banner, not animation
+
+DEPENDENCY
+  pip install PySide6
+  optional: PySide6-Addons if QPdf / multimedia split on that wheel
+  requirements.txt comment until GUI graduates from STAGING
+
+PYTHON 3.14 RISK
+  Confirm: pip index PySide6 on 3.14. If missing, GUI venv 3.12.
+  Daemon/TUI stay on 3.14.
+
+NEXT CODE IN STAGING NOT nova\
+  gui_shell.py.dep  — QMainWindow + three docks + /open equivalent
+================================================================================

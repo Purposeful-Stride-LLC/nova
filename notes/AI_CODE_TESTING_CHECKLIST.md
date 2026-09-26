@@ -15,7 +15,7 @@ Capability matrix: `STAGING/CAPABILITY_MATRIX_2026-09-20.txt`
 2. After a change, mark each applicable item **PASS / FAIL / N/A** with one line of evidence (path, command, count, sample address).
 3. Prefer **BASIC STEPs**. Verify files on disk. Never claim DONE from model chat alone.
 4. NOVA live kit is an overlay under `nova\`. **Never wipe** `data\NOVA.db`.
-5. Claw writes under `C:\Users\wuchy\.openclaw\workspace\nova-out\` then steward pulls into the fieldkit.
+5. Claw writes under `%USERPROFILE%\.openclaw\workspace\nova-out\` then steward pulls into the fieldkit.
 6. Outbound email/DM requires human-in-the-loop (HIL) unless the user explicitly approved that send.
 7. Promote durable lessons into `docs/advice/` and optionally palace facts / RAG chunks (see Advice stacking).
 

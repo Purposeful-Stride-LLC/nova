@@ -1,0 +1,38 @@
+{
+  "health": {
+    "ok": true,
+    "kind": "health",
+    "load": {
+      "load1": 0.76,
+      "load5": 0.73,
+      "load15": 0.32
+    },
+    "mem": {
+      "MemTotal": 7887768,
+      "MemAvailable": 4349276
+    },
+    "abilities": [
+      "cpu_llm",
+      "shell",
+      "net",
+      "fs_map",
+      "cam",
+      "mic"
+    ],
+    "proto": "tcp",
+    "ms": 0,
+    "zulu": "2026-09-22T11:30:55Z",
+    "job_id": "tcp-health-1",
+    "load_after": {
+      "load1": 0.76,
+      "load5": 0.73,
+      "load15": 0.32
+    }
+  },
+  "discover_ok": true,
+  "hostname": "LinuxBox1",
+  "proto": {
+    "beacon_tcp": 41776,
+    "job_tcp": 41777
+  }
+}

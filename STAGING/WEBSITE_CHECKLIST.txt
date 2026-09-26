@@ -1,0 +1,43 @@
+NOVA published face vs metal  2026-09-18
+========================================
+[x] local daemon + jobs
+[x] TUI slash surface
+[x] palace SQLite + WHI wings
+[x] /web ingest + matrix gate
+[x] staff / packets / reports / HIL
+[x] pocket TTS serve + speak peel
+[x] cam still + optional VLM (moondream)
+[x] PySide6 console (this kit)
+[x] brand banner + grid bg in ascii/brand
+[x] URL drop -> queue -> ingest job
+[ ] website glass parity (grok.me Life page) — separate host
+[ ] Grok-as-brain adapter
+[ ] X public API
+[ ] GIS
+[ ] nightly news 3-URL rollup as default job
+[ ] pixmap-rich viewport (banner is in; stills work)
+
+Pipe:
+  drop URL in SYSTEM OPS
+  -> queue status=queued
+  -> job ingest every_s=15 drains one
+  -> /web matrix -> Tx/0x
+  -> reports if thin
+========================================
+
+See also: STAGING/CAPABILITY_MATRIX_2026-09-20.txt
+  (channels/apps + Claw email/DM gaps; steward 2026-09-20)
+
+[x] WHI classify + idx_facts_whi / idx_chunks_whi (nova/whi.py)  — 2026-09-21
+[x] masks.py cues + TUI /mask list|auto|NAME (not Modelfile jackets)
+[x] GUI deck live tiles wired; dead stay dead
+[x] chamber seats claw+code+brief; promote_to_rag for live RAG
+[x] Astrocomms multiline input + taskbar bottom margin
+[x] Pocket TTS SERVE_BASE :8000 default voice anna; titled START_NOVA
+[x] WhatsApp lean wrapper + HIL (link QR still pending user)
+[ ] chamber temps auto-promote policy (manual promote_to_rag for now)
+[ ] OpenClaw employee feedback counters (accepted/rejected still zero)
+[ ] WhatsApp QR link + live DM smoke
+[ ] lean email plugin + HIL send
+
+Updated: 2026-09-20 22:05 CT

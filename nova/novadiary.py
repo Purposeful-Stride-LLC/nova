@@ -2,7 +2,7 @@
 
 Writes:
   - nova-out/DIARY.md (running journal)
-  - C:\\Users\\wuchy\\Documents\\NOVA\\GrokBot.log.ai (steward mirror)
+  - Documents\\NOVA\\GrokBot.log.ai (steward mirror)
   - Tx-DIARY fact in palace
 """
 from __future__ import annotations
@@ -13,8 +13,8 @@ from typing import Any
 
 from nova import db
 
-DIARY_MD = Path(r"C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4\nova-out\DIARY.md")
-STEWARD_LOG = Path(r"C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai")
+DIARY_MD = Path(r"Documents\NOVA\NOVA_fieldkit_v1_4\nova-out\DIARY.md")
+STEWARD_LOG = Path(r"Documents\NOVA\GrokBot.log.ai")
 
 
 def _prompt(theme: str, context: str) -> str:

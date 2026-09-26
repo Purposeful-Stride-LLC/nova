@@ -83,7 +83,7 @@ cam: = features path; camsee: = optional moondream (steward heat).
 - Goal: deepen base with Textual + Qt docs first, then arXiv white papers later
 
 ### DIARY
-- C:\Users\wuchy\Documents\NOVA\GrokBot.log.ai (append-only Grok Bot sync)
+- Documents\NOVA\GrokBot.log.ai (append-only Grok Bot sync)
 - Ponder notes: news-manipulation lexicon vs truthful publishers; arXiv depth follows
 - Pipeline: crawl -> temp/live chunks; enqueue -> web.fetch hit/miss.
 - Ponder (diary): news-manipulation lexicon vs truthful pubs; arXiv depth later.

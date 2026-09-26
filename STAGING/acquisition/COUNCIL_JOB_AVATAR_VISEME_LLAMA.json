@@ -1,0 +1,7 @@
+{
+  "prompt": "You are a 3-seat homestead council (steward / code / small) on CPU-only Ubuntu. Debate and produce a CONCRETE build plan for NOVA talking-avatar from PRE-GENERATED silent mp4s.\n\nPipeline to design:\n1) Slice existing avatar mp4s into short segments / panels.\n2) Identify each segment with a local VISION model (candidates on this node: moondream, qwen3-vl:2b) \u2014 label pose, face presence, mouth openness/shape class.\n3) Recompile / organize into \"mouth blanks\" of different shapes and sizes (viseme-like classes: closed, slightly open, wide, round, smile-talk, etc.).\n4) At speak time: LLM returns text \u2192 Pocket TTS (anna) reads it \u2192 choose mouth blanks in sync (viseme timeline) so the face looks like a human reading the reply.\n\nConstraints: CPU-first; TUF GPU shared/busy; videos already exist on thumb (nova-ai/agents/avatar/*.mp4); do not invent new full-body animation; prefer ffmpeg + small vision + a Python stitcher.\n\nOutput STRICTLY:\nA) Agree/Amend/Block per seat (3 lines)\nB) Recommended vision model on THIS metal and why (VRAM/CPU)\nC) Mouth-blank taxonomy (6\u201312 classes) with ffmpeg cut strategy\nD) Sync algorithm TTS audio duration \u2192 blank sequence\nE) Ordered STEP list (P0\u2013P4) with PROOF each step\nF) Risks (thermal, disk, lip-sync quality)\nKeep under 900 words. Be specific, not vague.",
+  "model": "llama3.2:1b",
+  "job_id": "council-avatar-viseme-llama1b",
+  "timeout": 600,
+  "kind": "ollama_gen"
+}

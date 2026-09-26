@@ -8,7 +8,7 @@ from typing import Any
 
 from nova import db, ingest_pipe, whi
 
-DOCS_ROOT = Path(r"C:\Users\wuchy\Documents")
+DOCS_ROOT = Path.home() / "Documents"
 NOVA_DOCS = DOCS_ROOT / "NOVA"
 DAY1 = [
     DOCS_ROOT / "NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",

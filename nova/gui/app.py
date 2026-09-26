@@ -76,6 +76,14 @@ def main() -> None:
     root = QWidget()
     mainlay = QHBoxLayout(root)
 
+    # Create AVATAR control panel (separate from COMMAND DECK)
+    avatar_deck = QWidget()
+    avatar_deck.setObjectName("AvatarControlDeck")
+    avatar_deck.setMinimumWidth(180)
+    avatar_deck.setMaximumWidth(260)
+    avatar_dlay = QVBoxLayout(avatar_deck)
+    avatar_dlay.addWidget(QLabel("AVATAR WORKFLOW"))
+    
     deck = QWidget()
     deck.setObjectName("CommandDeck")
     deck.setMinimumWidth(200)
@@ -298,12 +306,46 @@ def main() -> None:
             )
         dlay.addWidget(b)
         buttons.append(b)
+    # Sound triggers row
     dlay.addWidget(QLabel("SOUND TRIGGERS"))
     dlay.addWidget(btn_play)
     dlay.addWidget(btn_tick)
+    
+    # Session controls for long-running daemon work
+    session_row = QHBoxLayout()
+    pause_btn = QPushButton("|| PAUSE SESSION")
+    resume_btn = QPushButton(">>> RESUME")
+    save_btn = QPushButton("SAVE STATE")
+    cancel_btn = QPushButton("CANCEL JOB")
+    session_row.addWidget(QLabel("SESSION"))
+    session_row.addWidget(pause_btn)
+    session_row.addWidget(resume_btn)
+    session_row.addWidget(save_btn)
+    session_row.addWidget(cancel_btn)
+    session_row.addStretch()
+    dlay.addLayout(session_row)
+    
+    # Config/Settings panel
+    config_row = QHBoxLayout()
+    voice_combo = QComboBox()
+    voice_combo.setMinimumWidth(150)
+    mask_combo = QComboBox()
+    mask_combo.setMinimumWidth(150)
+    rate_slider = QSlider(Qt.Horizontal)
+    rate_slider.setRange(1, 10)
+    rate_slider.setValue(7)
+    config_row.addWidget(QLabel("VOICE:"))
+    config_row.addWidget(voice_combo)
+    config_row.addWidget(QLabel("MASK:"))
+    config_row.addWidget(mask_combo)
+    config_row.addWidget(QLabel("RATE:"))
+    config_row.addWidget(rate_slider)
+    dlay.addLayout(config_row)
     dlay.addStretch()
     dlay.addWidget(status)
 
+    # Media pagination (better UX for large artifact sets)
+    PAGE_SIZE = 12  # images/audio per page
     def refresh():
         try:
             office.ensure_workforce()
@@ -375,7 +417,12 @@ def main() -> None:
         media_list.clear()
         try:
             art_dir = db.home() / "data" / "artifacts"
-            for pth in list(art_dir.rglob("*.jpg"))[-12:] + list(art_dir.rglob("*.wav"))[-8:]:
+            # Paginated loading: only last PAGE_SIZE of each type
+            jpgs = list(art_dir.rglob("*.jpg"))[-PAGE_SIZE:]
+            wavs = list(art_dir.rglob("*.wav"))[-PAGE_SIZE:]
+            # Sort by mtime descending (newest first)
+            for pth in sorted(jpgs, key=lambda x: x.stat().st_mtime, reverse=True) + \
+                   sorted(wavs, key=lambda x: x.stat().st_mtime, reverse=True):
                 media_list.addItem(str(pth))
         except Exception:
             pass
@@ -434,18 +481,99 @@ def main() -> None:
         finally:
             con.close()
 
-    def show_media():
-        item = media_list.currentItem()
-        if not item:
+    # Avatar workflow controls
+    def avatar_action(cmd):
+        msg = QMessageBox()
+        msg.setWindowTitle("AVATAR WORKFLOW")
+        if cmd == "generate_stills":
+            msg.setText("Generate avatar stills from current session?\nThis will create 12-24 high-res frames with emotion tags.")
+        elif cmd == "assemble_video":
+            msg.setText("Assemble avatar video from stills?\nDuration: 30-60s based on sentiment matching.")
+        elif cmd == "upload_stills":
+            msg.setText("Upload generated stills to storage?")
+        elif cmd == "view_catalog":
+            msg.setText("Open AVATAR_CATALOG.md for metadata review?")
+        elif cmd == "pause_recording":
+            msg.setText("PAUSE: Stop capturing avatar session?")
+        elif cmd == "resume_recording":
+            msg.setText("RESUME: Continue avatar capture where left off?")
+        elif cmd == "save_state":
+            msg.setText("SAVE SESSION STATE to DB for later resume.")
+        elif cmd == "clear_queue":
+            msg.setText("Clear avatar processing queue?\nThis will free up resources.")
+        else:
             return
-        path = Path(item.text())
-        if path.suffix.lower() in {".jpg", ".jpeg", ".png"}:
-            pix.setPixmap(QPixmap(str(path)).scaled(480, 280))
-        elif path.suffix.lower() == ".wav":
-            from nova import pocket
-
-            pocket._play(path)
-            pix.setText(path.name)
+        ans = msg.exec_()
+        if ans == QMessageBox.Yes and cmd in {"generate_stills", "assemble_video"}:
+            # Placeholder for future avatar module integration
+            status.setText(f"AVATAR: {cmd.upper()}")
+            chat_in.setPlaceholderText(f"/avatar {cmd.lower()}  ·  Use AVATAR deck")
+        elif cmd == "clear_queue":
+            from nova import bites, db
+            bites.clear_avatar_queue()
+            status.setText("AVATAR queue cleared")
+    
+    def pause_session():
+        status.setText("SESSION PAUSED - waiting for resume")
+        chat_in.setPlaceholderText("/avatar commands pending...")
+    
+    def resume_session():
+        status.setText("SESSION RESUMED - avatar working")
+        chat_in.setPlaceholderText("ask the palace... (Ctrl+Enter or Send)")
+        refresh()
+    
+    def save_state():
+        try:
+            from nova import db
+            db.save_session_state()
+            status.setText("STATE SAVED to NOVA.db")
+            chat_in.setPlaceholderText("session saved · use /avatar resume")
+        except Exception as e:
+            status.setText(f"save failed: {e}")
+    
+    def cancel_job():
+        try:
+            from nova import sched, db
+            sched.stop()
+            status.setText("ALL JOBS STOPPED - session ended")
+            chat_in.setPlaceholderText("session ended · restart with /START_NOVA")
+        except Exception as e:
+            status.setText(f"cancel: {e}")
+    
+    # Wire avatar session controls
+    pause_btn.clicked.connect(pause_session)
+    resume_btn.clicked.connect(resume_session)
+    save_btn.clicked.connect(save_state)
+    cancel_btn.clicked.connect(cancel_job)
+    
+    # Quick-access slash command input in chat area
+    quick_cmd_box = QLineEdit()
+    quick_cmd_box.setPlaceholderText("/help · /tools · /suggest  (press Ctrl+D to send)")
+    quick_cmd_box.setMinimumHeight(24)
+    quick_cmd_box.setMaximumHeight(32)
+    dlay.addWidget(quick_cmd_box)
+    quick_cmd_box.returnPressed.emit()
+    
+    def quick_send(_=None):
+        cmd = quick_cmd_box.text().strip()
+        if cmd.startswith("/"):
+            chat_in.append("YOU: " + cmd)
+            try:
+                handle(cmd)
+                reply = "\n".join(tstate.get("hist", [])[-2:])
+            except Exception as exc:
+                reply = str(exc)
+            chat_log.append("NOVA: " + reply)
+            quick_cmd_box.clear()
+    
+    quick_cmd_box.returnPressed.connect(quick_send)
+    # Ctrl+D sends quick command
+    def _quick_key(e):
+        from PySide6.QtCore import Qt as _Qt
+        if e.key() == _Qt.Key_D and (e.modifiers() & _Qt.ControlModifier):
+            quick_send()
+    
+    quick_cmd_box.keyPressEvent = _quick_key  # type: ignore
 
     def cam_see():
         res = senses.save_still(0)
@@ -503,11 +631,14 @@ def main() -> None:
         wrap.setWidget(panel)
         stack.addWidget(wrap)
 
+    # Main layout: COMMAND DECK + AVATAR CONTROL + STACK PANELS
     mainlay.addWidget(deck_scroll)
+    mainlay.addWidget(avatar_deck, stretch=0)
     mainlay.addWidget(stack, stretch=1)
+    
     win.setCentralWidget(root)
-    win.setMinimumSize(800, 480)
-    win.resize(1100, 640)
+    win.setMinimumSize(1200, 640)  # Wider to accommodate avatar panel
+    win.resize(1400, 720)
     if qss.is_file():
         app.setStyleSheet(qss.read_text(encoding="utf-8"))
     win.show()

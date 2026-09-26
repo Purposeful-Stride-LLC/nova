@@ -1,0 +1,134 @@
+"""WHI palace codes: wing + subject from material.
+
+Wings (README / put_fact contract):
+  Ax-*  self / accepted / model / chamber ok
+  Tx-*  task / staging / break / cam / code
+  0x-*  web / advice / artifact
+
+Subject is derived from title/body/url/kind using keyword maps
+plus Claw crawl hexclass (1x03 wiki, 1x04 news, G1000 gov, 1x00 misc).
+"""
+
+from __future__ import annotations
+
+import re
+from typing import Any
+
+# Established wing prefixes only
+WINGS = ("Ax-", "Tx-", "0x-")
+
+# kind hint → WHI (explicit beats classifier)
+KIND_MAP = {
+    "ollama": "Ax-OLLAMA",
+    "claw": "Ax-CLAW",
+    "openclaw": "Ax-CLAW",
+    "chamber": "Ax-CHAMBER",
+    "msg": "Ax-MSG",
+    "wa": "Ax-MSG",
+    "whatsapp": "Ax-MSG",
+    "rag": "Ax-RAG",
+    "prune": "Ax-PRUNE",
+    "cam": "Tx-CAM",
+    "camera": "Tx-CAM",
+    "vision": "Tx-CAM",
+    "ear": "Tx-EAR",
+    "audio": "Tx-EAR",
+    "pdf": "Tx-PDF",
+    "code": "Tx-CODE",
+    "codesum": "Tx-CODE",
+    "reject": "Tx-REJECT",
+    "temp": "Tx-TEMP",
+    "crawl": "Tx-CRAWL",
+    "break": "Tx-BREAK",
+    "tts": "Tx-TTS",
+    "web": "0x-WEB",
+    "advice": "0x-ADVICE",
+    "hunt-miss": "Tx-HUNT-MISS",
+}
+
+# subject tokens scanned in text (order = priority)
+SUBJECT_RULES: list[tuple[str, str, str]] = [
+    # (regex, wing_subject WHI, note)
+    (r"\b(whatsapp|/wa|dm)\b", "Ax-MSG", "messaging"),
+    (r"\b(openclaw|gateway|18789|nova-out)\b", "Ax-CLAW", "claw"),
+    (r"\b(chamber|council|roberts)\b", "Ax-CHAMBER", "chamber"),
+    (r"\b(ollama|modelfile|11434)\b", "Ax-OLLAMA", "ollama"),
+    (r"\b(/rag|retrieval|chunk)\b", "Ax-RAG", "rag"),
+    (r"\b(cam\d?|/see|moondream|opencv|still)\b", "Tx-CAM", "vision"),
+    (r"\b(/hear|\.wav|rms|zcr)\b", "Tx-EAR", "audio"),
+    (r"\b(\.pdf|pdf)\b", "Tx-PDF", "pdf"),
+    (r"\b(codesum|codellama|refactor|syntax)\b", "Tx-CODE", "code"),
+    (r"\b(reject|blocked|refuse)\b", "Tx-REJECT", "reject"),
+    (r"\b(crawl|spider|ingest)\b", "Tx-CRAWL", "crawl"),
+    (r"\b(tool.?break|breaklog|halt)\b", "Tx-BREAK", "break"),
+    (r"\b(tts|pocket.?tts|speak)\b", "Tx-TTS", "tts"),
+    (r"\b(advice|playbook|lesson)\b", "0x-ADVICE", "advice"),
+    (r"\b(http://|https://|wikipedia|article)\b", "0x-WEB", "web"),
+]
+
+
+def claw_hexclass(text: str, url: str = "") -> str:
+    """Claw crawl classify enhancement (1x03 wiki, 1x04 news, G1000 gov, 1x00)."""
+    t = (text or "").lower()
+    u = (url or "").lower()
+    if "wikipedia" in u or "encyclopedia" in t:
+        return "1x03"
+    if "news" in t or "article" in t:
+        return "1x04"
+    if ".gov" in u or "/gov" in u:
+        return "G1000"
+    return "1x00"
+
+
+def _norm_subject(token: str) -> str:
+    s = re.sub(r"[^A-Za-z0-9]+", "", (token or "").upper())
+    return s[:24] or "GEN"
+
+
+def classify(
+    text: str = "",
+    *,
+    title: str = "",
+    url: str = "",
+    kind: str = "",
+    default: str = "Tx-TEMP",
+) -> str:
+    """Build WHI from kind hint or subject matter. Always Ax-|Tx-|0x-."""
+    k = (kind or "").strip().lower()
+    if k in KIND_MAP:
+        return KIND_MAP[k]
+    blob = f"{title}\n{text}\n{url}".lower()
+    for rx, whi, _note in SUBJECT_RULES:
+        if re.search(rx, blob, re.I):
+            return whi
+    # web URL fallback
+    if (url or "").startswith("http"):
+        return "0x-WEB"
+    d = (default or "Tx-TEMP").strip()
+    if d.startswith(WINGS):
+        return d
+    return "Tx-TEMP"
+
+
+def classify_web(text: str, url: str, title: str = "") -> dict[str, Any]:
+    """Web/crawl path: wing 0x-WEB (or Tx-REJECT handled elsewhere) + claw hexclass."""
+    hx = claw_hexclass(text, url)
+    whi = classify(text, title=title, url=url, kind="web", default="0x-WEB")
+    return {"whi": whi, "hexclass": hx, "cite": f"web:{hx}:{url or title}"}
+
+
+def ensure_indexes(con) -> None:
+    """Idempotent indexes on established whi columns."""
+    con.executescript(
+        """
+        CREATE INDEX IF NOT EXISTS idx_facts_whi ON facts(whi);
+        CREATE INDEX IF NOT EXISTS idx_facts_whi_title ON facts(whi, title);
+        CREATE INDEX IF NOT EXISTS idx_chunks_whi ON chunks(whi);
+        CREATE INDEX IF NOT EXISTS idx_chunks_status_whi ON chunks(status, whi);
+        """
+    )
+
+
+def is_valid(whi: str) -> bool:
+    w = (whi or "").strip()
+    return w.startswith("Ax-") or w.startswith("Tx-") or w.startswith("0x-")

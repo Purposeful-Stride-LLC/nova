@@ -1,12 +1,15 @@
-﻿data/NOVA.db
+data/NOVA.db
 data/*.db
 data/secrets/
 data/artifacts/
 data/*.log
 __pycache__/
+STAGING/__pycache__/
 *.py[cod]
+*.pyc
 *.zip
 *.wav
+STAGING/gui_music/
 *.bin
 .env
 *.pem
@@ -15,6 +18,7 @@ __pycache__/
 grokbottkn*
 GrokBot.log.ai
 .pytest_cache/
-
+.DS_Store
+_nova_public_sync*
 *.tar.gz
 *.tgz

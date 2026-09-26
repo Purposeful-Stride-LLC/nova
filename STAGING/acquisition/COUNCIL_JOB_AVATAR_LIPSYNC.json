@@ -1,0 +1,7 @@
+{
+  "kind": "ollama_gen",
+  "job_id": "council-avatar-lipsync-phi3",
+  "model": "phi3:mini",
+  "prompt": "Technical engineering council (3 seats: steward, code, small). Topic: desktop UI face animation for a local AI assistant.\n\nGiven: silent MP4 face clips already on disk; ffmpeg available; local vision models moondream and qwen3-vl:2b; Pocket TTS voice anna on port 8000; CPU-only Ubuntu worker; Windows hub holds the MP4 library.\n\nDesign a pipeline:\n1) Use ffmpeg to cut clips into short frames/segments.\n2) Run a vision model to classify each segment mouth state (closed, open-small, open-wide, round, smile).\n3) Build a library of mouth-state stills/segments (blanks).\n4) When the LLM returns reply text, Pocket TTS speaks it; a Python stitcher picks mouth blanks timed to TTS audio so the face appears to speak the words.\n\nOutput required sections with headings:\nA_SEATS: Agree/Amend/Block one line each\nB_VISION: which model on CPU and why\nC_TAXONOMY: 8 mouth classes + ffmpeg cut notes\nD_SYNC: map audio seconds to blank sequence\nE_STEPS: P0-P4 with PROOF artifacts\nF_RISKS: thermal, disk, sync quality\n\nBe concrete. At least 500 words. No sexual content. This is UI lip-sync for an assistant avatar video player.",
+  "timeout": 900
+}

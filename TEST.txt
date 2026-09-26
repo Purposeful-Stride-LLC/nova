@@ -1,6 +1,6 @@
 NOVA 1.6 test card — fresh data\
 ================================
-Copy nova\ into C:\Users\wuchy\NOVA  (your main folder).
+Copy nova\ into NOVA  (your main folder).
 Delete data\NOVA.db if you want a clean schema (you asked for this).
 
 Window A:  python -m nova

@@ -14,7 +14,7 @@ from typing import Any
 from nova import db
 
 DEFAULT_CHANNEL = "whatsapp"
-OPENCLAW = shutil.which("openclaw") or r"C:\Users\wuchy\AppData\Roaming\npm\openclaw.CMD"
+OPENCLAW = shutil.which("openclaw") or r"openclaw"
 
 
 def _cli(*args: str, timeout: float = 60.0) -> dict[str, Any]:

@@ -19,7 +19,7 @@ SKIP_SUFFIX = {".pyc", ".pyo", ".swp", ".tmp"}
 
 DEFAULT_ROOTS = [
     home(),
-    Path(r"C:\Users\wuchy\Documents\NOVA"),
+    Path(r"Documents\NOVA"),
     Path(r"D:\pg\ai"),
     Path.home() / ".openclaw" / "workspace",
 ]

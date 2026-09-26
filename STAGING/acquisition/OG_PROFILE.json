@@ -1,0 +1,13 @@
+{
+  "verb": "sys.inventory",
+  "node": "og-ubuntu",
+  "ts": "20260922T111541Z",
+  "host": "LinuxBox1",
+  "os": "Ubuntu 22.04.5 LTS",
+  "cpu": "i5-8250U 4c/8t",
+  "ram_gib": 7.5,
+  "gpu": "Intel UHD 620",
+  "nvidia": false,
+  "models": ["qwen:0.5b", "nova-gx", "phi3:mini", "llama3.2:1b", "llama3.2:3b", "moondream", "qwen3-vl:2b"],
+  "role": "cpu_council_tentacle"
+}

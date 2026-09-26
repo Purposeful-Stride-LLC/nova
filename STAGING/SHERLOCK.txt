@@ -1,0 +1,12 @@
+flowchart TD
+  A[path] --> B{kind}
+  B -->|dir| C[children sample]
+  B -->|python text json| D[sha lines head]
+  B -->|pdf| E[pypdf later]
+  B -->|bin skip| F[size only]
+  D --> G[facts packet]
+  C --> G
+  G --> H[optional 0.5b clerk]
+  H --> I[optional 8b reviewer]
+  I --> J[Tx-DEV report]
+  G --> J

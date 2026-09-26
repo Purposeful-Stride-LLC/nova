@@ -1,0 +1,108 @@
+﻿NOVA capability matrix  2026-09-20 (steward rescan)
+=======================================================
+Sources: STAGING/WEBSITE_CHECKLIST.txt + PLAN_2026-09-18
+         + openclaw channels list --all / status
+         + fieldkit nova\ modules smoke
+Legend: LIVE = on disk + exercised | BENCH = designed/partial | DONE = checked off earlier | GAP = not started
+
+A. WEBSITE / GLASS vs METAL (from WEBSITE_CHECKLIST)
+----------------------------------------------------
+[LIVE] local daemon + jobs
+[LIVE] TUI slash surface
+[LIVE] palace SQLite + WHI wings
+[LIVE] /web ingest + matrix gate
+[LIVE] staff / packets / reports / HIL
+[LIVE] pocket TTS serve + speak peel
+[LIVE] cam still + optional VLM (moondream)
+[LIVE] PySide6 console (app.py) — live path; app_enhanced.py scrap (not ship)
+[LIVE] brand banner + grid bg
+[LIVE] URL drop -> queue -> ingest job
+[GAP]  website glass parity (grok.me Life page) — separate host
+[GAP]  Grok-as-brain adapter / xAI hook
+[GAP]  X public API
+[GAP]  GIS
+[BENCH] nightly news 3-URL rollup (PLAN sketch; not default job)
+[BENCH] pixmap-rich viewport (banner in; stills work; no full glass)
+
+B. APPLICATION / CHANNEL COMPARISON (OpenClaw catalog vs our install)
+--------------------------------------------------------------------
+Phone / DM style (like bot apps):
+  WhatsApp   BENCH-config  installed+enabled, NOT linked, gateway stopped health
+                           allowFrom set; needs: openclaw channels login (QR)
+  Telegram   GAP           catalog available, not installed
+  Signal     GAP           catalog available, not installed
+  iMessage   GAP           catalog (mac-oriented); TUF is Windows — likely N/A here
+  SMS        GAP           catalog available, not installed
+  Discord    GAP           catalog available, not installed
+  Slack      GAP           catalog available, not installed
+  Matrix     GAP           catalog available, not installed
+  Teams / Mattermost / LINE / IRC / Twitch / Feishu / WeCom / Google Chat / Nostr / …
+             GAP           in openclaw channels list --all; none configured
+
+Email:
+  Palace mail (openclaw@ / qwen@ packets)  LIVE  internal WHI/office only — NOT SMTP
+  Real email (IMAP/SMTP/Gmail channel)     GAP   ClawHub has plugins; none installed
+    Prefer lean reuse over rewrite:
+      - clawhub:email (IMAP/SMTP search+send)
+      - @agentmail/agentmail (official agent inbox)
+      - @manuelfedele/openclaw-gmail-plugin (Gmail app password)
+      - @antarien/openclaw-channel-imap (IDLE push channel)
+  Do NOT invent a NOVA-native mailer first — leash OpenClaw plugin.
+
+C. CLAW / WORKFORCE (NOVA leash)
+--------------------------------
+[LIVE] OpenClaw gateway :18789 reachable
+[LIVE] PRIMARY ollama/qwen3.5:9b (+ groq/qwen3 fallbacks)
+[LIVE] nova/claw.py ask/status + TUI /claw
+[LIVE] leash.openclaw_run + sched claw-ping / claw-run
+[LIVE] claw write path -> ~/.openclaw/workspace/nova-out -> steward pull
+[LIVE] BASIC STEP playbook + clawbotinstructions
+[LIVE] chamber.council / round_robin (Qwen seat weak on design)
+[LIVE] RAG chunks + crawl + small-model gate
+[LIVE] hands/qwen + snap monitor
+[BENCH] GUI Priority-1 palace QTableWidget+search into app.py (council ordered; not ported)
+[BENCH] paper markets (STAGING/PAPER_MARKETS.md + dead tile)
+[BENCH] app_enhanced.py overnight scrap (syntax; do not ship)
+[GAP]  Claw outbound real-world email
+[GAP]  Claw outbound phone DM (WhatsApp link QR is the unlock; then message send)
+[GAP]  Claw channel status surfaced in NOVA awareness / GUI tile beyond openclaw_status
+
+D. SENSES / INGEST (from PLAN + later work)
+-------------------------------------------
+[LIVE] web:URL / matrix / board drain
+[LIVE] crawl same-host + /crawl + promote
+[LIVE] pdf / history / codesum hands
+[LIVE] cam + OpenCV features path
+[BENCH] brief/news skeleton (PLAN next cut A-D still open)
+[GAP]  continuous elevate video encoder
+
+E. REUSE vs REWRITE (steward lean)
+----------------------------------
+Messaging: REUSE OpenClaw channels/plugins (already the messenger animal).
+  1) Link WhatsApp (QR on TUF) -> prove openclaw message send
+  2) Install one lean email plugin (prefer official AgentMail OR plain IMAP email)
+  3) Optional second DM: Telegram if phone WhatsApp is enough, skip for now
+  4) Thin NOVA wrappers only: sched jobs + awareness keys + HIL gate before send
+NOVA-native email/DM rewrite: NO — only if ClawHub path fails on Windows/TUF.
+
+F. NEXT CUTS (ordered)
+----------------------
+1. WhatsApp QR link + smoke DM to allowlist number
+2. Pick + install one email plugin; HIL-gated send from Claw STEP
+3. Port palace table+search into live app.py (prior council)
+4. Expand this file when glass/website host work resumes
+=======================================================
+
+
+G. NIGHT UPDATE  2026-09-20 22:05 CT
+----------------------------------------------------
+[LIVE] WHI index (nova/whi.py) + db hunt/indexes + crawl hexclass
+[LIVE] masks (nova/masks.py) + TUI /mask; jackets pruned
+[LIVE] GUI deck on_tile for live tiles; Astrocomms multiline+margin
+[LIVE] chamber seats claw+code+brief; chamber.promote_to_rag(case)
+[LIVE] TTS anna / SERVE_BASE :8000 / spawn_titled START_NOVA
+[LIVE] WA lean wrapper dry-run OK; QR link still user step
+[GAP]  live chamber cites in /rag until promote_to_rag (temps only)
+[GAP]  OpenClaw feedback counters still zeros (not wired)
+[GAP]  real email plugin; WA live DM; glass/xAI/X/GIS unchanged
+Next ordered: WA QR -> email plugin -> promote policy / feedback wire

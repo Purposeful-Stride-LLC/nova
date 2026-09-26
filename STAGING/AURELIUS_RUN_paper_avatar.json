@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "zulu": "2026-09-21T08:22:06Z",
+  "zulu_start": "2026-09-21T08:16:59Z",
+  "session_id": "nova-mail-paper-avatar2",
+  "model": "ollama/qwen3.5:9b",
+  "text": "\u26a0\ufe0f Ls failed",
+  "runId": "39fc129b-2f39-4f09-8f71-55146f746907",
+  "status": "timeout",
+  "proof": {
+    "ok": true,
+    "accepted": null,
+    "reason": "no DONE/PROOF gate triggered",
+    "proofs": []
+  }
+}

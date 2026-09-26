@@ -1,0 +1,66 @@
+{
+  "ok": true,
+  "scan": {
+    "found": {
+      "awareness": 7,
+      "spider": 4,
+      "codesum": 3,
+      "whi": 1,
+      "tts": 3,
+      "orchestrator": 3,
+      "docs": 3
+    },
+    "root": "D:\\pg\\ai"
+  },
+  "needs": [
+    {
+      "id": "need-l0-probes",
+      "why": "Thumb has holmes/lan/hardware probes; glass L0 wants castle awareness",
+      "forge": "Port lean probes into nova/awareness/ or expand sched.holmes",
+      "sources": [
+        "D:\\pg\\ai\\holmes.py",
+        "D:\\pg\\ai\\hardware_probe.py",
+        "D:\\pg\\ai\\lan_probe.py",
+        "D:\\pg\\ai\\master_probe.py",
+        "D:\\pg\\ai\\software_inventory.py",
+        "D:\\pg\\ai\\system_doc.py"
+      ]
+    },
+    {
+      "id": "need-spider-parity",
+      "why": "mylilspider/network_spyder heritage; metal has crawl+ingest_pipe",
+      "forge": "Diff delay/UA/strip; keep metal pipe; steal missing politeness",
+      "sources": [
+        "D:\\pg\\ai\\mylilspider.py",
+        "D:\\pg\\ai\\network_spyder.py",
+        "D:\\pg\\ai\\network_spyder2.py",
+        "D:\\pg\\ai\\network_probe.py"
+      ]
+    },
+    {
+      "id": "need-codesum-homestead",
+      "why": "cbSum lineage = scan codebase to jack in; metal hands/codesum exists",
+      "forge": "Run codesum on thumb+fieldkit; promote worth-keep Tx-CODE to live",
+      "sources": [
+        "D:\\pg\\ai\\cbSum.py",
+        "D:\\pg\\ai\\cbSumcolor.py",
+        "D:\\pg\\ai\\codebase_1.txt"
+      ]
+    },
+    {
+      "id": "need-hexclass-align",
+      "why": "hexclass.txt is WHI ancestor",
+      "forge": "Diff vs nova/whi.py; fold missing codes",
+      "sources": [
+        "D:\\pg\\ai\\hexclass.txt"
+      ]
+    },
+    {
+      "id": "need-protocol-loop",
+      "why": "Automate identify-need -> forge -> jack-in as standing protocol",
+      "forge": "homestead.cycle job: scan -> needs -> mail Aurelius+Qwen STEPs (HIL)",
+      "sources": []
+    }
+  ],
+  "zulu": "2026-09-21T06:27:45Z"
+}

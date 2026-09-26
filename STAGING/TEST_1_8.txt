@@ -1,0 +1,12 @@
+﻿NOVA 1.8 smoke / acceptance (Michael)
+=====================================
+1) cd to kit root; python -c "from nova import office,leash,masks,breaklog,brain; print(office.ensure_workforce()); print(masks.listing())"
+2) python -c "from nova import leash; print(leash.openclaw_status().get('ok')); print(leash.qwen_status().get('ok'))"
+3) Daemon: python -m nova
+   TUI: /job add 600 openclaw-status ; /job add 600 qwen-status ; /job on <id>
+4) /tick  — expect Ax-CLAW/Ax-QWEN facts and mail to openclaw@ / qwen@
+5) Vision: /job add 0 camsee:0 OR GUI VIEWPORT cam button — still + optional moondream
+6) Break path: stop OpenClaw gateway; run openclaw-status; expect Tx-CLAW + report card
+7) GUI: COMMAND DECK shows OPENCLAW QWEN BREAKS BRAIN tiles; MAIL shows new employees
+8) brain: python -c "from nova import brain; print(brain.complete('brief','say zulu',provider='ollama.local')[:120])"
+9) Never overwrite data/NOVA.db when overlaying

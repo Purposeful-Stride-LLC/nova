@@ -1,0 +1,6 @@
+/usr/lib/python3/dist-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.17.3 and <1.25.0 is required for this version of SciPy (detected version 1.26.4
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+sig (model_state: dict, text_to_generate: str, max_tokens: int = 50, frames_after_eos: int | None = None, copy_state: bool = True) -> torch.Tensor
+voice type <class 'dict'> dict_keys(['transformer.layers.0.self_attn', 'transformer.layers.1.self_attn', 'transformer.layers.2.self_attn', 'transformer.layers.3.self_attn', 'transformer.layers.4.self_attn', 'transformer.layers.5.self_attn'])
+WROTE /home/mike/pg/nova-tentacle/outbox/awareness_smoke.wav shape (120960,) sr 24000 bytes 241964
+play paplay rc 0 

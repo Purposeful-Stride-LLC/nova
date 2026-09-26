@@ -1,0 +1,6 @@
+﻿SIM SMOKE WHI+DECK 2026-09-21T0255Z (Grok Bot sandbox)
+- classify: claw->Ax-CLAW, cam->Tx-CAM, wiki->0x-WEB+1x03, news->0x-WEB+1x04, pdf->Tx-PDF
+- indexes: idx_facts_whi, idx_facts_whi_title, idx_chunks_whi, idx_chunks_status_whi
+- hunt Ax-CLAW / Tx-CAM keyed OK
+- deck live panels 0-8 all covered; specials whatsapp/claw/qwen/breaks/brain wired
+- dead tiles remain: kill, tui, paper (intentional)

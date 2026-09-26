@@ -1,0 +1,293 @@
+<!-- project: github.com/mwoedlinger/ai-dungeon-master -->
+
+================================================================================
+                     NOVA FIELDKIT V1.4 — TUTORIAL
+================================================================================
+
+Last Updated: 2026-09-23
+Steward: Aurelius Nova | Version: 1.7
+Location: Documents\NOVA\NOVA_fieldkit_v1_4
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+1. INTRODUCTION
+2. TERMINAL vs GUI - Choosing Your Interface
+3. GUI COMMAND DECK TILES (COMMANDS)
+4. AVATAR WORKFLOW PANEL (NEW IN 1.7)
+5. SESSION CONTROLS & STATE MANAGEMENT
+6. CONFIGURATION & VOICE/MASK TUNING
+7. CRAWL.PY BACKGROUND MONITORING
+8. TCP GATEWAY CONNECTION GUIDE (COMMS)
+9. MAIL ROOM & OPENCLAW HANDOFFS
+10. PALACE SQLITE VIEWER
+11. BREAKS & TOOL-ERROR REPORTS
+12. QUICK COMMANDS OVERVIEW
+13. TROUBLESHOOTING
+14. NEXT STEPS
+
+================================================================================
+SECTION 1: INTRODUCTION
+================================================================================
+
+NOVA is a sovereign AI microsystems architecture for consumer hardware. It runs
+locally-first with SQLite memory palace, Python spine + Ollama inference (no
+cloud dependencies).
+
+This tutorial covers the GUI console and how to use all features including:
+- Command deck tiles and slash commands
+- Avatar workflow module (new)
+- Session state management (pause/resume/save)
+- Background crawl.py monitoring
+- TCP gateway comms for multi-machine operations
+
+================================================================================
+SECTION 2: TERMINAL vs GUI - Choosing Your Interface
+================================================================================
+
+Two interfaces available:
+
+TERMINAL UI (nova.tui):
+  Command: python -m nova.tui
+  Best for: Headless servers, scripting, compact monitoring
+  
+GUI CONSOLE (nova.gui.app):
+  Command: python nova/gui/app.py
+  Best for: Interactive use, avatar work, visual feedback
+
+
+================================================================================
+SECTION 3: GUI COMMAND DECK TILES (COMMANDS)
+================================================================================
+
+The left panel shows 24 command tiles. Live buttons route to panels; dead ones
+are intentionally disabled.
+
+[ LIVE BUTTONS - CLICK TO ACCESS ]
+
+ASTROCOMMS     → Chat interface, slash commands (/help, /tools, /suggest)
+SONIC ARCHIVE  → Bite queue: queued TTS requests with worker assignments  
+AI CORE MATRIX → Masks/voices: Ollama models, voice config (not Modelfile)
+SYSTEM OPS     → Job scheduler, URL drop board, agency task queue
+MISSION RECORDS→ Report cards: HIL audit trail, tool-break summaries
+MAIL ROOM      → Packet inbox/outbox: queued + delivered items
+PALACE         → SQLite viewer: browse tables, filter rows with search
+VIEWPORT       → Still/wav gallery: cam0 stills, moondream vision tags
+SPAWN          → Process registry: spawned child processes (PID tracking)
+STATUS         → Spawn status overlay: same as SPAWN panel
+WHATSAPP       → Phone DM: /wa link QR window, /wa status, /wa send approve
+OPENCLAW       → Leash integration: openclaw@local handoffs (not swallow)
+QWEN CODE      → Coder handoffs: mail qwen@local for code generation
+BRAIN          → Model seam: ollama|openai.compat|xAI model switching
+
+
+[ DEAD BUTTONS - FOR FUTURE ]
+
+KILL           → PIDs only with /approve authorization
+TUI            → CLI-only alternative (no GUI wiring)
+PAPER MARKETS  → Awaiting nova/paper.py + yfinance implementation
+
+
+================================================================================
+SECTION 4: AVATAR WORKFLOW PANEL (NEW IN 1.7)
+================================================================================
+
+The new right panel handles avatar creation and processing:
+
+AVATAR CONTROLS:
+  Generate Stills   → Create 12-24 high-res frames from current session
+  Assemble Video    → Combine stills into sentiment-matched video (30-60s)
+  Upload Stills     → Save generated frames to storage
+  View Catalog      → Open AVATAR_CATALOG.md for metadata review
+  
+SESSION CONTROLS:
+  PAUSE SESSION     → Stop avatar capture, preserve state
+  RESUME            → Continue where left off
+  SAVE STATE        → Persist session to NOVA.db for later resume
+  CANCEL JOB        → Stop all jobs, end session (use with caution)
+
+CONFIGURATION:
+  Voice             → Select voice model from combo box
+  Mask              → Choose persona mask (emotion/event/grok_raw)
+  Rate              → Speed adjustment slider (1-10)
+
+
+================================================================================
+SECTION 5: SESSION CONTROLS & STATE MANAGEMENT
+================================================================================
+
+Long-running daemon jobs (crawl.py, avatar capture) can be paused and resumed.
+
+PERSISTENT WORKFLOW:
+  1. Start crawl.py or avatar job via /jobs add SECS name
+  2. Monitor progress in bite queue (SONIC ARCHIVE panel)
+  3. If interrupted, click PAUSE SESSION
+  4. Save state with SAVE STATE button
+  5. Resume later with RESUME button
+  6. State is stored in NOVA.db for continuity
+
+
+================================================================================
+SECTION 6: CONFIGURATION & VOICE/MASK TUNING
+================================================================================
+
+Voice selection (AI CORE MATRIX):
+- llama3-groq-tool-use:8b — Coder handoffs, tool use
+- qwen3:8b                 — General assistant, conversation
+- moondream                — Vision analysis, still metadata
+
+
+Mask selection (persona modes):
+- emotion                  → Facial expression driven responses
+- event                    → Event-triggered avatar reactions  
+- grok_raw                 → Unfiltered direct responses
+
+
+Rate slider: Adjusts TTS speed for natural pacing. Lower = slower, higher = faster.
+
+
+================================================================================
+SECTION 7: CRAWL.PY BACKGROUND MONITORING
+================================================================================
+
+crawl.py runs depth-limited web scraping in the background. Ideal for:
+- Continuous site monitoring
+- Link discovery across domains
+- Content aggregation without DB wipe (temp chunks only)
+
+USAGE:
+  1. Add URL to SYSTEM OPS panel → queue URL button
+  2. crawl.py will scrape at configurable depth
+  3. Results appear in bite queue
+  4. Monitor progress in SPAWN/SONIC panels
+
+TCP GATEWAY ISSUES:
+If crawl.py not clearing queue on remote system:
+  - Verify SSH link with grokbot is operational
+  - Check firewall allows ports 41776, 41777 TCP on both ends
+  - Use nova.board to relay URL queuing across gateways
+  - Review NOVA.db entries for cross-machine job propagation
+
+
+================================================================================
+SECTION 8: MAIL ROOM & OPENCLAW HANDOFFS
+================================================================================
+
+MAIL ROOM shows packet flow:
+- Queued packets waiting for processing
+- Delivered items with destination info
+- Deliver button pushes 3 packets to inbox delivery
+
+OPENCLAW INTEGRATION:
+Click OPENCLAW tile to view leash/handoff status. NOVA uses OpenClaw for:
+- Remote session management
+- Channel configuration
+- Tool approvals across sessions
+
+
+================================================================================
+SECTION 9: PALACE SQLITE VIEWER
+================================================================================
+
+PALACE panel shows all SQLite tables in NOVA.db.
+
+FUNCTIONS:
+  - Table selector: Choose which table to view
+  - Search filter: Filter rows by text match
+  - Column headers: Click to sort ascending/descending
+  
+TYPICAL TABLES:
+  - bites          → Queued TTS requests
+  - jobs           → Daemon job definitions  
+  - reports        → HIL audit trail entries
+  - inbox          → Mail packet records
+
+
+================================================================================
+SECTION 10: BREAKS & TOOL-ERROR REPORTS
+================================================================================
+
+MISSION RECORDS panel shows tool failures and breaks.
+
+FORMAT:
+  r<rank> <status> <title>
+  
+BREAK INDICATORS:
+  - "tool break" in title = LLM tool call failure
+  - Click to view full error in chat log
+  
+ACTION ON BREAK:
+  Review error, fix code/config, restart affected job
+
+
+================================================================================
+SECTION 11: QUICK COMMANDS OVERVIEW
+================================================================================
+
+Common slash commands (type in ASTROCOMMS panel):
+
+/help [n]                    — Show help or tutorial page n
+/tools                       — List available tools
+/suggest                     — Suggest improvements to this session
+/jobs                        — List active daemon jobs
+/job add SECS name           — Create new job with seconds interval
+/job on ID                   — Enable job by numeric ID
+/job off ID                  — Disable job by numeric ID
+
+Avatar commands (new):
+/avatar generate_stills      — Generate 12-24 avatar frames
+/avatar assemble_video       — Create sentiment-matched video
+/avatar clear_queue          — Clear avatar processing queue
+
+Session management:
+/pause                       — Pause current session (GUI button)
+/resume                      — Resume from saved state
+
+
+================================================================================
+SECTION 12: TROUBLESHOOTING
+================================================================================
+
+GUI NOT STARTING:
+- Ensure PySide6 installed: pip install PySide6
+- Check NOVA.db not corrupted: python -m nova db diagnose
+
+crawl.py NOT RUNNING ON REMOTE:
+- Verify SSH connection to remote machine
+- Check firewall for ports 41776, 41777
+- Review grokbot logs for error messages
+- Test queue clearing locally first
+
+AVATAR PANEL NOT SHOWING:
+- Ensure app.py updated after adding avatar deck
+- Restart GUI if changes not visible
+
+TOOL BREAKS KEEP OCCURRING:
+- Check model availability: ollama list
+- Increase VRAM or reduce batch size
+- Review break reports in MISSION RECORDS
+
+
+================================================================================
+SECTION 13: NEXT STEPS
+================================================================================
+
+Priority Work (Phase 1):
+1. Avatar module implementation (nova/avatar.py)
+2. TCP gateway reliability tests for crawl.py
+3. Add session state persistence to NOVA.db schema
+4. Implement voice synthesis tuning panel
+
+Documentation:
+1. Update AVATAR_CATALOG_OUTLINE.md with new workflow details
+2. Create STAGING/AVATAR_WORKFLOW_GUIDE.md
+3. Document grokbot SSH integration steps
+
+
+================================================================================
+END OF TUTORIAL v1.7
+================================================================================
+
+For questions, contact: aurelius@nova.local
+Repository: github.com/mwoedlinger/ai-dungeon-master

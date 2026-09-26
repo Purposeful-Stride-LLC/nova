@@ -1,0 +1,34 @@
+{
+  "zulu": "2026-09-26T16:14:09Z",
+  "backend": "diffusers",
+  "images": [
+    {
+      "name": "nova_gui_bg_dark_homestead",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_dark_homestead_2026-09-26.png",
+      "bytes": 582909,
+      "seed": 26092600,
+      "prompt": "cinematic dark rural homestead night, soft warm window lamps, deep navy and black sky, empty wide composition for UI chrome overlay, subtle fog, no people, no text, no logos, soft bokeh, matte painting"
+    },
+    {
+      "name": "nova_gui_bg_lunar_command",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_lunar_command_2026-09-26.png",
+      "bytes": 636603,
+      "seed": 26092617,
+      "prompt": "lunar command deck interior, cool blue glass panels, curved moon horizon through viewport, sparse holographic UI glow, empty composition for overlays, no people, no text, no logos, cinematic, clean sci-fi"
+    },
+    {
+      "name": "nova_gui_bg_frostshield_glass",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_frostshield_glass_2026-09-26.png",
+      "bytes": 790835,
+      "seed": 26092634,
+      "prompt": "frostshield translucent icy glass panes, soft cyan rim light, crystalline HUD emptiness, cold atmosphere, abstract architectural glass, no people, no text, no logos, elegant minimal"
+    },
+    {
+      "name": "nova_gui_bg_warm_forge",
+      "path": "Documents\\NOVA\\NOVA_fieldkit_v1_4\\STAGING\\gui_art\\nova_gui_bg_warm_forge_2026-09-26.png",
+      "bytes": 717500,
+      "seed": 26092651,
+      "prompt": "warm forge ember glow charcoal and amber, soft volumetric light, empty workshop backdrop for UI, shallow depth of field, no people, no text, no logos, cozy industrial sci-fi"
+    }
+  ]
+}

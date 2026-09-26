@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "kind": "ollama_gen",
+  "model": "qwen:0.5b",
+  "stdout": "Here is a concrete example of a NOVA talk-avatar from PRE- g\u00e9n\u00e9r silent mp4s:\nIn this scenario, the candidate has developed an avatar that represents them in various contexts. The avatar consists of various components such as the head, body, and eyes.\nThe candidates have developed different vision models based on their personality traits and personal experiences. Each model represents a unique perspective and helps the candidates develop a more well-rounded and effective personality.\nIn conclusion, the NOVA talk-avatar from PRE- g\u00e9n\u00e9r silent mp4s is a concrete example of how candidates can develop an avatar that represents them in various contexts. The development of different vision models based on their personality traits and personal experiences, helps to create a well-rounded and effective personality.\n\n",
+  "stderr": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u283c \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u283c \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2826 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2826 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2827 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2807 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u283c",
+  "rc": 0,
+  "ms": 8393,
+  "zulu": "2026-09-22T11:57:36Z",
+  "job_id": "council-avatar-viseme-20260922T115601Z-rerun",
+  "load_after": {
+    "load1": 2.49,
+    "load5": 1.08,
+    "load15": 0.58
+  }
+}

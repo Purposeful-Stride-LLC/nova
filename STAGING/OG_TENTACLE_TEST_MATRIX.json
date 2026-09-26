@@ -1,0 +1,271 @@
+{
+  "zulu": "2026-09-21T10:02:42Z",
+  "channel": {
+    "41776": "UDP beacon duplex ping/pong",
+    "41777": "UDP job duplex (adapted from TCP plan)"
+  },
+  "beacon_rtt_ms": [
+    5.2,
+    5.9,
+    5.9,
+    6.1,
+    5.8
+  ],
+  "matrix": [
+    {
+      "job": "t-ping",
+      "kind": "ping",
+      "udp_ok": true,
+      "rtt_ms": 188.2,
+      "error": null,
+      "job_ms": 0,
+      "ok": true,
+      "load_after": {
+        "load1": 0.02,
+        "load5": 0.07,
+        "load15": 0.07
+      },
+      "overflow": null
+    },
+    {
+      "job": "t-which",
+      "kind": "which_tools",
+      "udp_ok": true,
+      "rtt_ms": 6.9,
+      "error": null,
+      "job_ms": 1,
+      "ok": true,
+      "load_after": {
+        "load1": 0.02,
+        "load5": 0.07,
+        "load15": 0.07
+      },
+      "overflow": null,
+      "which": {
+        "python3": "/usr/bin/python3",
+        "ffmpeg": "/usr/bin/ffmpeg",
+        "convert": "",
+        "gimp": "",
+        "inkscape": "",
+        "audacity": "/usr/bin/audacity",
+        "vlc": "/usr/bin/vlc",
+        "curl": "/usr/bin/curl",
+        "git": "",
+        "tesseract": "",
+        "pandoc": "",
+        "nmap": "",
+        "docker": "",
+        "node": "",
+        "obs": "",
+        "cheese": "/usr/bin/cheese",
+        "soffice": "/usr/bin/soffice",
+        "sox": "",
+        "wget": "/usr/bin/wget"
+      }
+    },
+    {
+      "job": "t-apt",
+      "kind": "apt_inventory",
+      "udp_ok": true,
+      "rtt_ms": 371.3,
+      "error": null,
+      "job_ms": 31,
+      "ok": true,
+      "load_after": {
+        "load1": 0.02,
+        "load5": 0.07,
+        "load15": 0.07
+      },
+      "overflow": null,
+      "n_pkgs": 2377,
+      "interesting": [
+        "audacity",
+        "audacity-data",
+        "cheese",
+        "cheese-common",
+        "curl",
+        "ffmpeg",
+        "fldigi",
+        "freecad",
+        "freecad-common",
+        "freecad-python3",
+        "gnuradio",
+        "gnuradio-dev",
+        "imagemagick-6-common",
+        "libcheese-gtk25:amd64",
+        "libcheese8:amd64",
+        "libcurl3-gnutls:amd64",
+        "libcurl4:amd64",
+        "libfreecad-python3-0.19",
+        "libgit2-1.1:amd64",
+        "libgnuradio-analog3.10.1:amd64",
+        "libgnuradio-audio3.10.1:amd64",
+        "libgnuradio-blocks3.10.1:amd64",
+        "libgnuradio-channels3.10.1:amd64",
+        "libgnuradio-digital3.10.1:amd64",
+        "libgnuradio-dtv3.10.1:amd64",
+        "libgnuradio-fec3.10.1:amd64",
+        "libgnuradio-fft3.10.1:amd64",
+        "libgnuradio-filter3.10.1:amd64",
+        "libgnuradio-fosphor3.9.0:amd64",
+        "libgnuradio-funcube1.0.0",
+        "libgnuradio-iio3.10.1:amd64",
+        "libgnuradio-iqbalance3.9.0",
+        "libgnuradio-network3.10.1:amd64",
+        "libgnuradio-osmosdr0.2.0:amd64",
+        "libgnuradio-pdu3.10.1:amd64",
+        "libgnuradio-pmt3.10.1:amd64",
+        "libgnuradio-qtgui3.10.1:amd64",
+        "libgnuradio-runtime3.10.1:amd64",
+        "libgnuradio-soapy3.10.1:amd64",
+        "libgnuradio-trellis3.10.1:amd64",
+        "libgnuradio-uhd3.10.1:amd64",
+        "libgnuradio-video-sdl3.10.1:amd64",
+        "libgnuradio-vocoder3.10.1:amd64",
+        "libgnuradio-wavelet3.10.1:amd64",
+        "libgnuradio-zeromq3.10.1:amd64",
+        "libpython3-dev:amd64",
+        "libpython3-stdlib:amd64",
+        "libpython3.10:amd64",
+        "libpython3.10-dev:amd64",
+        "libpython3.10-minimal:amd64"
+      ],
+      "desktop_sample": [
+        "gnome-ubuntu-panel.desktop",
+        "org.gnome.PowerStats.desktop",
+        "libreoffice-calc.desktop",
+        "xdg-desktop-portal-gtk.desktop",
+        "org.gnome.Calendar.desktop",
+        "libreoffice-xsltfilter.desktop",
+        "gnome-universal-access-panel.desktop",
+        "system-config-printer.desktop",
+        "gnome-microphone-panel.desktop",
+        "python3.10.desktop",
+        "usb-creator-gtk.desktop",
+        "gnome-color-panel.desktop",
+        "htop.desktop",
+        "rhythmbox.desktop",
+        "vim.desktop",
+        "org.remmina.Remmina.desktop",
+        "xdg-desktop-portal-gnome.desktop",
+        "org.remmina.Remmina-file.desktop",
+        "org.gnome.Characters.desktop",
+        "org.gnome.Shell.PortalHelper.desktop",
+        "libreoffice-writer.desktop",
+        "gnome-usage-panel.desktop",
+        "gnome-printers-panel.desktop",
+        "transmission-gtk.desktop",
+        "apport-gtk.desktop",
+        "ibus-setup-table.desktop",
+        "org.gnome.DejaDup.desktop",
+        "gnome-wwan-panel.desktop",
+        "gnome-online-accounts-panel.desktop",
+        "rhythmbox-device.desktop",
+        "bluetooth-sendto.desktop",
+        "org.gnome.Evince.desktop",
+        "rygel.desktop",
+        "org.gnome.Shell.desktop",
+        "update-manager.desktop",
+        "org.freedesktop.IBus.Panel.Extension.Gtk3.desktop",
+        "software-properties-gtk.desktop",
+        "org.gnome.font-viewer.desktop",
+        "gnome-bluetooth-panel.desktop",
+        "gcr-viewer.desktop"
+      ]
+    },
+    {
+      "job": "t-map",
+      "kind": "map_fs",
+      "udp_ok": true,
+      "rtt_ms": 16.5,
+      "error": null,
+      "job_ms": 4,
+      "ok": true,
+      "load_after": {
+        "load1": 0.02,
+        "load5": 0.07,
+        "load15": 0.07
+      },
+      "overflow": null,
+      "n": 80
+    },
+    {
+      "job": "t-ollama",
+      "kind": "ollama_gen",
+      "udp_ok": true,
+      "rtt_ms": 2206.3,
+      "error": null,
+      "job_ms": 2105,
+      "ok": true,
+      "load_after": {
+        "load1": 0.02,
+        "load5": 0.07,
+        "load15": 0.07
+      },
+      "overflow": null,
+      "stdout_snip": "NODE_UP_UP\n\n",
+      "model": "qwen:0.5b",
+      "stderr_snip": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?2"
+    }
+  ],
+  "python_api_hooks": [
+    {
+      "app": "ffmpeg",
+      "api": "subprocess / python-ffmpeg",
+      "use": "cam preprocess, clip cut, scout video"
+    },
+    {
+      "app": "ImageMagick",
+      "api": "convert CLI",
+      "use": "thumbnails, format normalize"
+    },
+    {
+      "app": "curl",
+      "api": "CLI",
+      "use": "hunter HTTP fetch (HIL)"
+    },
+    {
+      "app": "FreeCAD",
+      "api": "FreeCAD cmd / Python",
+      "use": "CAD docs already in AiTutor roots"
+    },
+    {
+      "app": "gnuradio/fldigi",
+      "api": "native Linux RF stack",
+      "use": "homestead RF explore later"
+    },
+    {
+      "app": "python3",
+      "api": "stdlib + venv",
+      "use": "tentacle core, digester glue"
+    },
+    {
+      "app": "ollama",
+      "api": "CLI/HTTP :11434 local",
+      "use": "CPU chronicler digester / scout summarize"
+    }
+  ],
+  "metrics_tail": [
+    "{\"zulu\": \"2026-09-21T09:54:43Z\", \"kind\": \"beacon_bind\", \"port\": 41776}",
+    "{\"zulu\": \"2026-09-21T09:54:46Z\", \"kind\": \"job_err\", \"file\": \"hub-map-1.json\", \"error\": \"log_metric() got multiple values for argument 'kind'\"}",
+    "{\"zulu\": \"2026-09-21T09:54:47Z\", \"kind\": \"job_err\", \"file\": \"hub-discover-1.json\", \"error\": \"log_metric() got multiple values for argument 'kind'\"}",
+    "{\"zulu\": \"2026-09-21T09:54:48Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.15, \"load5\": 0.17, \"load15\": 0.09}}",
+    "{\"zulu\": \"2026-09-21T09:55:01Z\", \"kind\": \"beacon_bind\", \"port\": 41776}",
+    "{\"zulu\": \"2026-09-21T09:55:01Z\", \"kind\": \"start\", \"node\": \"og-ubuntu\", \"root\": \"/home/mike/pg/nova-tentacle\", \"udp\": 41776, \"tcp\": 41777}",
+    "{\"zulu\": \"2026-09-21T09:55:03Z\", \"kind\": \"job\", \"job_id\": \"hub-map-2\", \"job_kind\": \"map_fs\", \"ok\": true, \"ms\": 3}",
+    "{\"zulu\": \"2026-09-21T10:02:37Z\", \"kind\": \"job_udp_bind\", \"port\": 41777}",
+    "{\"zulu\": \"2026-09-21T10:02:37Z\", \"kind\": \"start\", \"node\": \"og-ubuntu\", \"root\": \"/home/mike/pg/nova-tentacle\", \"udp_beacon\": 41776, \"udp_job\": 41777}",
+    "{\"zulu\": \"2026-09-21T10:02:37Z\", \"kind\": \"beacon_bind\", \"port\": 41776}",
+    "{\"zulu\": \"2026-09-21T10:02:39Z\", \"kind\": \"job\", \"job_id\": \"t-ping\", \"job_kind\": \"ping\", \"ok\": true, \"ms\": 0, \"peer\": \"192.168.0.18\"}",
+    "{\"zulu\": \"2026-09-21T10:02:39Z\", \"kind\": \"job\", \"job_id\": \"t-which\", \"job_kind\": \"which_tools\", \"ok\": true, \"ms\": 1, \"peer\": \"192.168.0.18\"}",
+    "{\"zulu\": \"2026-09-21T10:02:39Z\", \"kind\": \"job\", \"job_id\": \"t-apt\", \"job_kind\": \"apt_inventory\", \"ok\": true, \"ms\": 31, \"peer\": \"192.168.0.18\"}",
+    "{\"zulu\": \"2026-09-21T10:02:39Z\", \"kind\": \"job\", \"job_id\": \"t-map\", \"job_kind\": \"map_fs\", \"ok\": true, \"ms\": 4, \"peer\": \"192.168.0.18\"}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"job\", \"job_id\": \"t-ollama\", \"job_kind\": \"ollama_gen\", \"ok\": true, \"ms\": 2105, \"peer\": \"192.168.0.18\"}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.02, \"load5\": 0.07, \"load15\": 0.07}}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.02, \"load5\": 0.07, \"load15\": 0.07}}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.02, \"load5\": 0.07, \"load15\": 0.07}}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.02, \"load5\": 0.07, \"load15\": 0.07}}",
+    "{\"zulu\": \"2026-09-21T10:02:42Z\", \"kind\": \"pong\", \"peer\": \"192.168.0.18\", \"load\": {\"load1\": 0.02, \"load5\": 0.07, \"load15\": 0.07}}"
+  ],
+  "slave_thesis": "OG offloads digest/scout/preprocess; TUF keeps GPU speak/Claw/palace truth"
+}

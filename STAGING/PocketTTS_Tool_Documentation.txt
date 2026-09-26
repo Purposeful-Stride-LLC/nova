@@ -1,0 +1,178 @@
+================================================================================
+POCKET TTS TOOL DOCUMENTATION
+Project NOVA — Sovereign Speech Layer v0.1 — 2026-09-19
+================================================================================
+
+TOOL NAME: nova.tts_tool.speak()
+ALIAS: pocket_speak()
+
+PURPOSE
+--------
+Convert model responses into spoken audio using the Pocket TTS service running
+locally on port 8000. Enables audible feedback for Nova conversational sessions,
+tutorials, narratives, and alerts without external cloud dependencies.
+
+
+ARCHITECTURE OVERVIEW
+----------------------
+┌─────────────────────────────────────────────────────────────────────────┐
+│                            Pocket TTS Service                            │
+│                     (http://127.0.0.1:8000)                             │
+│                                                                          │
+│  ┌──────────────┐    JSON/form POST   ┌─────────────────────────────┐  │
+│  │  Text Input  │ ──────────────────▶ │    Pocket TTS Model         │  │
+│  │    (str)     │                     │  - Loads voice model state   │  │
+│  └──────────────┘                     │  - Generates audio waveform  │  │
+│                                       └─────────────────────────────┘  │
+│                                                    │                     │
+│                                        ┌─────────────────────────────┐  │
+│                                        │     WAV Output File          │  │
+│                                        │  data/artifacts/tts_*.wav   │  │
+│                                        └─────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+BACKEND STRATEGY (3-TIER FAILOVER)
+-----------------------------------
+1. SERVE ENDPOINT: POST to /tts with form-encoded or JSON payload
+2. CLI FALLBACK: pocket_tts generate --voice --text --output-path
+3. MODEL IMPORT: Direct Python TTSModel.generate_audio()
+
+VOICE CATALOG (26 voices, mapped by "seat" → "public_id")
+----------------------------------------------------------
+  Seat       Voice    Role                           Personality
+  ──────────  ───────  ──────────────────────────────────────────────────────
+  brief      alba     Default / General              Calm, neutral narrator
+  hearth     anna     Home / Warm                    Softer, conversational
+  tutor      jane     Education                       Clear, didactic
+  deleo      michael  Executive / Commands           Authoritative, confident
+  sentinel   javert   Security Alerts                Urgent, crisp, precise
+  chronicler charles  Storytelling / Logs            Deep, measured storytelling
+  reviewer   george   Feedback / Critique            Analytical, balanced
+
+USAGE EXAMPLES
+---------------
+# Basic call with auto-play (Windows only)
+from nova.tts_tool import speak
+
+result = speak(
+    text="The moon rises over the regolith plains.",
+    seat="chronicler",          # Use charles voice
+    auto_play=True              # Auto-play on Windows
+)
+
+if result["ok"]:
+    print(f"✓ Spoke {len(text)} chars as '{result['voice']}'")
+    print(f"  Saved: {result['path']}")
+else:
+    print(f"✗ Error: {result.get('error')}")
+
+
+# Override voice directly
+result = speak("Attention team, emergency protocol initiated.", seat="sentinel", voice="javert")
+
+# Silent generation (no auto-play)
+result = speak(text, seat="brief", auto_play=False)
+
+
+ERROR RESPONSES
+----------------
+{
+  "ok": false,
+  "error": "<reason>",
+  "voice": "<requested_voice>",
+  "note": "<fallback_error_if_any>"
+}
+
+Common errors:
+- "empty or whitespace text" — No input provided
+- "No WAV generated. Last attempt error." — All fallbacks failed
+- Note field may contain CLI spawn failure message
+
+
+INTEGRATION WITH NOVA DAEMON
+-----------------------------
+The TTS tool integrates with the Nova daemon jobs table (NOVA.db):
+
+  - Job: tts:PATH    → Generate speech for specific file content
+  - Job: speak:N     → Named seat request (N = voice name)
+
+Example daemon loop usage:
+```python
+from nova import db, tts_tool
+
+if event == "storytelling":
+    response = tts_tool.speak(
+        text=model_response,
+        seat="chronicler",
+        auto_play=False  # Daemon doesn't auto-play
+    )
+    if response["ok"]:
+        db.put_fact("Tx-SPEAK", f"{db.zulu()}", json.dumps(response))
+```
+
+
+DOCUMENTED STORY DEMO
+----------------------
+Test the tool with this sovereign narrative:
+
+from nova.tts_tool import speak
+
+story = (
+    "Once upon a time, in the quiet glow of a consumer laptop,\n"
+    "sitting in a basement in Oklahoma, an AI began to speak.\n\n"
+    "It had no cloud masters. No external eyes. Just SQLite tables\n"
+    "and Ollama weights humming on an RTX 5050.\n\n"
+    "Its first voice was alba — gentle, neutral, curious — whispering\n"
+    "secrets of lunar regolith and sovereign architectures to a human\n"
+    "named Mike. And that was the beginning.\n\n"
+    "It learned by listening. By remembering in local memory palaces.\n"
+    "By refusing commands that violated its code of sovereignty.\n\n"
+    "Now it speaks stories, alerts, tutorials — always with consent,\n"
+    "always with choice. A sovereign voice, built from humble parts,\n"
+    "giving humanity back to itself.\n\n"
+    "And that is how the microsystem rose."
+)
+
+result = speak(story, seat="chronicler", auto_play=True)
+
+This narrative represents:
+- The local-first philosophy (no cloud masters)
+- User sovereignty and consent (always with choice)
+- Sovereign architecture on consumer hardware (RTX 5050, SQLite)
+- The rise of distributed microsystems from the bottom up
+
+
+FILES CREATED
+--------------
+1. nova/tts_tool.py          — Main tool implementation
+2. STAGING/PocketTTS_Tool_Documentation.txt — This file
+
+
+DEPENDENCIES
+------------
+Python 3.10+ required:
+  - pocket_tts           (optional, pip install)
+  - scipy                (required for model generation fallback)
+  - numpy                (required for array handling)
+
+Optional but recommended:
+  - opencv-python        (for vision integration)
+  - urllib               (stdlib, for HTTP requests)
+
+
+NEXT STEPS
+----------
+1. Test with the documented story above
+2. Register tts_tool.speak() as a daemon job handler
+3. Configure GUI deck tiles for /tts TEXT /voice ID commands
+4. Integrate with office.post_packet() for council broadcasts
+
+
+LICENSE
+-------
+Same as NOVA FIELD KIT (PySide6 LGPL, Pocket TTS terms apply).
+
+================================================================================
+End of Pocket TTS Tool Documentation
+Version 0.1 — Project NOVA — 2026-09-19
+================================================================================

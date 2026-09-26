@@ -11,7 +11,7 @@ from pathlib import Path
 from nova import db
 
 DEFAULT_THUMB_AI = Path(r"D:\pg\ai")
-DEFAULT_FIELDKIT = Path(r"C:\Users\wuchy\Documents\NOVA\NOVA_fieldkit_v1_4")
+DEFAULT_FIELDKIT = Path.home() / "Documents" / "NOVA" / "NOVA_fieldkit_v1_4"
 
 SHARD_MAP = {
     "awareness": [

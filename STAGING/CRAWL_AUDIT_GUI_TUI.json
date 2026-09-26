@@ -1,0 +1,409 @@
+{
+  "summary": {
+    "seeds_total": 10,
+    "queue_done": 10,
+    "queue_fail": 0,
+    "web_0x": 0,
+    "web_reject": 0,
+    "crawl_chunked": 10,
+    "chunks_total_since": 19,
+    "extra_drains": [
+      {
+        "id": 14,
+        "ingested": true,
+        "url": "https://urwid.org/manual/overview.html"
+      },
+      {
+        "id": 15,
+        "ingested": true,
+        "url": "https://blessed.readthedocs.io/en/latest/"
+      }
+    ]
+  },
+  "audit": {
+    "seeds": [
+      {
+        "url": "https://doc.qt.io/qtforpython/",
+        "queue": {
+          "id": 6,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://doc.qt.io/qtforpython/"
+        },
+        "web_facts": [
+          {
+            "id": 989,
+            "whi": "Tx-TEMP",
+            "title": "crawl/e70812440d4fe472"
+          },
+          {
+            "id": 990,
+            "whi": "Tx-TEMP",
+            "title": "crawl/e5d3b9c5fb249caa"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 6,
+            "zulu": "2026-09-19T13:49:12Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://doc.qt.io/qtforpython/",
+            "status": "temp",
+            "n": 8000
+          },
+          {
+            "id": 7,
+            "zulu": "2026-09-19T13:49:19Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://doc.qt.io/qtforpython/#furo-main-content",
+            "status": "temp",
+            "n": 8000
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://doc.qt.io/qtforpython-6/quickstart.html",
+        "queue": {
+          "id": 7,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://doc.qt.io/qtforpython-6/quickstart.html"
+        },
+        "web_facts": [
+          {
+            "id": 991,
+            "whi": "Tx-TEMP",
+            "title": "crawl/2331cd74c22ccac8"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 8,
+            "zulu": "2026-09-19T13:49:23Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://doc.qt.io/qtforpython-6/quickstart.html",
+            "status": "temp",
+            "n": 68
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://textual.textualize.io/guide/",
+        "queue": {
+          "id": 8,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://textual.textualize.io/guide/"
+        },
+        "web_facts": [
+          {
+            "id": 992,
+            "whi": "Tx-TEMP",
+            "title": "crawl/54b8b6518d2a2e85"
+          },
+          {
+            "id": 993,
+            "whi": "Tx-TEMP",
+            "title": "crawl/e1db3305d7e65db6"
+          },
+          {
+            "id": 994,
+            "whi": "Tx-TEMP",
+            "title": "crawl/3ef04217f93bfe2b"
+          },
+          {
+            "id": 995,
+            "whi": "Tx-TEMP",
+            "title": "crawl/01fb321a2ef020d3"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 9,
+            "zulu": "2026-09-19T13:49:27Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/",
+            "status": "temp",
+            "n": 6605
+          },
+          {
+            "id": 10,
+            "zulu": "2026-09-19T13:49:32Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/#guide",
+            "status": "temp",
+            "n": 6611
+          },
+          {
+            "id": 11,
+            "zulu": "2026-09-19T13:49:36Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/",
+            "status": "temp",
+            "n": 8000
+          },
+          {
+            "id": 12,
+            "zulu": "2026-09-19T13:49:41Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/#textual-css",
+            "status": "temp",
+            "n": 8000
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://textual.textualize.io/guide/CSS/",
+        "queue": {
+          "id": 9,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://textual.textualize.io/guide/CSS/"
+        },
+        "web_facts": [
+          {
+            "id": 994,
+            "whi": "Tx-TEMP",
+            "title": "crawl/3ef04217f93bfe2b"
+          },
+          {
+            "id": 995,
+            "whi": "Tx-TEMP",
+            "title": "crawl/01fb321a2ef020d3"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 11,
+            "zulu": "2026-09-19T13:49:36Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/",
+            "status": "temp",
+            "n": 8000
+          },
+          {
+            "id": 12,
+            "zulu": "2026-09-19T13:49:41Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x04:https://textual.textualize.io/guide/CSS/#textual-css",
+            "status": "temp",
+            "n": 8000
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://rich.readthedocs.io/en/stable/introduction.html",
+        "queue": {
+          "id": 10,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://rich.readthedocs.io/en/stable/introduction.html"
+        },
+        "web_facts": [
+          {
+            "id": 996,
+            "whi": "Tx-TEMP",
+            "title": "crawl/56e4e09ec73de5f3"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 13,
+            "zulu": "2026-09-19T13:49:46Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/introduction.html",
+            "status": "temp",
+            "n": 4347
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://rich.readthedocs.io/en/stable/console.html",
+        "queue": {
+          "id": 11,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://rich.readthedocs.io/en/stable/console.html"
+        },
+        "web_facts": [
+          {
+            "id": 998,
+            "whi": "Tx-TEMP",
+            "title": "crawl/f9631447f4b43e21"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 15,
+            "zulu": "2026-09-19T13:49:54Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://rich.readthedocs.io/en/stable/console.html",
+            "status": "temp",
+            "n": 8000
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://python-prompt-toolkit.readthedocs.io/en/stable/",
+        "queue": {
+          "id": 12,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://python-prompt-toolkit.readthedocs.io/en/stable/"
+        },
+        "web_facts": [
+          {
+            "id": 1000,
+            "whi": "Tx-TEMP",
+            "title": "crawl/a0d4d8adf96ec528"
+          },
+          {
+            "id": 1001,
+            "whi": "Tx-TEMP",
+            "title": "crawl/77929ac0ffaa9997"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 17,
+            "zulu": "2026-09-19T13:50:03Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://python-prompt-toolkit.readthedocs.io/en/stable/",
+            "status": "temp",
+            "n": 5682
+          },
+          {
+            "id": 18,
+            "zulu": "2026-09-19T13:50:08Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://python-prompt-toolkit.readthedocs.io/en/stable/#sidebar-filter",
+            "status": "temp",
+            "n": 5697
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://docs.python.org/3/library/curses.html",
+        "queue": {
+          "id": 13,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://docs.python.org/3/library/curses.html"
+        },
+        "web_facts": [
+          {
+            "id": 1002,
+            "whi": "Tx-TEMP",
+            "title": "crawl/f9d52872b572afa6"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 19,
+            "zulu": "2026-09-19T13:50:13Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://docs.python.org/3/library/curses.html",
+            "status": "temp",
+            "n": 8000
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://urwid.org/manual/overview.html",
+        "queue": {
+          "id": 14,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://urwid.org/manual/overview.html"
+        },
+        "web_facts": [
+          {
+            "id": 1004,
+            "whi": "Tx-TEMP",
+            "title": "crawl/6f843d9f44596a33"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 21,
+            "zulu": "2026-09-19T13:50:23Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://urwid.org/manual/overview.html",
+            "status": "temp",
+            "n": 3030
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      },
+      {
+        "url": "https://blessed.readthedocs.io/en/latest/",
+        "queue": {
+          "id": 15,
+          "zulu": "2026-09-19T13:49:05Z",
+          "status": "done",
+          "description": "https://blessed.readthedocs.io/en/latest/"
+        },
+        "web_facts": [
+          {
+            "id": 1006,
+            "whi": "Tx-TEMP",
+            "title": "crawl/a94983d456a3d75c"
+          },
+          {
+            "id": 1007,
+            "whi": "Tx-TEMP",
+            "title": "crawl/431a298f83fc357d"
+          }
+        ],
+        "crawl_chunks": [
+          {
+            "id": 23,
+            "zulu": "2026-09-19T13:50:33Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://blessed.readthedocs.io/en/latest/",
+            "status": "temp",
+            "n": 3991
+          },
+          {
+            "id": 24,
+            "zulu": "2026-09-19T13:50:37Z",
+            "whi": "Tx-TEMP",
+            "source_cite": "crawl:1x00:https://blessed.readthedocs.io/en/latest/#",
+            "status": "temp",
+            "n": 3992
+          }
+        ],
+        "web_ok": false,
+        "web_reject": false,
+        "crawl_ok": true
+      }
+    ],
+    "note": "web path uses quality gate; crawl path writes Tx-TEMP chunks"
+  }
+}
