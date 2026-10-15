@@ -10,7 +10,9 @@ from nova import db, breaklog
 
 SEATS = ("claw", "code", "brief")
 # Cut 2: after each motion verdict, promote temps -> live RAG chunks
-AUTO_PROMOTE_RAG = True  # brief=qwen3:8b; no 0.5b on design
+# 2.1: no auto-promote without HIL. Promotion now needs an approved "chamber.promote"
+# command (nova.cmdinbox) or an explicit operator call with approved=True.
+AUTO_PROMOTE_RAG = False  # brief=qwen3:8b; no 0.5b on design
 
 
 def _ensure_chunks(con) -> None:
@@ -326,8 +328,11 @@ def session_motions(
             "title": title, "case": case, "seats": list(entry["seats"].keys())
         })[:4000])
         if AUTO_PROMOTE_RAG:
+            # 2.1: even when the flag is set, only PROPOSE the promotion for operator approval.
             try:
-                entry["promote"] = promote_to_rag(case)
+                from nova import cmdinbox
+                entry["promote"] = cmdinbox.propose("chamber.promote", {"case": case}, source="chamber",
+                                                    why=f"motion {mid} opinions -> live RAG")
             except Exception as exc:
                 entry["promote"] = {"ok": False, "error": str(exc)}
                 breaklog.record("chamber", f"promote:{case}:{exc}", severity="warn", whi="Tx-TEMP")

@@ -75,11 +75,15 @@ def store_accepted(
     accessed = db.zulu()
     mscore = matrix_row.get("score")
     mhash = matrix_row.get("hash") or hashlib.sha256((raw_text or "").encode()).hexdigest()[:16]
+    is_file = (url or "").startswith("file:") or (url or "").lower().startswith("file://")
+    kind_hint = "doc" if is_file else "web"
+    default_wing = "0x-DOC" if is_file else "0x-WEB"
     wing = (whi_code or "").strip()
     if not wing:
-        wing = whi.classify(summary or raw_text, title=title, url=url, kind="web", default="0x-WEB")
+        wing = whi.classify(summary or raw_text, title=title, url=url, kind=kind_hint, default=default_wing)
     if not wing.startswith(("Ax-", "Tx-", "0x-")):
-        wing = "0x-WEB"
+        wing = default_wing
+    force = whi.claw_hexclass(summary or raw_text or title or "", url or "")
     head = _header(
         source_url=url,
         accessed=accessed,
@@ -88,10 +92,12 @@ def store_accepted(
         matrix_score=mscore,
         content_hash=mhash,
         whi=wing,
+        force_class=force,
         title=title,
     )
     body = f"{head}\n\n{(summary or raw_text)[:7500]}"
-    cite = f"web:{mhash}:{url}"[:240]
+    cite_prefix = "doc" if is_file else "web"
+    cite = f"{cite_prefix}:{mhash}:{url}"[:240]
     con = db.connect()
     con.executescript(
         """
@@ -105,6 +111,15 @@ def store_accepted(
           status TEXT NOT NULL DEFAULT 'temp'
         );"""
     )
+    # governor hook 2026-10-07: hash dedup; dry-run default = log only (returns None)
+    try:
+        from nova import governor as _gov
+        _reuse = _gov.gate_chunk(con, mhash, cite)
+    except Exception:
+        _reuse = None
+    if _reuse:
+        con.close()
+        return {"ok": True, "chunk_id": int(_reuse), "whi": wing, "force_class": force, "accessed": accessed, "cite": cite, "matrix_score": mscore, "llm": model, "mask": mask, "governor": "dedup_hash"}
     con.execute(
         "INSERT INTO chunks(zulu,whi,source_cite,text,hash,status) VALUES (?,?,?,?,?,?)",
         (accessed, wing, cite, body[:8000], mhash, status),
@@ -119,9 +134,9 @@ def store_accepted(
         source_url=url,
         content_hash=mhash,
         matrix_json=matrix.dump(matrix_row),
-        kind="web",
+        kind=kind_hint,
     )
-    return {"ok": True, "chunk_id": cid, "whi": wing, "accessed": accessed, "cite": cite, "matrix_score": mscore, "llm": model, "mask": mask}
+    return {"ok": True, "chunk_id": cid, "whi": wing, "force_class": force, "accessed": accessed, "cite": cite, "matrix_score": mscore, "llm": model, "mask": mask}
 
 
 def process_url(
@@ -135,7 +150,7 @@ def process_url(
     """Full pipe using hands.web fetch + matrix + optional summary store."""
     from nova.hands import web as web_hand
 
-    got = web_hand.fetch(url)
+    got = web_hand.fetch(url, store=False)
     if not got.get("ok"):
         return {"ok": False, "error": got.get("error"), "url": url}
     m = got.get("matrix") or {}

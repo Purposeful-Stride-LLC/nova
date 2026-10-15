@@ -1,18 +1,17 @@
-NOVA field kit 1.4 — cut A
+NOVA field kit 2.1 - start card
 
-Two processes.
+Two processes (plus Pocket TTS if you want a voice).
 
-  python -m nova          daemon: scheduler + master log
-  python -m nova.tui      metal face (edits the same job table)
+  python -m nova          daemon: scheduler, DB writes, approved commands
+  python -m nova.tui      metal face (edits the jobs table; /cmd approves proposals)
+  python -m nova.gui      read-only operator console (START_GUI.bat)
+  python -m pocket_tts serve --port 8000     voice (optional)
 
-Keep pocket-tts serve on :8000 if you want an ear.
+  /sched                 job table: priority, GPU class, next run, fails
+  /job on ID|name        /job off ID|name
+  /cmd list              proposals from chat, GUI and task-stimulus
+  /cmd approve ID        the daemon runs it on its next tick
+  /web URL               only hosts in data\config\gates.json net_allowlist
 
-  /jobs            list
-  /job add 60 holmes
-  /job on ID / job off ID
-  /web URL         strip + matrix + quality gate + WHI
-  /conv new        start a numbered conversation
-  /hunt Q          palace first
-  /models
-
-Quality gate writes Tx-REJECT if the page is thin. Good pages get 0x-WEB + cite.
+Chat proposes, the operator approves, the daemon does. Nothing auto-applies.
+A STAGED kit (STAGED marker file) will not boot a daemon against live data.

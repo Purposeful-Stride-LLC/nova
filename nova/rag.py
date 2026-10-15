@@ -98,8 +98,8 @@ def _small_judge(query: str, snippet: str, model: str = "qwen2:0.5b") -> dict:
             raw = text[:300]
         return {"include": include, "raw": raw, "model": model}
     except Exception as exc:
-        # fail-open on score alone if tiny model down
-        return {"include": True, "raw": f"gate-error:{exc}", "model": model}
+        # 2.1: FAIL CLOSED. If the judge cannot run, the chunk is excluded (was fail-open).
+        return {"include": False, "raw": f"gate-error:{exc}", "model": model, "fail_closed": True}
 
 
 def retrieve(query: str, limit: int = 5, gate: bool = True, model: str = "qwen2:0.5b") -> dict:

@@ -1,0 +1,5 @@
+{
+  "_note": "EXAMPLE. Copy to <NOVA_HOME>/data/config/governor.json. enforce stays false (dry-run, log only) unless the operator deliberately turns it on.",
+  "enabled": true,
+  "enforce": false
+}

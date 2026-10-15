@@ -1,7 +1,7 @@
 """Paint pet - text-to-image hand for NOVA.
 
 Default mode is PARKED. Avatar face stays Claw/Aurelius (mp4 + Pocket TTS).
-ComfyUI sidecar: Projects/ComfyUI (NOVA_PAINT/cold_start.bat).
+ComfyUI sidecar: COMFYUI_ROOT (env or data/config/paths.json) (NOVA_PAINT/cold_start.bat).
 Unpark via NOVA_PAINT=1 and NOVA_PAINT_BACKEND=comfyui after a smoke.
 """
 from __future__ import annotations
@@ -16,8 +16,10 @@ from nova import breaklog, db, thermal
 
 PARKED = os.environ.get("NOVA_PAINT", "0").strip() not in {"1", "true", "yes", "on"}
 PAINT_VRAM_FREE_MIN_MIB = float(os.environ.get("NOVA_PAINT_VRAM_MIN", "5500"))
-COMFYUI_ROOT = Path(os.environ.get("COMFYUI_ROOT", str(Path.home() / "Projects" / "ComfyUI")))
-AVATAR_ROOT_HINT = Path(r"D:\pg\ai\nova-ai\agents\avatar")
+from nova import paths as _paths
+
+COMFYUI_ROOT = _paths.comfyui_root() or (Path.home() / "Projects" / "ComfyUI")
+AVATAR_ROOT_HINT = _paths.avatar_root()
 
 
 def _artifacts_dir() -> Path:

@@ -1,24 +1,44 @@
-data/NOVA.db
-data/*.db
-data/secrets/
-data/artifacts/
-data/*.log
-__pycache__/
-STAGING/__pycache__/
-*.py[cod]
-*.pyc
+# live data / palace — never commit
+data/
+*.db
+*.db-*
+*.sqlite*
+NOVA_HOME.txt
+STAGED*
+commands/
+nova-out/
+artifacts/
+stills/
+# logs / backups / archives
+*.log
+logs/
+backups/
+*.bak
 *.zip
+*.tar.gz
+*.tgz
+# media
+media/
+audio/
 *.wav
-STAGING/gui_music/
+*.mp3
+*.jpg
+*.jpeg
+*.png
 *.bin
+# secrets
 .env
+.env.*
 *.pem
 *.key
 *secret*
 grokbottkn*
 GrokBot.log.ai
+# python / os
+__pycache__/
+*.py[cod]
 .pytest_cache/
+.venv/
+venv/
 .DS_Store
 _nova_public_sync*
-*.tar.gz
-*.tgz

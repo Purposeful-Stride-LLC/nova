@@ -1,6 +1,6 @@
 """
 Avatar display module — CPU-first, minimal GPU thrash.
-Uses existing clips under D:\\pg\\ai\\nova-ai\\agents\\avatar\\.
+Uses existing clips under NOVA_AVATAR_ROOT (env or data/config/paths.json).
 Syncs mouth to Pocket TTS anna on :8000 if requested.
 No new media library invented.
 """
@@ -10,7 +10,9 @@ import subprocess
 import sys
 
 # Paths (adjust if deployed elsewhere)
-CLIP_ROOT = r"D:\pg\ai\nova-ai\agents\avatar"
+from nova import paths as _paths
+
+CLIP_ROOT = str(_paths.avatar_root() or "")
 TTS_URL = "http://localhost:8000"  # Pocket TTS anna
 
 

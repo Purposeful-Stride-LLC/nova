@@ -17,12 +17,10 @@ SKIP_DIR = {
 }
 SKIP_SUFFIX = {".pyc", ".pyo", ".swp", ".tmp"}
 
-DEFAULT_ROOTS = [
-    home(),
-    Path(r"Documents\NOVA"),
-    Path(r"D:\pg\ai"),
-    Path.home() / ".openclaw" / "workspace",
-]
+from nova import paths as _paths
+
+# 2.1: opt-in roots only (data/config/paths.json "watson_roots"); default NOVA_HOME.
+DEFAULT_ROOTS = _paths.watson_roots()
 
 
 def _should_skip_dir(name: str) -> bool:

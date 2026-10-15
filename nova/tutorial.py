@@ -1,6 +1,6 @@
 PAGES = [
     """PAGE 1  QUICK START
-Two windows in NOVA  (or ~/NOVA):
+Two windows in the fieldkit folder (NOVA_HOME):
   python -m nova          daemon
   python -m nova.tui      this face
 /help  /tutorial 2  /tools  /jobs  /suggest

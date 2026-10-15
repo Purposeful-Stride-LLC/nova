@@ -1,9 +1,9 @@
-﻿"""TUF hub client for Hearthbeat tentacle mail over TCP 41776/41777."""
+﻿"""Hub client for Hearthbeat tentacle mail over TCP 41776/41777."""
 from __future__ import annotations
-import json, socket, struct, time, uuid
+import json, os, socket, struct, time, uuid
 from pathlib import Path
 
-DEFAULT_HOST = "192.168.0.76"
+DEFAULT_HOST = os.environ.get("NOVA_TENTACLE_HOST", "192.0.2.10")  # set your tentacle LAN host via env
 BEACON_PORT = 41776
 JOB_PORT = 41777
 MAX_FRAME = 8_000_000
@@ -30,8 +30,8 @@ def _send_frame(conn: socket.socket, obj: dict) -> None:
     raw = json.dumps(obj, separators=(",", ":")).encode("utf-8")
     conn.sendall(struct.pack("!I", len(raw)) + raw)
 
-def ping(host: str = DEFAULT_HOST, port: int = BEACON_PORT, timeout: float = 8.0, from_id: str = "tuf-hub") -> dict:
-    msg = {"v": 1, "kind": "ping", "from": from_id, "to": "og-ubuntu", "zulu": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+def ping(host: str = DEFAULT_HOST, port: int = BEACON_PORT, timeout: float = 8.0, from_id: str = "hub-01") -> dict:
+    msg = {"v": 1, "kind": "ping", "from": from_id, "to": "tentacle-01", "zulu": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     with socket.create_connection((host, port), timeout=timeout) as conn:
         conn.settimeout(timeout)
         _send_frame(conn, msg)
@@ -49,3 +49,5 @@ def smoke(host: str = DEFAULT_HOST) -> dict:
     pong = ping(host)
     health = submit({"kind": "health"}, host=host, timeout=30)
     return {"pong": pong, "health": health}
+
+# Fieldkit 2.0: also importable as nova.mail

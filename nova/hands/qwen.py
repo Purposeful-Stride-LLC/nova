@@ -27,7 +27,7 @@ def run_prompt(prompt: str, cwd: str | None = None, timeout: int = 120) -> dict:
         body = {"ok": ok, "zulu": z, "cwd": root, "rc": proc.returncode, "stdout": out, "stderr": err}
         whi = "Ax-QWEN" if ok else "Tx-QWEN"
         db.put_fact(whi, "qwen-run", json.dumps({k: body[k] for k in ("ok","zulu","cwd","rc")})[:4000])
-        office.post_packet(dest="qwen@local", mask="qwen", whi=whi, kind="result", cite="hands.qwen", body=(out or err)[:3500])
+        office.post_packet(dest="qwen@local", mask="qwen", whi=whi, kind="result", cite="hands.qwen", body=(out or err)[:3500], status="logged")  # log-only (2026-10-07)
         office.bump("qwen@local", "jobs_run")
         return body
     except Exception as exc:

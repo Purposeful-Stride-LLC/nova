@@ -1,0 +1,6 @@
+{
+  "_note": "EXAMPLE. Copy to <NOVA_HOME>/data/config/gates.json. With an EMPTY net_allowlist NOVA refuses ALL web access (/web, crawl, board drain, docs-scout) until the operator adds hosts, e.g. [\"example.com\", \"docs.python.org\"].",
+  "net_allowlist": [],
+  "chat_scope": ["job.pause", "job.resume", "job.run_now", "report.approve", "report.close", "url.approve", "url.deny"],
+  "chat_requires_ack": true
+}

@@ -134,6 +134,15 @@ def bump(eid: str, field: str) -> None:
 def post_packet(**kw) -> int:
     _ensure()
     con = db.connect()
+    # governor hook 2026-10-07: dry-run default = log only (returns None), never blocks
+    try:
+        from nova import governor as _gov
+        _reuse = _gov.gate_packet(con, kw.get("dest") or "chronicler@local", kw.get("kind") or "ingest", (kw.get("body") or "")[:4000])
+        if _reuse:
+            con.close()
+            return int(_reuse)
+    except Exception:
+        pass
     cur = con.execute(
         """INSERT INTO packets(zulu, dest, mask, whi, kind, hash, cite, body, status)
            VALUES (?,?,?,?,?,?,?,?,?)""",
@@ -146,7 +155,7 @@ def post_packet(**kw) -> int:
             kw.get("hash") or "",
             kw.get("cite") or "",
             (kw.get("body") or "")[:4000],
-            "queued",
+            kw.get("status") or "queued",  # 2026-10-07 drain fix: callers may pass status="logged"
         ),
     )
     con.commit()
@@ -388,3 +397,194 @@ def sync_voices_from_pocket() -> int:
     con.commit()
     con.close()
     return n
+
+
+def _config_dir():
+    d = db.home() / "data" / "config"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def automate_queue_path():
+    return _config_dir() / "automate_queue.json"
+
+
+def get_automate_queue() -> bool:
+    """Persisted Automate Queue flag (HIL bypass for auto-safe drains). Default False."""
+    path = automate_queue_path()
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return bool(data.get("on"))
+    except Exception:
+        return False
+
+
+def set_automate_queue(on: bool) -> dict:
+    """Toggle Automate Queue; persists under data/config/automate_queue.json."""
+    path = automate_queue_path()
+    payload = {"on": bool(on), "zulu": db.zulu()}
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    try:
+        db.put_fact(
+            "Ax-OPS",
+            "automate-queue",
+            f"on={int(bool(on))} path={path}",
+            kind="homestead",
+        )
+    except Exception:
+        pass
+    return payload
+
+
+def approve_all(*, reports: bool = True, board_queue: bool = True) -> dict:
+    """HIL bulk Approve All — open report cards → approved; board queued → approved.
+
+    Does NOT auto-send outbound mail/WhatsApp. Does NOT delete palace facts.
+    """
+    _ensure()
+    out = {"reports": 0, "queue": 0, "zulu": db.zulu()}
+    con = db.connect()
+    if reports:
+        cur = con.execute(
+            "UPDATE reports SET status='approved' WHERE status='open'"
+        )
+        out["reports"] = int(cur.rowcount or 0)
+    if board_queue:
+        cur = con.execute(
+            "UPDATE queue SET status='approved' WHERE status IN ('queued','pending')"
+        )
+        out["queue"] = int(cur.rowcount or 0)
+    con.commit()
+    con.close()
+    try:
+        db.put_fact(
+            "Ax-OPS",
+            "approve-all",
+            json.dumps(out),
+            kind="homestead",
+        )
+    except Exception:
+        pass
+    return out
+
+
+def clear_standing_ingest(*, dry_run: bool = False, backup: bool = True) -> dict:
+    """Standing clear like 2026-09-27: cancel/clear waiting work; never delete palace facts.
+
+    - Backup NOVA.db (unless dry_run or backup=False)
+    - docs_queue queued/running → cancelled
+    - board URL queue queued/running http → cancelled
+    - packets status=queued → cleared (rows kept)
+    - data/queue/waiting/*.json → data/queue/cleared/
+    """
+    import shutil
+
+    _ensure()
+    home = db.home()
+    zulu_raw = db.zulu()
+    stamp = zulu_raw.replace(":", "").replace("-", "")
+    out: dict = {
+        "ok": True,
+        "dry_run": bool(dry_run),
+        "zulu": zulu_raw,
+        "backup": None,
+        "docs_queue": 0,
+        "board_urls": 0,
+        "packets": 0,
+        "fs_waiting": 0,
+        "fs_moved": [],
+    }
+    db_path = home / "data" / "NOVA.db"
+    if backup and not dry_run and db_path.is_file():
+        bak = home / "data" / f"NOVA.db.bak_clear_ingest_{stamp}"
+        shutil.copy2(db_path, bak)
+        out["backup"] = str(bak.name)
+
+    con = db.connect()
+    try:
+        con.execute(
+            """CREATE TABLE IF NOT EXISTS docs_queue (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              path TEXT, hash TEXT, status TEXT, zulu TEXT,
+              note TEXT, last_err TEXT
+            )"""
+        )
+        if dry_run:
+            n = con.execute(
+                "SELECT COUNT(*) AS c FROM docs_queue WHERE status IN ('queued','running')"
+            ).fetchone()["c"]
+            out["docs_queue"] = int(n or 0)
+        else:
+            cur = con.execute(
+                "UPDATE docs_queue SET status='cancelled', note=? "
+                "WHERE status IN ('queued','running')",
+                (f"standing-clear {zulu_raw}",),
+            )
+            out["docs_queue"] = int(cur.rowcount or 0)
+    except Exception as exc:
+        out["docs_queue_err"] = str(exc)
+
+    try:
+        if dry_run:
+            n = con.execute(
+                "SELECT COUNT(*) AS c FROM queue WHERE status IN ('queued','running') "
+                "AND description LIKE 'http%'"
+            ).fetchone()["c"]
+            out["board_urls"] = int(n or 0)
+        else:
+            cur = con.execute(
+                "UPDATE queue SET status='cancelled' WHERE status IN ('queued','running') "
+                "AND description LIKE 'http%'"
+            )
+            out["board_urls"] = int(cur.rowcount or 0)
+    except Exception as exc:
+        out["board_err"] = str(exc)
+
+    try:
+        if dry_run:
+            n = con.execute(
+                "SELECT COUNT(*) AS c FROM packets WHERE status='queued'"
+            ).fetchone()["c"]
+            out["packets"] = int(n or 0)
+        else:
+            cur = con.execute(
+                "UPDATE packets SET status='cleared' WHERE status='queued'"
+            )
+            out["packets"] = int(cur.rowcount or 0)
+    except Exception as exc:
+        out["packets_err"] = str(exc)
+
+    if not dry_run:
+        con.commit()
+    con.close()
+
+    waiting = home / "data" / "queue" / "waiting"
+    cleared = home / "data" / "queue" / "cleared"
+    cleared.mkdir(parents=True, exist_ok=True)
+    if waiting.is_dir():
+        for fp in sorted(waiting.glob("*.json")):
+            out["fs_waiting"] += 1
+            if dry_run:
+                out["fs_moved"].append(fp.name)
+            else:
+                dest = cleared / fp.name
+                if dest.exists():
+                    dest = cleared / f"{fp.stem}_{stamp}{fp.suffix}"
+                shutil.move(str(fp), str(dest))
+                out["fs_moved"].append(dest.name)
+
+    if not dry_run:
+        try:
+            summary = {k: v for k, v in out.items() if k != "fs_moved"}
+            summary["fs_n"] = len(out["fs_moved"])
+            db.put_fact(
+                "Ax-OPS",
+                "standing-ingest-clear",
+                json.dumps(summary),
+                kind="homestead",
+            )
+        except Exception:
+            pass
+    return out

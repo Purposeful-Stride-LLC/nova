@@ -1,10 +1,13 @@
 # NOVA Tutorial
 
+> **v2.1 note:** this tutorial dates from v1.x/2.0. `STAGING/` paths below refer to the operator's local tree and are **not shipped** in this repo. For v2.1 commands see `START.txt`, `TUTORIAL.txt`, `docs/GATES.md`, `docs/SCHEDULER.md`.
+
+
 Parse-friendly human guide. Examples start with `>> `.  
 Canonical field-kit path (generic):
 
 ```text
-Documents/NOVA/NOVA_fieldkit_v1_4
+<install folder>   (the folder that contains nova/)
 ```
 
 `TUTORIAL.txt` is a short pointer to this file for older TUI `/tutorial` readers.
@@ -16,7 +19,7 @@ Documents/NOVA/NOVA_fieldkit_v1_4
 Need three processes eventually. Two are enough to talk.
 
 ```powershell
-cd Documents\NOVA\NOVA_fieldkit_v1_4
+cd <install folder>
 python -m nova
 python -m nova.tui
 python -m pocket_tts serve --default-voice anna

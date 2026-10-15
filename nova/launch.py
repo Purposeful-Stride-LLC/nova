@@ -41,6 +41,10 @@ def _spawn_gui():
 
 
 def main() -> None:
+    from pathlib import Path as _P
+    if (_P(__file__).resolve().parent.parent / "STAGED").is_file():  # 2.1 staged guard
+        print("STAGED kit: nova.launch disabled (no TTS spawn, no daemon against live data).")
+        return
     from nova import splash
     from nova.pocket import SERVE_PORT
     from nova.spawnutil import spawn_titled

@@ -109,6 +109,13 @@ def play_next() -> dict:
 
 def after_job(job: str, note: str, err: str, worker: str | None = None) -> int:
     mask = worker_for(job, worker)
+    if not err:
+        # 2026-10-07 drain fix: only errors get a voice line; keep the jobs_run stat.
+        try:
+            office.bump(f"{mask}@local", "jobs_run")
+        except Exception:
+            pass
+        return 0
     if err:
         line = f"{mask} failed {job.split(':')[0]}."
     else:
@@ -116,3 +123,8 @@ def after_job(job: str, note: str, err: str, worker: str | None = None) -> int:
         if note:
             line = f"{mask}: {note[:60]}"
     return enqueue(job, line, mask)
+
+
+def clear_avatar_queue() -> int:
+    """GUI AVATAR > clear_queue hook (gui/app.py). No avatar queue exists yet: harmless no-op."""
+    return 0

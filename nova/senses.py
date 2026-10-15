@@ -88,7 +88,7 @@ def save_still(index: int = 0, owner: str = "steward") -> dict:
         "cite": f"opencv:{index}",
     }
     db.put_fact("Tx-CAM", name, json.dumps(packet))
-    office.post_packet(dest="seer@local", mask="chronicler", whi=packet["whi"], kind="vision", cite=str(out), body=json.dumps(feat))
+    office.post_packet(dest="seer@local", mask="chronicler", whi=packet["whi"], kind="vision", cite=str(out), body=json.dumps(feat), status="logged")  # log-only (2026-10-07)
     return {"ok": True, **packet}
 
 

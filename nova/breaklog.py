@@ -53,6 +53,7 @@ def record(
                 kind="break",
                 cite=cite or tool,
                 body=body[:3500],
+                status="logged",  # log-only (2026-10-07)
             )
         except Exception:
             pass

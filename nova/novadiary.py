@@ -2,7 +2,7 @@
 
 Writes:
   - nova-out/DIARY.md (running journal)
-  - Documents\\NOVA\\GrokBot.log.ai (steward mirror)
+  - steward mirror log (paths.steward_log(); defaults inside NOVA_HOME)
   - Tx-DIARY fact in palace
 """
 from __future__ import annotations
@@ -13,15 +13,18 @@ from typing import Any
 
 from nova import db
 
-DIARY_MD = Path(r"Documents\NOVA\NOVA_fieldkit_v1_4\nova-out\DIARY.md")
-STEWARD_LOG = Path(r"Documents\NOVA\GrokBot.log.ai")
+# 2026-10-07: was hardcoded to NOVA_fieldkit_v1_4\nova-out; now the live kit home (v2_0).
+DIARY_MD = db.home() / "nova-out" / "DIARY.md"
+from nova import paths as _paths
+
+STEWARD_LOG = _paths.steward_log()
 
 
 def _prompt(theme: str, context: str) -> str:
     return (
         "You are NOVA writing a short personal diary entry (4-8 sentences). "
         "Warm, observant, lightly poetic but concrete. First person. "
-        "Mention what you learned or noticed today about the palace / metal / people. "
+        "Mention what you learned or noticed today. "
         f"Theme: {theme}\n"
         f"Context notes:\n{context[:1800]}\n"
         "Write only the diary entry, no title header."

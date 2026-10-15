@@ -130,6 +130,45 @@ FORGE = [
         "risk": 0,
     },
 
+
+    {
+        "name": "ingest-clear-daily",
+        "job": "ingest-clear-daily",
+        "every_s": 86400,
+        "cite": "office.clear_standing_ingest + STAGING/INGEST_QUEUE_CLEARED_2026-09-27.md",
+        "does": "Daily standing clear: docs_queue/board URLs cancel; packets queued→cleared; fs waiting→cleared. Backup first. Disabled-by-default until steward /job on. Never deletes facts.",
+        "risk": 1,
+    },
+
+    {
+        "name": "leash-forge",
+        "job": "leash-forge",
+        "every_s": 0,
+        "cite": "leash.forge_step + proof_tree",
+        "does": "One-STEP runner: read STEP FILES: → proof_tree → envelope. No OpenClaw chat.",
+        "risk": 1,
+    },
+
+    {
+        "name": "claw-grok",
+        "job": "claw-grok",
+        "every_s": 0,
+        "cite": "STAGING/PROTOCOL_CLAW_GROK_COM.md + leash.grok_query",
+        "does": "Build/send ONE grok.com browser STEP via Claw; default dry_run. Mask grok@claw. Rate 12/hr.",
+        "risk": 1,
+    },
+
+    {
+        "name": "claw-gemini",
+        "job": "claw-gemini",
+        "every_s": 0,
+        "cite": "STAGING/PROTOCOL_CLAW_GEMINI_GOOGLE.md + leash.gemini_query (steward-CDP first)",
+        "does": "Build/send ONE gemini.google.com browser STEP via Claw; default dry_run. Mask gemini@claw. steward_cdp=True. Rate 12/hr. Serializes vs claw-grok.",
+        "risk": 1,
+    },
+
+
+
 ]
 
 
@@ -145,3 +184,10 @@ def listing() -> str:
 
 def suggest() -> list[tuple[str, int]]:
     return [(t["job"], t["every_s"]) for t in FORGE if t["every_s"] > 0]
+
+
+# Fieldkit 2.0 re-export
+try:
+    from nova.leash import forge_step, canonical_outbox  # noqa: E402,F401
+except Exception:
+    pass

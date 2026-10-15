@@ -1,6 +1,0 @@
-Ax-HOMESTEAD council seed
-Topic: {TOPIC}
-Zulu: {ZULU}
-Summary: {ONE_PARAGRAPH}
-PROOF gaps carried: {GAPS}
-Next STEP ids: {STEPS}

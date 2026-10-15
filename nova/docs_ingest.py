@@ -8,7 +8,9 @@ from typing import Any
 
 from nova import db, ingest_pipe, whi
 
-DOCS_ROOT = Path.home() / "Documents"
+from nova import paths as _paths
+
+DOCS_ROOT = _paths.docs_root() or Path.home() / "Documents"
 NOVA_DOCS = DOCS_ROOT / "NOVA"
 DAY1 = [
     DOCS_ROOT / "NOVA_Technology_Proposal_Purposeful_Strides_LLC_2026-08-06.docx",
@@ -25,8 +27,8 @@ DAY2 = [
     DOCS_ROOT / "Hammerhead_Spaceplane_Technical_Proposal_Purposeful_Stride_LLC.pdf",
 ]
 DAY3 = [
-    DOCS_ROOT / "Purposeful_Stride_LLC_IP_RD_Portfolio_Wuchevich.pdf",
-    DOCS_ROOT / "IP_Assignment_Wuchevich_to_Purposeful_Stride_LLC_REFINED.docx",
+    DOCS_ROOT / "example_portfolio.pdf",
+    DOCS_ROOT / "example_assignment.docx",
     DOCS_ROOT / "Invention_Disclosure_Liquid_Metal_MHD_ReEntry_System.docx",
 ]
 

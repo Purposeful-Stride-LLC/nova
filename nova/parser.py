@@ -58,6 +58,16 @@ Holmes finished. Seven probes green.
 """
 
 
+GRAMMAR_V2 = """
+SPEECH RULES:
+Speak only when Voice in SELF is UP and there is real news to announce. Then add ONE line after the visible answer:
+[speak anna] <one short sentence of your own, under 12 words> [/speak]
+Never copy the placeholder. Voice anna = brief seat.
+Zero speak tags for refusals, unknowns, proposals, capability or status answers, or when Voice is DOWN/unknown.
+Visible answer outside the tag. No JSON, no tool calls.
+"""
+
+
 def peel(text: str) -> tuple[str, list[tuple[str, str]]]:
     spoken: list[tuple[str, str]] = []
     out = text or ""

@@ -1,5 +1,5 @@
 {
-  "note": "Edit this file to add, rename, color, or kill a deck tile. app.py reads it at boot. Dead tiles stay visible so the human sees the hole.",
+  "note": "Fieldkit 2.0 pruned deck \u2014 unique panes; aliases dead.",
   "tiles": [
     {
       "id": "comms",
@@ -78,16 +78,16 @@
       "label": "INGEST",
       "neon": "neonMagenta",
       "panel": 3,
-      "live": true,
-      "why": "Alias to SYSTEM OPS URL board."
+      "live": false,
+      "why": "2.0 pruned alias \u2014 use SYSTEM OPS / SPAWN"
     },
     {
       "id": "jobs",
       "label": "JOBS",
       "neon": "neonAmber",
       "panel": 3,
-      "live": true,
-      "why": "Alias to SYSTEM OPS job list."
+      "live": false,
+      "why": "2.0 pruned alias \u2014 use SYSTEM OPS / SPAWN"
     },
     {
       "id": "kill",
@@ -102,8 +102,8 @@
       "label": "STATUS",
       "neon": "neonGreen",
       "panel": 8,
-      "live": true,
-      "why": "Same pane as SPAWN."
+      "live": false,
+      "why": "2.0 pruned alias \u2014 use SYSTEM OPS / SPAWN"
     },
     {
       "id": "tui",
@@ -118,8 +118,8 @@
       "label": "WEB GATE",
       "neon": "neonBlue",
       "panel": 3,
-      "live": true,
-      "why": "Same ingest path as /web."
+      "live": false,
+      "why": "2.0 pruned alias \u2014 use SYSTEM OPS / SPAWN"
     },
     {
       "id": "claw",
@@ -166,8 +166,8 @@
       "label": "WHATSAPP",
       "neon": "neonGreen",
       "panel": 0,
-      "live": true,
-      "why": "Phone DM via OpenClaw. Chat: /wa link (QR window) | /wa status | /wa send approve TEXT"
+      "live": false,
+      "why": "2.0 parked \u2014 WhatsApp expansion deferred; use /wa only under steward"
     }
   ]
 }

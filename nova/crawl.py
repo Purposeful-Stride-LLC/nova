@@ -48,6 +48,10 @@ def classify(text: str, url: str) -> str:
 
 
 def fetch(url: str, timeout: float = 15.0) -> dict:
+    from nova import gates  # 2.1: every crawled page must be on the net_allowlist
+    g = gates.host_allowed(url)
+    if not g["allow"]:
+        raise PermissionError(g["reason"])
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         raw = r.read(200_000)
@@ -66,6 +70,14 @@ def ingest_temp(url: str, text: str, title: str, depth: int) -> int:
     )[:8000]
     hx = hashlib.sha256(body.encode()).hexdigest()[:16]
     code = classify(text, url)
+    # governor hook 2026-10-07: hash dedup; dry-run default = log only (returns None)
+    try:
+        from nova import governor as _gov
+        _reuse = _gov.gate_chunk(con, hx, f"crawl:{code}:{url}")
+    except Exception:
+        _reuse = None
+    if _reuse:
+        con.close(); return int(_reuse)
     # Thin pages still land as temp for steward audit; pipe later clears/rejects
     con.execute(
         "INSERT INTO chunks(zulu,whi,source_cite,text,hash,status) VALUES (?,?,?,?,?,?)",
@@ -104,6 +116,10 @@ def crawl(start_url: str, max_pages: int = 5, max_depth: int = 3, min_delay: flo
     start_url = (start_url or "").strip()
     if not start_url.startswith("http"):
         return {"ok": False, "error": "need http(s)"}
+    from nova import gates
+    g0 = gates.host_allowed(start_url)
+    if not g0["allow"]:
+        return {"ok": False, "refused": True, "error": g0["reason"], "host": g0.get("host")}
     host0 = urlparse(start_url).netloc.lower()
     visited, q, pages, ids, enq = set(), [(start_url, 0)], 0, [], []
     while q and pages < max_pages:

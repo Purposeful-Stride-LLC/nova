@@ -10,8 +10,10 @@ import json
 from pathlib import Path
 from nova import db
 
-DEFAULT_THUMB_AI = Path(r"D:\pg\ai")
-DEFAULT_FIELDKIT = Path.home() / "Documents" / "NOVA" / "NOVA_fieldkit_v1_4"
+from nova import paths as _paths
+
+DEFAULT_THUMB_AI = _paths.thumb_ai() or (_paths.kit_root() / "_no_thumb_ai")
+DEFAULT_FIELDKIT = _paths.kit_root()
 
 SHARD_MAP = {
     "awareness": [

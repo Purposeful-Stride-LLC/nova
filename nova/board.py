@@ -22,8 +22,10 @@ def enqueue_url(url: str) -> int:
 
 def drain_one() -> dict:
     con = db.connect()
+    # 2.1: HIL gap closed. Drain reads ONLY operator-approved URLs (/approve N, GUI approve,
+    # or an approved url.approve command). 'queued' means "awaiting approval", never fetched.
     row = con.execute(
-        "SELECT * FROM queue WHERE status='queued' AND description LIKE 'http%' ORDER BY id LIMIT 1"
+        "SELECT * FROM queue WHERE status='approved' AND description LIKE 'http%' ORDER BY id LIMIT 1"
     ).fetchone()
     if not row:
         con.close()

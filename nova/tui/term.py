@@ -1,4 +1,4 @@
-"""NOVA Terminal 1.4 — edits the same jobs table the daemon ticks."""
+"""NOVA Terminal 2.1 — edits the same jobs table the daemon ticks."""
 
 from __future__ import annotations
 
@@ -16,12 +16,13 @@ from nova.masks import MASKS, apply, listing, pick_mask, limits_for, pick_mask, 
 W, H = shutil.get_terminal_size(fallback=(100, 32))
 WIDTH = max(72, min(W, 140))
 HELP = """/help /tutorial [n] /tools /suggest
-/jobs /job add SECS name /job on ID /job off ID /tick
+/jobs /sched /job add SECS name /job on ID|name /job off ID|name /tick\n/cmd list|approve ID|deny ID  (proposals from chat/GUI/task-stimulus)
 /web URL  /crawl URL  /hunt Q  /pdf PATH  /codesum PATH
 /rag QUERY  /chamber TOPIC  /claw [msg]  /qwen [msg]  /snap
 /models /model NAME
 /mask NAME|list|auto   (masks not jackets; auto = activation words)
 /conv new  /holmes /sherlock  /queue /approve N /deny N
+/approve-all  /automate on|off|status  /clear-ingest [dry]
 /reports /ack ID /staff /history
 /tts TEXT /voice ID /cam [n] /see [n|PATH] /hear WAV /ask TEXT
 /msg ...  /wa status|draft|send|link
@@ -82,7 +83,7 @@ def draw():
     left_w = int(WIDTH * 0.62)
     right_w = WIDTH - left_w - 3
     lines = ["╔" + "═" * (WIDTH - 2) + "╗"]
-    lines.append("║" + f" NOVA 1.7  conv={state['conv']}  {state['mask']} {state['model'][:18]} ".center(WIDTH - 2)[: WIDTH - 2].ljust(WIDTH - 2) + "║")
+    lines.append("║" + f" NOVA 2.1  conv={state['conv']}  {state['mask']} {state['model'][:18]} ".center(WIDTH - 2)[: WIDTH - 2].ljust(WIDTH - 2) + "║")
     lines.append("╠" + "═" * (WIDTH - 2) + "╣")
     wrapped = []
     for row in state["hist"]:
@@ -101,43 +102,30 @@ def draw():
 
 
 def ask(text):
-    hits = db.hunt(text)
-    ctx = "\n".join(f"{h.get('whi')} {h.get('title')} src={h.get('source_url')}" for h in hits)
-    model = router.pick(text, state["model"])
-    if state.get("mask_auto"):
-        state["mask"] = pick_mask(text)
-    sys_p = apply(state["mask"]) + "\n" + parser.GRAMMAR + "\nPalace hits:\n" + (ctx or "(none)")
-    body = json.dumps(
-        {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": sys_p},
-                {"role": "user", "content": text},
-            ],
-            "stream": False,
-        }
-    ).encode()
-    req = urllib.request.Request(
-        "http://127.0.0.1:11434/api/chat",
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=180) as r:
-            data = json.loads(r.read().decode())
-        raw_out = (data.get("message") or {}).get("content") or data.get("response") or ""
-        visible, spoken = parser.peel(raw_out)
-        for voice, line in spoken:
-            try:
-                res = pocket.speak(line, voice)
-                if not res.get("ok"):
-                    art("TTS-FAIL", f"{voice}: {str(res)[:180]}")
-            except Exception as exc:
-                art("TTS-FAIL", f"{voice}: {exc}")
-        return visible or raw_out
-    except Exception as exc:
-        return f"[ollama] {exc}"
+    """2.1: one chat path (nova.chat): SELF/NOW v2, read-only hunt, qwen3:8b ctx 8192 think:false,
+    code guards on speak tags / command ids / voice answers. Proposals are queued, never run."""
+    from nova import chat
+    r = chat.ask(text, model=state.get("model") or None, stream=False, propose=True)
+    for voice, line in r.get("spoken") or []:
+        try:
+            res = pocket.speak(line, voice)
+            if not res.get("ok"):
+                art("TTS-FAIL", f"{voice}: {str(res)[:180]}")
+        except Exception as exc:
+            art("TTS-FAIL", f"{voice}: {exc}")
+    props = [x for x in r.get("proposed") or [] if x.get("ok")]
+    tail = ("\n[proposed for approval: " + ", ".join(f"{x['verb']} {x['args']} ({x['id']})" for x in props) + " — /cmd approve ID]") if props else ""
+    return (r.get("visible") or "") + tail
+
+
+def _job_id(tok: str) -> int:
+    """Accept a numeric id or a job name (/job off 4 or /job off cam:0)."""
+    if tok.isdigit():
+        return int(tok)
+    for r in db.jobs():
+        if r["name"] == tok:
+            return int(r["id"])
+    raise ValueError(f"no job named {tok!r}; see /jobs")
 
 
 def handle(raw: str):
@@ -209,6 +197,28 @@ def handle(raw: str):
         db.set_queue(int(raw.split()[1]), "denied")
         handle("/queue")
         return
+    if low.startswith("/approve-all") or low == "/approve all":
+        from nova import office
+        res = office.approve_all()
+        art("APPROVE-ALL", str(res))
+        return
+    if low.startswith("/automate"):
+        from nova import office
+        parts = raw.split()
+        arg = (parts[1] if len(parts) > 1 else "status").lower()
+        if arg in {"on", "1", "true", "yes"}:
+            art("AUTOMATE", str(office.set_automate_queue(True)))
+        elif arg in {"off", "0", "false", "no"}:
+            art("AUTOMATE", str(office.set_automate_queue(False)))
+        else:
+            art("AUTOMATE", f"on={office.get_automate_queue()}")
+        return
+    if low.startswith("/clear-ingest"):
+        from nova import office
+        dry = "dry" in low
+        res = office.clear_standing_ingest(dry_run=dry, backup=not dry)
+        art("CLEAR-INGEST", str({k: res.get(k) for k in ("ok","dry_run","docs_queue","board_urls","packets","fs_waiting","backup")}))
+        return
     if low.startswith("/voice"):
         state["voice"] = pocket.resolve_voice(raw.split(None, 1)[1] if " " in raw else "anna")
         return
@@ -269,13 +279,31 @@ def handle(raw: str):
         except Exception as exc:
             art("JOB ADD", str(exc))
         return
-    if low.startswith("/job on"):
-        db.job_set(int(raw.split()[2]), enabled=1)
-        handle("/jobs")
+    if low.startswith("/job on") or low.startswith("/job off"):
+        parts = raw.split()
+        try:
+            jid = _job_id(parts[2])
+            db.job_set(jid, enabled=1 if parts[1].lower() == "on" else 0)
+            handle("/jobs")
+        except (IndexError, ValueError) as exc:
+            art("JOB", f"usage: /job on|off ID-or-name  ({exc})")
         return
-    if low.startswith("/job off"):
-        db.job_set(int(raw.split()[2]), enabled=0)
-        handle("/jobs")
+    if low in {"/sched", "/sched table"}:
+        from nova import sched
+        say("NOVA", sched.table_text())
+        return
+    if low.startswith("/cmd"):
+        from nova import cmdinbox
+        parts = raw.split()
+        sub = parts[1].lower() if len(parts) > 1 else "list"
+        if sub == "list":
+            rows = cmdinbox.listing("proposed")
+            say("NOVA", "\n".join(f"{r['id']} {r['verb']} {r['args']} from={r['source']} {r.get('why','')[:50]}" for r in rows) or "no proposals")
+        elif sub in {"approve", "deny"} and len(parts) > 2:
+            fn = cmdinbox.approve if sub == "approve" else cmdinbox.deny
+            say("NOVA", str(fn(parts[2], by="tui")))
+        else:
+            say("NOVA", "usage: /cmd list | /cmd approve ID | /cmd deny ID")
         return
     if low == "/holmes":
         sw = holmes.sweep()
@@ -432,7 +460,7 @@ def main():
         from nova import splash
 
         splash.run(15, sound=True)
-    say("NOVA", f"1.7 attach. db={db.db_path()}. /help")
+    say("NOVA", f"2.1 attach. db={db.db_path()}. /help")
     draw()
     while True:
         try:

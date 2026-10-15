@@ -41,7 +41,7 @@ FRAMES = [
       [=======]  aqueduct
       [=======]
          ||
-        NOVA 1.7
+        NOVA 2.1
     offline. private. standing by.
 """,
 ]

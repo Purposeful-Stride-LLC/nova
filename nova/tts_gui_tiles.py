@@ -7,6 +7,8 @@ Desktop tiles / menu items for rapid TTS interaction.
 """
 
 import json, pathlib
+
+KIT = pathlib.Path(__file__).resolve().parent.parent  # fieldkit root, portable
 from datetime import datetime
 
 
@@ -19,9 +21,9 @@ def create_tile_files():
     # 1. Quick Access Batch File
     batch_path = tile_dir / "NOVA_TTS_QuickAccess.bat"
     with open(batch_path, 'w') as f:
-        f.write('''@echo off
+        f.write(f'''@echo off
 title NOVA Pocket TTS Quick Access
-cd Documents\\NOVA\\NOVA_fieldkit_v1_4
+cd /d "{KIT}"
 python.exe -c "from nova.tts_tool import speak; speak('Hello, I am Nova. How may I assist you today?', seat='brief')"
 pause
 ''')
@@ -50,7 +52,7 @@ def create_menu_items():
     # Main launcher
     main_path = menu_dir / "Pocket TTS Launcher.lnk"
     with open(main_path.parent / "Pocket TTS Launcher.lnk", 'w') as f:
-        f.write(f'@echo off\ncd {"Documents\\NOVA\\NOVA_fieldkit_v1_4"}\npython.exe -m nova.tts_tool\npause\n')
+        f.write(f'@echo off\ncd {KIT}\npython.exe -m nova.tts_tool\npause\n')
     
     print(f"Menu items created in: {menu_dir}")
 
@@ -64,11 +66,11 @@ def create_config():
         "tiles": {
             "quick_access": {
                 "label": "NOVA TTS Quick Access",
-                "command": "Desktop\\NOVA_TTS_QuickAccess.bat"
+                "command": str(pathlib.Path.home() / "Desktop" / "NOVA_TTS_QuickAccess.bat")
             },
             "voice_select": {
                 "label": "Select Voice & Speak",
-                "command": "Desktop\\NOVA_TTS_VoiceSelect.bat"
+                "command": str(pathlib.Path.home() / "Desktop" / "NOVA_TTS_VoiceSelect.bat")
             }
         },
         "seats_available": list(__import__('nova.pocket').pocket.SEATS.keys())

@@ -1,1 +1,0 @@
-⚠️ Agent run failed (model: ollama/qwen3.5:9b).

@@ -23,9 +23,19 @@ def _ctx():
         return ssl.create_default_context()
 
 
-def fetch(url: str, cap: int = 120_000) -> dict:
+def fetch(url: str, cap: int = 120_000, *, store: bool = True) -> dict:
+    """Fetch → strip → matrix → quality gate.
+
+    When store=True (default), accepted pages go through ingest_pipe.store_accepted
+    (chunks + force_class provenance). Rejects still stamp Tx-REJECT via put_fact.
+    Pass store=False for callers (e.g. ingest_pipe.process_url) that store themselves.
+    """
     if not url.startswith(("http://", "https://")):
         return {"ok": False, "error": "http(s) only"}
+    from nova import gates  # 2.1: Brutus-style scope; unknown host -> refuse
+    g = gates.host_allowed(url)
+    if not g["allow"]:
+        return {"ok": False, "refused": True, "error": g["reason"], "host": g.get("host")}
     req = urllib.request.Request(
         url,
         headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8"},
@@ -45,28 +55,35 @@ def fetch(url: str, cap: int = 120_000) -> dict:
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(f"{final}\n{dump(matrix)}\n\n{text[:20000]}", encoding="utf-8")
     if matrix["label"] != "ingest":
-        reject_body = (
-            f"reason={matrix['label']}\nurl={final}\nscore={matrix.get('score')}\n"
-            f"chars={matrix.get('chars')}\n\n{(text or '')[:1200]}"
-        )
-        db.put_fact(
-            "Tx-REJECT",
-            f"{matrix['label']}:{title}"[:160],
-            reject_body,
-            source_url=final,
-            content_hash=matrix["hash"],
-            matrix_json=dump(matrix),
-            reason=matrix["label"],
-        )
+        if store:
+            reject_body = (
+                f"reason={matrix['label']}\nurl={final}\nscore={matrix.get('score')}\n"
+                f"chars={matrix.get('chars')}\n\n{(text or '')[:1200]}"
+            )
+            db.put_fact(
+                "Tx-REJECT",
+                f"{matrix['label']}:{title}"[:160],
+                reject_body,
+                source_url=final,
+                content_hash=matrix["hash"],
+                matrix_json=dump(matrix),
+                reason=matrix["label"],
+            )
         return {"ok": True, "ingested": False, "url": final, "matrix": matrix, "path": str(dest), "title": title}
-    db.put_fact(
-        "0x-WEB",
-        title[:160],
-        f"url={final}\n\n{text[:7800]}",
-        source_url=final,
-        content_hash=matrix["hash"],
-        matrix_json=dump(matrix),
-    )
+    stored = None
+    if store:
+        from nova import ingest_pipe
+
+        stored = ingest_pipe.store_accepted(
+            title=title,
+            url=final,
+            raw_text=text,
+            matrix_row=matrix,
+            summary=(text or "")[:2000],
+            model="none",
+            mask="chronicler",
+            status="live",
+        )
     return {
         "ok": True,
         "ingested": True,
@@ -74,6 +91,7 @@ def fetch(url: str, cap: int = 120_000) -> dict:
         "ctype": ctype,
         "matrix": matrix,
         "path": str(dest),
-        "whi": "0x-WEB",
+        "whi": (stored or {}).get("whi") or "0x-WEB",
         "title": title,
+        "stored": stored,
     }

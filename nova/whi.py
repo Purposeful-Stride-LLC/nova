@@ -46,6 +46,9 @@ KIND_MAP = {
     "break": "Tx-BREAK",
     "tts": "Tx-TTS",
     "web": "0x-WEB",
+    "doc": "0x-DOC",
+    "document": "0x-DOC",
+    "file": "0x-DOC",
     "advice": "0x-ADVICE",
     "hunt-miss": "Tx-HUNT-MISS",
 }
@@ -72,7 +75,7 @@ SUBJECT_RULES: list[tuple[str, str, str]] = [
 
 
 def claw_hexclass(text: str, url: str = "") -> str:
-    """Claw crawl classify — heritage hexclass prefixes (D:\\pg\\ai) + URL heuristics.
+    """Claw crawl classify — heritage hexclass prefixes (thumb-ai tree) + URL heuristics.
 
     Returns short codes like 1x03 (encyclopedias), 1x04 (news), G1000 (gov), 1x00.
     Full labels live in nova/hexclass_table.json (folded from thumb hexclass.txt).

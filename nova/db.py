@@ -45,16 +45,20 @@ def zulu() -> str:
 
 
 def home() -> Path:
+    """Fieldkit root. Prefer NOVA_HOME, else kit beside this package (Fieldkit 2.0)."""
     env = os.environ.get("NOVA_HOME")
     if env:
-        p = Path(env)
+        p = Path(env).resolve()
     else:
-        p = Path.home() / "NOVA"
-        if not (p / "nova").exists() and Path.cwd().joinpath("nova").exists():
-            p = Path.cwd()
+        kit = Path(__file__).resolve().parent.parent
+        if (kit / "nova").is_dir() and ((kit / "VERSION").exists() or (kit / "data").exists()):
+            p = kit
+        else:
+            p = Path.home() / "NOVA"
+            if not (p / "nova").exists() and Path.cwd().joinpath("nova").exists():
+                p = Path.cwd()
     (p / "data" / "artifacts").mkdir(parents=True, exist_ok=True)
     return p
-
 
 def db_path() -> Path:
     d = home() / "data"
@@ -137,6 +141,14 @@ def connect() -> sqlite3.Connection:
 def insert_obs(source: str, ok: bool, body: str) -> None:
     try:
         con = connect()
+        # governor hook 2026-10-07: dry-run default = log only, never blocks
+        try:
+            from nova import governor as _gov
+            if not _gov.gate_obs(con, source, body[:4000]):
+                con.close()
+                return
+        except Exception:
+            pass
         con.execute(
             "INSERT INTO observations(zulu, source, ok, body) VALUES (?,?,?,?)",
             (zulu(), source, int(ok), body[:4000]),
@@ -183,11 +195,23 @@ def set_queue(qid: int, status: str) -> None:
     con.close()
 
 
-def hunt(q: str) -> list[dict]:
-    """Word hunt; if q looks like WHI (Ax-|Tx-|0x-), use indexed whi filter first."""
-    ensure_whi_indexes()
+def connect_ro() -> sqlite3.Connection:
+    """Read-only connection (mode=ro): no SCHEMA script, no writes possible."""
+    con = sqlite3.connect(db_path().resolve().as_uri() + "?mode=ro", uri=True, timeout=5)
+    con.row_factory = sqlite3.Row
+    return con
+
+
+def hunt(q: str, readonly: bool = False) -> list[dict]:
+    """Word hunt; if q looks like WHI (Ax-|Tx-|0x-), use indexed whi filter first.
+
+    readonly=True (chat path): mode=ro connection, no index DDL, no Tx-HUNT-MISS write,
+    and Tx-HUNT-MISS rows are never returned as hits.
+    """
+    if not readonly:
+        ensure_whi_indexes()
     q = (q or "").strip()
-    con = connect()
+    con = connect_ro() if readonly else connect()
     hits: list[dict] = []
     # WHI-keyed path
     if q.startswith(("Ax-", "Tx-", "0x-")) or q.upper().startswith(("AX-", "TX-", "0X-")):
@@ -213,7 +237,9 @@ def hunt(q: str) -> list[dict]:
             if score:
                 hits.append({**dict(r), "score": score})
         hits.sort(key=lambda x: -x["score"])
-    if not hits and q:
+    if readonly:
+        hits = [h for h in hits if not str(h.get("whi") or "").startswith("Tx-HUNT-MISS")]
+    if not hits and q and not readonly:
         con.execute(
             "INSERT INTO facts(zulu, whi, title, body) VALUES (?,?,?,?)",
             (zulu(), "Tx-HUNT-MISS", q[:80], "No palace hit. LLM stays idle."),
@@ -252,18 +278,20 @@ def ensure_whi_indexes() -> None:
 def put_fact(whi: str, title: str, body: str, **meta) -> None:
     """Format contract: wing whi Ax-|Tx-|0x-; non-empty title; body preferred.
 
-    Pass whi='auto' or kind=... to build WHI from subject matter (nova.whi.classify).
+    Pass whi='auto' (or empty) to build WHI from subject matter (nova.whi.classify).
+    kind= only fills when no explicit wing was given — never reclassify Tx-/Ax-/0x-.
     """
     from nova import whi as whi_mod
 
     w = (whi or "").strip()
-    if w.lower() in {"", "auto"} or meta.get("kind"):
+    explicit = w.startswith(("Ax-", "Tx-", "0x-"))
+    if (not explicit) or w.lower() in {"", "auto"}:
         w = whi_mod.classify(
             str(body or ""),
             title=str(title or ""),
             url=str(meta.get("source_url") or meta.get("url") or ""),
             kind=str(meta.get("kind") or ""),
-            default="Tx-TEMP" if w.lower() in {"", "auto"} else w,
+            default="Tx-TEMP",
         )
     if not (w.startswith("Ax-") or w.startswith("Tx-") or w.startswith("0x-")):
         raise ValueError(f"whi must be Ax-|Tx-|0x- wing, got {w!r}")
@@ -277,6 +305,14 @@ def put_fact(whi: str, title: str, body: str, **meta) -> None:
         if meta.get("source_url"):
             body += f"\nurl={meta['source_url']}"
     con = connect()
+    # governor hook 2026-10-07: dry-run default = log only, never blocks
+    try:
+        from nova import governor as _gov
+        if not _gov.gate_fact(con, w, title[:160], str(body)[:8000]):
+            con.close()
+            return
+    except Exception:
+        pass
     con.execute(
         "INSERT INTO facts(zulu, whi, title, body) VALUES (?,?,?,?)",
         (zulu(), w, title[:160], str(body)[:8000]),
@@ -326,6 +362,29 @@ def job_add(name: str, every_s: int) -> int:
     )
     con.commit()
     jid = int(cur.lastrowid or 0)
+    con.close()
+    return jid
+
+
+
+
+def job_ensure(name: str, every_s: int, enabled: int = 0) -> int:
+    """Idempotent job upsert by name. Default enabled=0 (steward must /job on)."""
+    con = connect()
+    row = con.execute("SELECT id FROM jobs WHERE name=?", (name,)).fetchone()
+    if row:
+        jid = int(row["id"])
+        con.execute(
+            "UPDATE jobs SET every_s=?, enabled=? WHERE id=?",
+            (int(every_s), int(enabled), jid),
+        )
+    else:
+        cur = con.execute(
+            "INSERT INTO jobs(name, every_s, enabled) VALUES (?,?,?)",
+            (name, int(every_s), int(enabled)),
+        )
+        jid = int(cur.lastrowid or 0)
+    con.commit()
     con.close()
     return jid
 

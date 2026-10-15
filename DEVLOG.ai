@@ -1,7 +1,7 @@
 # DEVLOG.ai — notes for the next model (and for Grok)
 
 You are reading the kit at NOVA_fieldkit_v1_4. Python package `nova`.
-Windows TUF host. Do not overwrite `data/NOVA.db`. Overlay code only.
+the Windows hub laptop host. Do not overwrite `data/NOVA.db`. Overlay code only.
 
 ## Why the GUI looks like a poster
 Steward supplied a cosmic-console mockup (aqueduct, NOVA wordmark,
@@ -83,7 +83,178 @@ cam: = features path; camsee: = optional moondream (steward heat).
 - Goal: deepen base with Textual + Qt docs first, then arXiv white papers later
 
 ### DIARY
-- Documents\NOVA\GrokBot.log.ai (append-only Grok Bot sync)
+- <NOVA root>\GrokBot.log.ai (append-only Grok Bot sync)
 - Ponder notes: news-manipulation lexicon vs truthful publishers; arXiv depth follows
 - Pipeline: crawl -> temp/live chunks; enqueue -> web.fetch hit/miss.
 - Ponder (diary): news-manipulation lexicon vs truthful pubs; arXiv depth later.
+
+## 2026-09-27 Fieldkit 2.0 — tidying cut opened (Michael greenlight)
+Authority: Michael · Construction: Varro · 2IC: Cassius (diagrams/docs only; no metal without Varro)
+
+### Decision
+Codebase needs cleanup. First formal refactorization: STAGING-proven work → unified Fieldkit **2.0** tree. Do not break live GUI/TUI/daemon/mail/palace paths. Overlay + smoke; backup data/NOVA.db before schema moves.
+
+### Why (sprawl snapshot)
+- Live package: 
+ova/ (~50 modules) + gui/ + 	ui/ + hands/awareness — working but crowded aliases.
+- Legacy parallel: <legacy nova-ai tree> (nova_Tv3, diary, terminals) still referenced mentally; diary rewrite lands Documents STAGING/diary for 0x-DOC.
+- STAGING: large proven stack (tentacle, mail schema, ingest_pipe, RAG gate, parser speech, OG digester, pets, hearthbeat) waiting fold-in.
+- GUI deck.json: many tiles live but several are **aliases** to same panels (ingest/jobs/webgate→ops; claw/qwen→mail; status→spawn); dead: KILL, TUI, PAPER. Feels non-logical.
+- Speech: GRAMMAR says one short sentence; models still misfire tags → upgrade parser already in 
+ova/parser.py must be the single path + system-prompt load tightened.
+- Mail: HEARTHBEAT schema exists but notes still say UDP; OG live is **TCP** 41776/41777 framed JSON. Standardize + Claw tentacle-mail tool.
+- OG drain: bumped to smollm2:360m 2026-09-27; local WHI NOVA_NODE.db; haul routine still paused.
+
+### SOP (unchanged)
+- AI changes: one paragraph here (DEVLOG.ai) + one line DEVLOG.txt.
+- Cycle audit: append <NOVA parent>/GrokBot.log.ai.
+- Staging docs may be wrong; never mutate palace from staging alone.
+
+### Fieldkit 2.0 target folders (neat, no function break)
+`
+NOVA_fieldkit_v2/   (or in-place bump VERSION→2.0.0 after PROOF)
+  nova/
+    core/       # brain, router, parser, msg, db, thermal, breaklog
+    mail/       # office, hearthbeat, leash, claw bridge, tentacle client
+    knowledge/  # rag, whi, ingest_pipe, docs_ingest, crawl, masks, matrix
+    senses/     # pocket, ear_stt, avatar_display, senses, snap
+    agents/     # claw, forge, chamber, council_series, sched, homestead
+    hands/      # web, pdf, paint, codesum, cameras, qwen, history
+    gui/        # Qt deck — fewer tiles, logical nav
+    tui/        # Textual + tentacle Zack window (¼ screen)
+    tentacle/   # node reference + hub tools (sync with OG home)
+  data/         # DBs, queue, secrets stubs — unchanged paths preferred
+  docs/         # human tutorial + mail protocol standard
+  STAGING/      # experiments only; promote via PROOF then delete/archive
+  DEVLOG.ai / DEVLOG.txt / VERSION
+`
+Legacy D:\pg\ai\nova-ai stays read-only heritage until diary/GUI deltas are absorbed.
+
+### Build order (this week, token-aware)
+1. **Log + map** (this entry + STAGING/FIELDKIT_2_0_REFACTOR_MAP.md) — done this cut.
+2. **Mail protocol standard** — TCP frames + envelope verbs; update HEARTHBEAT doc; named tentacle identity (Tentacle-01 homage).
+3. **Parser + speech prompts** — single peel path; GUI/TUI load GRAMMAR; one-sentence enforce.
+4. **GUI deck prune** — hide aliases; dead tiles stay labeled or drop to overflow; fix nonlogical panels.
+5. **Promote STAGING winners** — ingest_pipe, upgraded RAG, tentacle hub client, diary 0x-DOC hook — behind smoke tests.
+6. **Zack tentacle TUI** — ¼ screen, ASCII monster, tophat temp/RAM/queue/ETA, slash cmds.
+7. **Stress pack** — import smoke, job smoke, TTS peel, tentacle ping, no concurrent GPU thrash.
+8. **Haul unpause** only after outbox→palace PROOF.
+
+### Non-goals this cut
+WhatsApp expansion, paper markets live, Android tentacle, rewriting NOVA.db schema casually, unpausing daily haul early.
+
+### PROOF of this decision
+- DEVLOG.ai + DEVLOG.txt + GrokBot.log.ai stamped
+- FIELDKIT_2_0_REFACTOR_MAP.md present
+- Next metal: do not mass-move files until map accepted and db backup noted
+
+## 2026-09-27 drain loop + queues cleared + mail TCP locked
+- OG: drain_loop.py sequential batches (smollm2:360m, MAX=5, BREAK=90s) until queue empty or DRAIN_STOP.
+- the hub laptop: standing ingest cleared (docs_queue stuck, URL queued, packets queued→cleared, fs waiting→cleared). DB backup taken.
+- Mail: docs/MAIL_PROTOCOL_TCP.md locked; HEARTHBEAT banner notes TCP.
+- GUI 2.0: Approve All + Automate Queue noted in INGEST_QUEUE_CLEARED doc.
+- Cassius tasked: Claw refactor review (≥3 reliability) + RAG alignment scan.
+
+
+## 2026-09-27 Cassius pull metal
+ingest force_class+doc; cites=92 force=92 rej=3 bak=NOVA.db.bak_rag_align_2026-09-27T095758Z
+
+
+## 2026-09-27 Fieldkit 2.0 build (Varro box)
+Built deployable Fieldkit 2.0 under fieldkit_v2_build on the Varro agent box.
+VERSION → 2.0.0. Added nova.mail package (protocol + TentacleClient shims over hearthbeat TCP 41776/41777),
+package markers nova.core / nova.knowledge / nova.agents (no premature moves of db/parser/rag).
+Added leash.forge_step + canonical_outbox + forge FORGE entry leash-forge every_s=0.
+Pruned GUI deck: aliases ingest/jobs/status/webgate live:false; whatsapp parked; unique panes kept.
+Verified put_fact wing preserve, ingest_pipe file://→0x-DOC, proof.enforce_on_reply Tx-CLAW.
+Fixed ingest_pipe unterminated f-string. Smoke tests/smoke_fieldkit20.py green (8/8).
+Zip: /workspace/fk2/NOVA_fieldkit_v2_0.zip
+
+## 2026-09-27 05:34 CT Varro executor — Fieldkit 2.0 open gaps A-G
+- GUI OPS: Approve All / Automate Queue / Clear standing ingest (+ /approve-all /automate /clear-ingest)
+- office.clear_standing_ingest + approve_all + automate_queue.json
+- sched+forge: ingest-clear-daily every 86400 disabled-by-default (job id=11); claw-grok left intact
+- nova.mail.claw_mail_tool; OG ping PROOF ok
+- web.fetch -> ingest_pipe.store_accepted
+- STAGING: REPORT_GUI_APPROVE_AUTOMATE, CLAW_TENTACLE_MAIL_TOOL, DAEMON_AUTONOMY_JOBS_2_0, PROMOTE_INGEST_RAG_2_0, WHI_DEEP_SCAN_PROTOCOL_2_0
+- smoke_fieldkit20_open.py 8/8 on the hub laptop
+- Did NOT edit leash.py / grok_claw_seat.py / council_series.py
+- Remains: steward enable ingest-clear-daily; Cassius Grok protocol seat (parent wires); WHI deep-scan job next pass
+
+## 2026-09-27 06:49:23 CT — grok@claw 3-turn NOVA independence convo + perf eval
+- Turns PASS 3/3; native openclaw 0/2 (context overflow); CDP steward 3/3
+- CONVO: STAGING/CONVO_GROK_CLAW_NOVA_2026-09-27.md sha256=8ded89b9024e521b105644f21a4f52a1306984d3c0894f8e232ac63ec15a07b1
+- EVAL: STAGING/EVAL_GROK_CLAW_PERF_2026-09-27.md sha256=c7fce37edc3905b406f9015dcc88587f69fd18ecd57ec59d44ad2e92675e4c27
+- Answers: GROK_COM_QUERY_20260927T112224Z (2732b), GROK_COM_QUERY_20260927T113536Z (3189b), GROK_COM_QUERY_20260927T114748Z (3505b)
+- Conv: https://grok.com/c/5ab0849c-64b1-4870-a421-9b57b1ca4246
+- Verdict: council content OK via CDP; NO-GO unattended native / gemini metal yet
+
+## 2026-09-27 06:53 CT Varro executor — gemini@claw metal (steward-CDP first-class)
+- Protocol PROTOCOL_CLAW_GEMINI_GOOGLE.md left intact (bytes=17298 sha d5ebf482…)
+- nova/gemini_claw_seat.py ensure_seat + opinion
+- leash: gemini_rate_budget / build_gemini_step / gemini_query(dry_run=True, steward_cdp=True) / verify_gemini_answer
+- Shared claw_browser_acquire lock serializes vs grok@claw; AVAIL ONLINE/LOGGED_IN/READY/LAST_CHECK_TS
+- STAGING/_cdp_promote_lib.py: promote_gemini_from_cdp (+ pick_gemini_page)
+- forge/sched job claw-gemini via NOVA_GEMINI_QUERY / NOVA_GEMINI_LIVE=1 (claw-grok + ingest-clear-daily intact)
+- Dry-run PASS: GEMINI_ANSWER stub bytes=544 sha256=6b642ad300c81cf6…
+- Live SKIPPED: CDP no gemini.google.com tab (LOGGED_IN=false) — no credentials invented
+- Report: STAGING/REPORT_GEMINI_CLAW_METAL_2026-09-27.md bytes=4815 sha256=218a2ad29f9c9600f4136e471f9fbfef3e9a562d16f4243f67ef5fd11af63c4c
+- Ready for steward-CDP like grok; native unattended still NO-GO per EVAL
+
+## 2026-09-27 07:13:25 CT — Aurelius soul/identity/user X-distill alignment (Varro executor)
+- Backups: SOUL.md.bak-20260927 / IDENTITY.md.bak-20260927 / USER.md.bak-20260927
+- SOUL.md bytes=4732 sha256=c356ede20701493ae5511acad4c801a06a32860528187d10f8b37f074542225e — Lillehjerne + Alignment from Grok/X distill
+- IDENTITY.md bytes=1434 sha256=4568c4481186f640f44c5b2148cbb04f37a9e013d7ea661fdf6dc11bea88ba6a — filled Name/Creature/Vibe/Emoji; Hygieia sister note
+- USER.md bytes=2001 sha256=777baadcd11f31f2360145c7ace308e51c3a326efd12a8ef8b758b84af259184 — 8 active directives 2026-09-27; placeholder removed
+- ALIGNMENT: STAGING/ALIGNMENT_CLAW_SOUL_XDISTILL_2026-09-27.md bytes=3372 sha256=16c841fe79e8f680d0c05c5fca7d7cea6548699271055af5ec804815b41514a7
+- Claw STEP: soul-align-20260927 → nova-out/SOUL_ALIGN_CONFIRM_20260927.md DONE (tweaks=none); leash ok=False quirk; steward YES
+- Sources: STAGING/user_context/GROK_LIVE_HISTORY_DISTILL.md + GROK_X_WHI_RESEARCH_INDEPENDENT.md
+- GPU-polite; no haul unpause; no gemini live; no 26B+
+
+## 2026-10-14 21:45 CT — DEVLOG resumed (gap 2026-09-27 → 2026-10-14) + Fieldkit 2.1 staged build
+Labels: [log] = master.log counts (2026-09-17 → 2026-10-15 UTC); [code] = seen in code; [report] = from the
+2026-10-14 review reports; [unverified] = not confirmed.
+
+### Gap summary 2026-09-27 → 2026-10-14 (no DEVLOG entries were written in this window)
+- [log] The daemon ran the whole window: holmes, thermal-check, whistle, cam, ingest-drain, docs-ingest,
+  homestead-cycle, maintain, nova-diary and docs-scout all ran. Per-job counts are not restated here.
+- [unverified] Most ingest-drain/docs-ingest runs added little or nothing, and thermal skips recurred.
+- [code] 2026-10-07: the governor (nova/governor.py) landed in DRY-RUN (enforce:false), with write hooks on facts,
+  obs, packets and chunks, plus governor_dryrun.jsonl. The v2.1 dry-run report on a scratch copy shows 11,263 of 15,432 fact writes would be skipped.
+  The same day, two pre-change DB backups were made (predrain, governor) and *.bak-20261007 code backups taken.
+  The novadiary/homestead paths were repointed from v1_4 to the v2_0 kit.
+- [report] 2026-10-07: Brutus wardog hunts were mirrored into the palace (6 Tx-BRUTUS facts, 3 open report cards).
+- [report] Open HIL reports grew to 78 (thermal gate/warm-hold and tool-break cards), with no close loop.
+  Bites: 99.9 % expired unplayed. conversations/turns are empty.
+- [report] 2026-10-14 review pass: GUI defects (dead Send button, swallowed quick-command keys, missing show_media,
+  [:64] on None, Save/Cancel missing functions, 4 s refresh writing to the DB), no self-knowledge in prompts,
+  qwen3.5:9b at 32k ctx spilling 24 % to CPU.
+- [report] 2026-10-14 council report: fix order P0-0 (read-only refresh) → P0 → P1, a footprint envelope,
+  and the SELF/NOW outline.
+- [report] 2026-10-14 SELF/NOW sims v1/v2 in a sandbox. v2: 0 fabrications in 9 prompts. Open issues remained:
+  the TTS-UP answer, speak tags, command ids and the stale thermal line.
+- [report] 2026-10-14 eval map + Brutus comparison: the self-improvement loop was NOT closed; gates were
+  fail-open (RAG judge, governor hooks); approve did not feed board drain; chamber AUTO_PROMOTE_RAG=True.
+- [unverified] The beacon / lid-closed OG, WHI gap-scout, paper and GitHub-sync phases stay unbuilt.
+
+### Fieldkit 2.1 (STAGED beside 2.0; not live; cutover needs operator approval)
+- Chat: one path (nova/chat.py) with SELF/NOW first, RULES (+ voice rule), GRAMMAR_V2, read-only hunt.
+  Uses qwen3:8b ctx 8192 think:false. Guards: speak tags, ids, unrelated commands, action claims, voice line.
+- SELF v2.1: version 2.1, a commands line with numeric ids, a directives line. NOW: thermal from the latest
+  reading only, age-stamped; TASK lines from task-stimulus.
+- GUI rewrite: read-only (one mode=ro connection; no workforce upsert, no palace writes; cached scandir),
+  working Send/quick keys, the [:64] fix, show_media, hidden dead controls, worker-thread streaming + Cancel,
+  health strip, WHAT NOVA KNOWS panel, PROPOSALS panel; actions go through the daemon command inbox.
+- Scheduler v2: job table, priority, GPU classes + lock (one heavy at a time), backoff, run-now, command
+  inbox executed by the daemon, task-stimulus job (HIL proposals only). Restart-safe next run.
+- Gates: net allowlist (empty = refuse) on web/crawl; drain only approved URLs; chat scope + ack;
+  governor fail-closed when enforcing plus `report` dry-run (enforce stays false); RAG judge fail-closed;
+  chamber auto-promote off (proposal only).
+- Self-improve loop: propose → review → approve → apply (sandbox marker only) → verify → PROOF.json.
+- Disk: retention config + dry-run report; the daemon no longer deletes TTS wavs (maintain reports instead).
+- Paths: nova/paths.py; hardcoded user paths removed from 11 modules (docs_ingest, msg, watson, whi,
+  hands/paint, report_db_contents, homestead, tutorial, avatar_display, novadiary, tts_gui_tiles) + leash.
+- Staged guard: a STAGED marker blocks the daemon/launch unless NOVA_HOME is a listed scratch home.
+- Tests: 58 pass on the hub laptop (selfknow + v2.1 + GUI acceptance), and both 2.0 smoke suites pass 8/8.
+- Sim (qwen3:8b, 3 seeds, 12 prompts): v2.0 had 19/36 fabricated with speak tags on 36/36;
+  v2.1 had 0/39 fabricated with speak tags on 0/39. Details are in the build report.

@@ -1,646 +1,429 @@
-"""PySide6 cosmic console. Client of NOVA.db. Does not own the scheduler."""
+"""NOVA 2.1 operator console (PySide6). A thin, READ-ONLY client.
+
+The daemon owns the scheduler, DB writes, models and TTS. This window:
+  - reads NOVA.db on one mode=ro connection (gui/ro.py); 0 DB writes per tick;
+  - chats on a worker thread (gui/worker.py) with streaming + Cancel (qwen3:8b, ctx 8192, think:false);
+  - shows a health strip and a 'What NOVA knows' panel (exact SELF/NOW text);
+  - routes every operator action (job pause/resume/run-now, approve/close one report, approve URL,
+    approve-all, clear standing ingest, deliver mail) through the command inbox (file IPC); the
+    daemon executes approved commands on its next tick.
+Controls that are not implemented (Save State, Cancel Job, Pause/Resume session, Tick, AVATAR,
+VOICE/MASK/RATE, cam+moondream, play bite, automate toggle) are hidden in 2.1.
+"""
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
+
+HIDDEN_2_1 = ("save_state", "cancel_job", "pause", "resume", "tick", "avatar", "voice", "mask", "rate",
+              "cam_see", "play_bite", "automate_toggle")
+CHAT_MODEL_DEFAULT = "qwen3:8b"
+
+
+def build(app=None, start_timers: bool = True):
+    """Build the window and return (win, ui) where ui exposes widgets for tests."""
+    from PySide6.QtCore import Qt, QTimer
+    from PySide6.QtGui import QPixmap
+    from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout, QHeaderView, QLabel,
+                                   QLineEdit, QListWidget, QMainWindow, QMessageBox, QPushButton, QScrollArea,
+                                   QSizePolicy, QStackedWidget, QTableWidget, QTableWidgetItem, QTextEdit,
+                                   QVBoxLayout, QWidget)
+
+    from nova import VERSION_LABEL, cmdinbox, masks
+    from nova.gui.ro import RO
+
+    app = app or QApplication.instance() or QApplication(sys.argv)
+    ro = RO()
+    ui: dict = {"ro": ro, "worker": None, "last_prompt": ""}
+    qss = Path(__file__).with_name("console.qss")
+
+    win = QMainWindow()
+    win.setWindowTitle(f"{VERSION_LABEL} — OPERATOR CONSOLE (read-only)")
+    root = QWidget()
+    outer = QVBoxLayout(root)
+    health = QLabel("health: …")
+    health.setObjectName("HealthStrip")
+    health.setWordWrap(True)
+    outer.addWidget(health)
+    mainlay = QHBoxLayout()
+    outer.addLayout(mainlay, stretch=1)
+    status = QLabel("read-only console")
+
+    def say_status(text: str) -> None:
+        status.setText(str(text)[:64])  # 2.1: slice the string, not setText()'s None
+
+    # ---------------- deck
+    deck = QWidget()
+    deck.setObjectName("CommandDeck")
+    dlay = QVBoxLayout(deck)
+    dlay.addWidget(QLabel("COMMAND DECK"))
+    brand = Path(__file__).resolve().parents[2] / "ascii" / "brand" / "banner.jpg"
+    if brand.is_file():
+        b = QLabel()
+        b.setPixmap(QPixmap(str(brand)).scaled(220, 120))
+        dlay.addWidget(b)
+    stack = QStackedWidget()
+
+    # ---------------- 0 chat
+    chat_w = QWidget()
+    cl = QVBoxLayout(chat_w)
+    cl.setContentsMargins(8, 8, 8, 36)
+    cl.addWidget(QLabel("ASTROCOMMS"))
+    model_box = QComboBox()
+    model_box.addItems([CHAT_MODEL_DEFAULT, "llama3-groq-tool-use:8b", "qwen3.5:9b"])
+    model_box.setCurrentText(CHAT_MODEL_DEFAULT)  # no router/catalog call (no palace writes)
+    model_box.setToolTip("Chat model. Default qwen3:8b, num_ctx 8192, think:false (fits 8 GB VRAM).")
+    cl.addWidget(model_box)
+    chat_log = QTextEdit()
+    chat_log.setReadOnly(True)
+    chat_in = QTextEdit()
+    chat_in.setAcceptRichText(False)
+    chat_in.setPlaceholderText("ask NOVA…  (Ctrl+Enter or Send)")
+    chat_in.setMaximumHeight(140)
+    btn_send = QPushButton("Send")
+    btn_cancel = QPushButton("Cancel")
+    btn_cancel.setEnabled(False)
+    cl.addWidget(chat_log, stretch=1)
+    cl.addWidget(chat_in)
+    row = QHBoxLayout()
+    quick = QLineEdit()
+    quick.setPlaceholderText("/help · /sched · /cmd list   (Enter sends)")
+    row.addWidget(quick, stretch=1)
+    row.addWidget(btn_cancel)
+    row.addWidget(btn_send)
+    cl.addLayout(row)
+
+    def _on_token(tok: str) -> None:
+        cur = chat_log.textCursor()
+        cur.movePosition(cur.MoveOperation.End)
+        cur.insertText(tok)
+        chat_log.setTextCursor(cur)
+
+    def _on_done(r: dict) -> None:
+        chat_log.append("NOVA: " + (r.get("visible") or ""))
+        props = [p for p in r.get("proposed") or [] if p.get("ok")]
+        if props:
+            chat_log.append("  [proposed for approval: " + ", ".join(f"{p['verb']} {p['args']}" for p in props) + " → PROPOSALS panel]")
+        if r.get("notes"):
+            chat_log.append("  [guard: " + "; ".join(r["notes"]) + "]")
+        if r.get("contention"):
+            chat_log.append("  [GPU: other heavy model resident: " + ", ".join(m["name"] for m in r["contention"]) + "]")
+        ui["last_prompt"] = r.get("system_prompt") or ui["last_prompt"]
+        btn_send.setEnabled(True)
+        btn_cancel.setEnabled(False)
+        ui["worker"] = None
+
+    def send() -> None:
+        text = chat_in.toPlainText().strip()
+        if not text or ui["worker"] is not None:
+            return
+        chat_in.clear()
+        chat_log.append("YOU: " + text)
+        if text.startswith("/"):
+            run_slash(text)
+            return
+        from nova.gui.worker import ChatWorker
+        w = ChatWorker(text, model_box.currentText(), parent=win)
+        chat_log.append("NOVA (streaming): ")
+        w.token.connect(_on_token)
+        w.finished_reply.connect(_on_done)
+        ui["worker"] = w
+        btn_send.setEnabled(False)
+        btn_cancel.setEnabled(True)
+        w.start()
+
+    def cancel() -> None:
+        if ui["worker"] is not None:
+            ui["worker"].cancel()
+            say_status("chat cancel requested")
+
+    def run_slash(cmd: str) -> None:
+        """Read-only slash commands in the GUI; anything that writes becomes a proposal."""
+        low = cmd.lower().strip()
+        from nova import sched
+        if low in ("/help", "help"):
+            out = "GUI slash: /help /sched /cmd list /cmd approve ID /cmd deny ID /self\nWrites go via the PROPOSALS panel; use the TUI for other commands."
+        elif low.startswith("/sched"):
+            out = sched.table_text(ro.jobs())
+        elif low.startswith("/self"):
+            out = masks.context_blocks(2)
+        elif low.startswith("/cmd"):
+            p = cmd.split()
+            if len(p) > 2 and p[1] in ("approve", "deny"):
+                out = str((cmdinbox.approve if p[1] == "approve" else cmdinbox.deny)(p[2], by="gui"))
+            else:
+                out = "\n".join(f"{r['id']} {r['verb']} {r['args']} from={r['source']}" for r in cmdinbox.listing("proposed")) or "no proposals"
+        else:
+            out = "not available in the read-only GUI; use the TUI (python -m nova.tui)"
+        chat_log.append("NOVA: " + out)
+
+    def quick_send() -> None:
+        cmd = quick.text().strip()
+        if cmd:
+            chat_log.append("YOU: " + cmd)  # 2.1: echo to the LOG, not the input box
+            run_slash(cmd if cmd.startswith("/") else "/" + cmd)
+            quick.clear()
+
+    btn_send.clicked.connect(send)  # 2.1: the visible Send button (single instance) is connected
+    btn_cancel.clicked.connect(cancel)
+    quick.returnPressed.connect(quick_send)  # default QLineEdit key handling: typing works
+
+    def _chat_key(e):
+        if e.key() in (Qt.Key_Return, Qt.Key_Enter) and (e.modifiers() & Qt.ControlModifier):
+            send()
+            return
+        QTextEdit.keyPressEvent(chat_in, e)
+
+    chat_in.keyPressEvent = _chat_key  # type: ignore
+
+    # ---------------- 1 sonic, 2 core
+    sonic = QWidget(); sl = QVBoxLayout(sonic); sl.addWidget(QLabel("SONIC ARCHIVE (read-only)"))
+    bite_list = QListWidget(); sl.addWidget(bite_list)
+    core = QWidget(); ol = QVBoxLayout(core); ol.addWidget(QLabel("AI CORE MATRIX (read-only)"))
+    staff_list = QListWidget(); ol.addWidget(staff_list)
+
+    # ---------------- 3 ops: scheduler table + URL board
+    ops = QWidget(); opl = QVBoxLayout(ops); opl.addWidget(QLabel("SYSTEM OPS — scheduler (actions go to the daemon)"))
+    job_table = QTableWidget()
+    job_table.setSelectionBehavior(QTableWidget.SelectRows)
+    job_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+    opl.addWidget(job_table, stretch=1)
+    jrow = QHBoxLayout()
+    btn_pause = QPushButton("Pause job"); btn_resume = QPushButton("Resume job"); btn_run = QPushButton("Run now")
+    for b_ in (btn_pause, btn_resume, btn_run):
+        jrow.addWidget(b_)
+    opl.addLayout(jrow)
+    url_list = QListWidget(); opl.addWidget(url_list)
+    url_in = QLineEdit(); url_in.setPlaceholderText("https://  drop a link (queued for approval; host must be allowlisted)")
+    urow = QHBoxLayout()
+    btn_url = QPushButton("Queue URL"); btn_url_ok = QPushButton("Approve URL"); btn_url_no = QPushButton("Deny URL")
+    for b_ in (btn_url, btn_url_ok, btn_url_no):
+        urow.addWidget(b_)
+    opl.addWidget(url_in); opl.addLayout(urow)
+    btn_clear = QPushButton("Clear standing ingest…")
+    opl.addWidget(btn_clear)
+
+    # ---------------- 4 records (HIL reports)
+    rec = QWidget(); rl = QVBoxLayout(rec); rl.addWidget(QLabel("MISSION RECORDS — open HIL reports"))
+    rep_list = QListWidget(); rl.addWidget(rep_list, stretch=1)
+    rrow = QHBoxLayout()
+    btn_rep_ok = QPushButton("Approve one"); btn_rep_close = QPushButton("Close one"); btn_rep_all = QPushButton("Approve All…")
+    for b_ in (btn_rep_ok, btn_rep_close, btn_rep_all):
+        rrow.addWidget(b_)
+    rl.addLayout(rrow)
+
+    # ---------------- 5 mail
+    mail_w = QWidget(); ml = QVBoxLayout(mail_w); ml.addWidget(QLabel("MAIL ROOM"))
+    mail_list = QListWidget(); btn_mail = QPushButton("Deliver 3 (via daemon)")
+    ml.addWidget(mail_list); ml.addWidget(btn_mail)
+
+    # ---------------- 6 palace
+    palace_w = QWidget(); pl = QVBoxLayout(palace_w); pl.addWidget(QLabel("PALACE (mode=ro)"))
+    table_box = QComboBox(); palace_search = QLineEdit(); palace_search.setPlaceholderText("filter rows…")
+    palace_table = QTableWidget(); palace_table.setSortingEnabled(True)
+    pl.addWidget(table_box); pl.addWidget(palace_search); pl.addWidget(palace_table)
+
+    # ---------------- 7 viewport
+    view_w = QWidget(); vl = QVBoxLayout(view_w); vl.addWidget(QLabel("VIEWPORT (cached scan; Rescan to refresh)"))
+    media_list = QListWidget(); pix = QLabel("select a still"); pix.setMinimumHeight(220)
+    btn_rescan = QPushButton("Rescan")
+    vl.addWidget(media_list); vl.addWidget(pix); vl.addWidget(btn_rescan)
+
+    # ---------------- 8 spawn
+    spawn_w = QWidget(); spl = QVBoxLayout(spawn_w); spl.addWidget(QLabel("SPAWN STATUS"))
+    spawn_list = QListWidget(); spl.addWidget(spawn_list)
+
+    # ---------------- 9 knows, 10 proposals
+    know_w = QWidget(); kl = QVBoxLayout(know_w); kl.addWidget(QLabel("WHAT NOVA KNOWS — exact SELF/NOW text injected into chat"))
+    know_box = QTextEdit(); know_box.setReadOnly(True); kl.addWidget(know_box)
+    last_box = QTextEdit(); last_box.setReadOnly(True); kl.addWidget(QLabel("Last system prompt actually sent (byte-exact):")); kl.addWidget(last_box)
+    btn_know = QPushButton("Re-render"); kl.addWidget(btn_know)
+    prop_w = QWidget(); prl = QVBoxLayout(prop_w); prl.addWidget(QLabel("PROPOSALS — chat / task-stimulus / GUI; nothing runs until approved"))
+    prop_list = QListWidget(); prl.addWidget(prop_list, stretch=1)
+    prow = QHBoxLayout(); btn_p_ok = QPushButton("Approve"); btn_p_no = QPushButton("Deny")
+    prow.addWidget(btn_p_ok); prow.addWidget(btn_p_no); prl.addLayout(prow)
+
+    panels = [chat_w, sonic, core, ops, rec, mail_w, palace_w, view_w, spawn_w, know_w, prop_w]
+    for w in panels:
+        wrap = QScrollArea(); wrap.setWidgetResizable(True); wrap.setFrameShape(QFrame.NoFrame); wrap.setWidget(w)
+        stack.addWidget(wrap)
+
+    # ---------------- tiles (only live ones are shown; dead tiles hidden)
+    deck_path = Path(__file__).with_name("deck.json")
+    tiles = json.loads(deck_path.read_text(encoding="utf-8")).get("tiles") if deck_path.is_file() else []
+    tiles = [t for t in tiles if t.get("live", True)] + [
+        {"id": "knows", "label": "WHAT NOVA KNOWS", "panel": 9, "neon": "neonCyan"},
+        {"id": "proposals", "label": "PROPOSALS", "panel": 10, "neon": "neonGreen"}]
+    buttons = []
+    for t in tiles:
+        b_ = QPushButton(t.get("label") or t.get("id"))
+        b_.setObjectName(t.get("neon") or "neonCyan")
+        b_.setToolTip(t.get("why") or "")
+        pnl = t.get("panel")
+        b_.clicked.connect(lambda _=False, p=pnl: (stack.setCurrentIndex(int(p)) if p is not None else None, refresh_panel()))
+        dlay.addWidget(b_)
+        buttons.append(b_)
+    dlay.addStretch()
+    dlay.addWidget(status)
+
+    # ---------------- helpers
+    def confirm(title: str, text: str) -> bool:
+        if ui.get("auto_confirm") is not None:  # tests
+            return bool(ui["auto_confirm"])
+        return QMessageBox.question(win, title, text, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) == QMessageBox.Yes
+
+    def op(verb: str, args: dict, label: str) -> None:
+        if not confirm("Send to daemon", f"{label}\n\nThe daemon runs it on its next tick. Continue?"):
+            return
+        r = cmdinbox.operator_command(verb, args, by="gui")
+        say_status(f"{verb} {'queued' if r.get('ok') else r.get('error')}")
+        refresh_panel()
+
+    def _sel_id(lst: QListWidget):
+        it = lst.currentItem()
+        try:
+            return int(it.text().split()[0]) if it else None
+        except ValueError:
+            return None
+
+    def _sel_job():
+        r = job_table.currentRow()
+        it = job_table.item(r, 0) if r >= 0 else None
+        return int(it.text()) if it else None
+
+    btn_pause.clicked.connect(lambda: (_sel_job() is not None) and op("job.pause", {"id": _sel_job()}, f"Pause job {_sel_job()}"))
+    btn_resume.clicked.connect(lambda: (_sel_job() is not None) and op("job.resume", {"id": _sel_job()}, f"Resume job {_sel_job()}"))
+    btn_run.clicked.connect(lambda: (_sel_job() is not None) and op("job.run_now", {"id": _sel_job()}, f"Run job {_sel_job()} now"))
+    btn_url.clicked.connect(lambda: url_in.text().strip().startswith("http") and (op("url.enqueue", {"url": url_in.text().strip()}, "Queue URL " + url_in.text().strip()[:60]), url_in.clear()))
+    btn_url_ok.clicked.connect(lambda: _sel_id(url_list) is not None and op("url.approve", {"id": _sel_id(url_list)}, f"Approve URL {_sel_id(url_list)}"))
+    btn_url_no.clicked.connect(lambda: _sel_id(url_list) is not None and op("url.deny", {"id": _sel_id(url_list)}, f"Deny URL {_sel_id(url_list)}"))
+    btn_rep_ok.clicked.connect(lambda: _sel_id(rep_list) is not None and op("report.approve", {"id": _sel_id(rep_list)}, f"Approve report {_sel_id(rep_list)}"))
+    btn_rep_close.clicked.connect(lambda: _sel_id(rep_list) is not None and op("report.close", {"id": _sel_id(rep_list)}, f"Close report {_sel_id(rep_list)}"))
+    btn_rep_all.clicked.connect(lambda: op("reports.approve_all", {}, "Approve ALL open reports"))
+    btn_clear.clicked.connect(lambda: op("ingest.clear_standing", {}, "Clear standing ingest (DB backup first; facts kept)"))
+    btn_mail.clicked.connect(lambda: op("mail.deliver", {"n": 3}, "Deliver 3 packets"))
+
+    def _prop_id():
+        it = prop_list.currentItem()
+        return it.text().split()[0] if it else None
+
+    btn_p_ok.clicked.connect(lambda: _prop_id() and (cmdinbox.approve(_prop_id(), by="gui"), refresh_panel()))
+    btn_p_no.clicked.connect(lambda: _prop_id() and (cmdinbox.deny(_prop_id(), by="gui"), refresh_panel()))
+
+    def show_media(item=None) -> None:
+        """2.1: defined. JPG -> preview; WAV -> path shown (no playback from the console)."""
+        item = item or media_list.currentItem()
+        if item is None:
+            return
+        p = Path(item.text())
+        if p.suffix.lower() in (".jpg", ".jpeg", ".png") and p.is_file():
+            pix.setPixmap(QPixmap(str(p)).scaledToWidth(480))
+            say_status("still " + p.name)
+        else:
+            pix.setText("audio: " + p.name)
+            say_status("audio " + p.name)
+
+    media_list.itemClicked.connect(show_media)
+    btn_rescan.clicked.connect(lambda: (ro.media(force=True), refresh_panel()))
+
+    def show_table(_=None) -> None:
+        cols, rows = ro.table(table_box.currentText().strip(), palace_search.text().strip())
+        palace_table.setSortingEnabled(False)
+        palace_table.clear()
+        palace_table.setColumnCount(len(cols)); palace_table.setHorizontalHeaderLabels(cols)
+        palace_table.setRowCount(len(rows))
+        for i, vals in enumerate(rows):
+            for j, v in enumerate(vals):
+                palace_table.setItem(i, j, QTableWidgetItem(v[:240]))
+        palace_table.setSortingEnabled(True)
+
+    table_box.currentTextChanged.connect(show_table)
+    palace_search.textChanged.connect(show_table)
+
+    def render_knows() -> None:
+        know_box.setPlainText(masks.context_blocks(2))
+        last_box.setPlainText(ui["last_prompt"] or "(no chat yet)")
+
+    btn_know.clicked.connect(render_knows)
+
+    # ---------------- refresh: health every 5 s; only the visible panel
+    def refresh_health() -> None:
+        h = ro.health()
+        oll = h.get("ollama")
+        oll_s = "unknown" if oll is None else (", ".join(f"{m['name']} {m['size'] / 1e9:.1f}GB" for m in oll) or "none loaded")
+        health.setText(f"daemon {h['daemon']} | TTS :8000 {'UP' if h['tts'] else 'DOWN'} | Ollama {oll_s} | "
+                       f"thermal {h['thermal']} | queue {h['queue_pending']} | reports open {h['reports_open']} | "
+                       f"packets fail {h['packets_fail']} | bites {h['bites_played']} played / {h['bites_expired']} expired | "
+                       f"errors 1h {h['errors_1h']} | proposals {len(cmdinbox.listing('proposed'))}")
+        ui["health"] = h
+
+    def refresh_panel() -> None:
+        i = stack.currentIndex()
+        if i == 1:
+            bite_list.clear(); bite_list.addItems([f"{b['id']} {b.get('status')} {b.get('worker')} {str(b.get('line'))[:40]}" for b in ro.bites()])
+        elif i == 2:
+            staff_list.clear(); staff_list.addItems([f"{e['id']:18} v={e.get('voice')} jobs={e.get('jobs_run')}" for e in ro.staff()])
+        elif i == 3:
+            rows = ro.jobs()
+            cols = ["id", "name", "cadence_s", "priority", "gpu", "enabled", "last_run", "next_run", "fails", "last_error"]
+            job_table.setColumnCount(len(cols)); job_table.setHorizontalHeaderLabels(cols); job_table.setRowCount(len(rows))
+            for r_, j in enumerate(rows):
+                for c_, k in enumerate(cols):
+                    job_table.setItem(r_, c_, QTableWidgetItem(str(j.get(k))))
+            url_list.clear(); url_list.addItems([f"{q['id']} {q['status']} {q['description'][:60]}" for q in ro.urls()])
+        elif i == 4:
+            rep_list.clear(); rep_list.addItems([f"{r['id']} r{r['rank']} {r['title'][:80]}" for r in ro.reports()])
+        elif i == 5:
+            mail_list.clear(); mail_list.addItems([f"{p['id']} {p['status']} ->{p['dest']} {p.get('kind')}" for p in ro.packets()])
+        elif i == 6 and table_box.count() == 0:
+            table_box.addItems(ro.tables())
+        elif i == 7:
+            media_list.clear(); media_list.addItems([str(p) for p in ro.media()])
+        elif i == 8:
+            spawn_list.clear()
+            try:
+                from nova.spawnutil import list_spawns
+                spawn_list.addItems([f"{s.get('name')} pid={s.get('pid')} {'ALIVE' if s.get('alive') else 'dead'}" for s in list_spawns()])
+            except Exception as exc:
+                spawn_list.addItem(str(exc))
+        elif i == 9:
+            render_knows()
+        elif i == 10:
+            prop_list.clear(); prop_list.addItems([f"{r['id']} {r['verb']} {r['args']} from={r['source']} {r.get('why', '')[:60]}" for r in cmdinbox.listing("proposed")])
+
+    ui.update(win=win, app=app, health=None, health_label=health, status=status, chat_in=chat_in, chat_log=chat_log,
+              btn_send=btn_send, btn_cancel=btn_cancel, quick=quick, model_box=model_box, stack=stack, buttons=buttons,
+              media_list=media_list, pix=pix, show_media=show_media, refresh_panel=refresh_panel,
+              refresh_health=refresh_health, say_status=say_status, know_box=know_box, render_knows=render_knows,
+              op=op, prop_list=prop_list, job_table=job_table, rep_list=rep_list, send=send, run_slash=run_slash)
+
+    deck_scroll = QScrollArea(); deck_scroll.setWidgetResizable(True); deck_scroll.setWidget(deck)
+    deck_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff); deck_scroll.setFrameShape(QFrame.NoFrame)
+    deck_scroll.setMaximumWidth(340); deck_scroll.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+    mainlay.addWidget(deck_scroll)
+    mainlay.addWidget(stack, stretch=1)
+    win.setCentralWidget(root)
+    win.resize(1300, 720)
+    if qss.is_file():
+        app.setStyleSheet(qss.read_text(encoding="utf-8"))  # once
+    refresh_health()
+    refresh_panel()
+    if start_timers:
+        t = QTimer(win); t.timeout.connect(refresh_health); t.start(5000)
+        ui["timer"] = t
+    return win, ui
 
 
 def main() -> None:
     try:
-        from PySide6.QtCore import Qt, QTimer
-        from PySide6.QtGui import QPixmap
-        from PySide6.QtWidgets import (
-            QApplication,
-            QComboBox,
-            QFrame,
-            QHBoxLayout,
-            QHeaderView,
-            QLabel,
-            QLineEdit,
-            QListWidget,
-            QMainWindow,
-            QMessageBox,
-            QPushButton,
-            QScrollArea,
-            QSizePolicy,
-            QStackedWidget,
-            QTableWidget,
-            QTableWidgetItem,
-            QTextEdit,
-            QVBoxLayout,
-            QWidget,
-        )
+        from PySide6.QtWidgets import QApplication
     except ImportError:
-        print("PySide6 missing. pip install PySide6")
-        print("TUI: python -m nova.tui")
+        print("PySide6 missing. pip install PySide6\nTUI: python -m nova.tui")
         return
-
-    from nova import bites, db, office, ollama_talk, senses
-    from nova.tui import term
-    from nova.tui.term import ask, handle, state as tstate
-
-    app = QApplication(sys.argv)
-    # Pocket TTS gate: must be :8000 (manual). Offer to start parallel serve window if down.
-    # NOVA daemon is separate (python -m nova / START_NOVA) and is not stopped here.
-    try:
-        from nova import pocket as pocket_mod
-        if not pocket_mod.serve_up():
-            ans = QMessageBox.question(
-                None,
-                "Pocket TTS",
-                "Pocket TTS is not running on http://127.0.0.1:8000.\n\n"
-                "Should it be activated?\n\n"
-                "Yes = open a parallel serve window (:8000)\n"
-                "No = stay off (NOVA stays quiet)",
-                QMessageBox.Yes | QMessageBox.No,
-                QMessageBox.Yes,
-            )
-            if ans == QMessageBox.Yes:
-                rec = pocket_mod.start_serve_window()
-                QMessageBox.information(
-                    None,
-                    "Pocket TTS",
-                    f"Serve start requested on :8000.\n{rec}\n\n"
-                    "Daemon (if started via START_NOVA / nova.launch) keeps running in the background.",
-                )
-    except Exception as _tts_exc:
-        print("tts check:", _tts_exc)
-
-    qss = Path(__file__).with_name("console.qss")
-    if qss.is_file():
-        app.setStyleSheet(qss.read_text(encoding="utf-8"))
-
-    win = QMainWindow()
-    win.setWindowTitle("NOVA 1.7 — COSMIC CONSOLE")
-    root = QWidget()
-    mainlay = QHBoxLayout(root)
-
-    # Create AVATAR control panel (separate from COMMAND DECK)
-    avatar_deck = QWidget()
-    avatar_deck.setObjectName("AvatarControlDeck")
-    avatar_deck.setMinimumWidth(180)
-    avatar_deck.setMaximumWidth(260)
-    avatar_dlay = QVBoxLayout(avatar_deck)
-    avatar_dlay.addWidget(QLabel("AVATAR WORKFLOW"))
-    
-    deck = QWidget()
-    deck.setObjectName("CommandDeck")
-    deck.setMinimumWidth(200)
-    deck.setMaximumWidth(320)
-    deck.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-    dlay = QVBoxLayout(deck)
-    dlay.addWidget(QLabel("COMMAND DECK"))
-    import json
-
-    deck_path = Path(__file__).with_name("deck.json")
-    tiles = json.loads(deck_path.read_text(encoding="utf-8")).get("tiles") if deck_path.is_file() else []
-    buttons = []
-    brand = Path(__file__).resolve().parents[2] / "ascii" / "brand" / "banner.jpg"
-    if brand.is_file():
-        banner = QLabel()
-        banner.setPixmap(QPixmap(str(brand)).scaled(220, 120))
-        dlay.addWidget(banner)
-    btn_play = QPushButton("Play next bite")
-    btn_tick = QPushButton("Tick jobs now")
-    status = QLabel("offline private")
-
-    stack = QStackedWidget()
-
-    chat_w = QWidget()
-    cl = QVBoxLayout(chat_w)
-    cl.setContentsMargins(8, 8, 8, 36)  # bottom gap — Windows taskbar often covers input
-    chat_log = QTextEdit()
-    chat_log.setReadOnly(True)
-    chat_in = QTextEdit()
-    chat_in.setPlaceholderText("ask the palace...  (Ctrl+Enter or Send)")
-    chat_in.setAcceptRichText(False)
-    chat_in.setMinimumHeight(72)  # ~3 lines
-    chat_in.setMaximumHeight(140)
-    chat_in.setLineWrapMode(QTextEdit.WidgetWidth)
-    btn_send = QPushButton("Send")
-    cl.addWidget(QLabel("ASTROCOMMS"))
-    model_box = QComboBox()
-    try:
-        tags = ollama_talk.tags() or []
-    except Exception:
-        tags = []
-    if not tags:
-        tags = ["llama3-groq-tool-use:8b", "qwen3:8b", "moondream"]
-    for tname in tags:
-        model_box.addItem(tname)
-    prefer = "llama3-groq-tool-use:8b"
-    if prefer in tags:
-        model_box.setCurrentText(prefer)
-    tstate["model"] = model_box.currentText()
-    cl.addWidget(model_box)
-    cl.addWidget(chat_log, stretch=1)
-    cl.addWidget(chat_in)
-    send_row = QHBoxLayout()
-    send_row.addStretch(1)
-    send_row.addWidget(btn_send)
-    cl.addLayout(send_row)
-
-    def pick_model(_=None):
-        tstate["model"] = model_box.currentText()
-
-    model_box.currentTextChanged.connect(pick_model)
-
-    def send():
-        text = chat_in.toPlainText().strip()
-        if not text:
-            return
-        chat_in.clear()
-        tstate["model"] = model_box.currentText()
-        chat_log.append("YOU: " + text)
-        try:
-            if text.startswith("/"):
-                handle(text)
-                reply = "\n".join(tstate.get("hist", [])[-2:])
-            else:
-                reply = ask(text)
-        except Exception as exc:
-            reply = str(exc)
-        chat_log.append("NOVA: " + reply)
-
-    btn_send = QPushButton("Send")
-    btn_send.clicked.connect(send)
-    # Ctrl+Enter sends; plain Enter inserts newline in QTextEdit
-    def _chat_key(e):
-        from PySide6.QtCore import Qt as _Qt
-        if e.key() in (_Qt.Key_Return, _Qt.Key_Enter) and (e.modifiers() & _Qt.ControlModifier):
-            send()
-            return
-        QTextEdit.keyPressEvent(chat_in, e)
-    chat_in.keyPressEvent = _chat_key  # type: ignore
-
-
-    sonic = QWidget()
-    sl = QVBoxLayout(sonic)
-    sl.addWidget(QLabel("SONIC ARCHIVE"))
-    bite_list = QListWidget()
-    sl.addWidget(bite_list)
-
-    core = QWidget()
-    ol = QVBoxLayout(core)
-    ol.addWidget(QLabel("AI CORE MATRIX (masks, not jackets)"))
-    staff_list = QListWidget()
-    ol.addWidget(staff_list)
-
-    ops = QWidget()
-    opl = QVBoxLayout(ops)
-    opl.addWidget(QLabel("SYSTEM OPS"))
-    job_list = QListWidget()
-    url_in = QLineEdit()
-    url_in.setPlaceholderText("https://  drop a link")
-    btn_url = QPushButton("queue URL")
-    opl.addWidget(job_list)
-    opl.addWidget(url_in)
-    opl.addWidget(btn_url)
-
-    rec = QWidget()
-    rl = QVBoxLayout(rec)
-    rl.addWidget(QLabel("MISSION RECORDS"))
-    rec_box = QTextEdit()
-    rec_box.setReadOnly(True)
-    rl.addWidget(rec_box)
-
-    mail_w = QWidget()
-    ml = QVBoxLayout(mail_w)
-    ml.addWidget(QLabel("MAIL ROOM"))
-    mail_list = QListWidget()
-    btn_mail = QPushButton("Deliver 3")
-    ml.addWidget(mail_list)
-    ml.addWidget(btn_mail)
-
-    palace_w = QWidget()
-    pl = QVBoxLayout(palace_w)
-    pl.addWidget(QLabel("PALACE"))
-    table_box = QComboBox()
-    palace_search = QLineEdit()
-    palace_search.setPlaceholderText("filter rows...")
-    palace_table = QTableWidget()
-    palace_table.setSortingEnabled(True)
-    palace_table.setAlternatingRowColors(True)
-    palace_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-    palace_table.horizontalHeader().setStretchLastSection(True)
-    pl.addWidget(table_box)
-    pl.addWidget(palace_search)
-    pl.addWidget(palace_table)
-
-    view_w = QWidget()
-    vl = QVBoxLayout(view_w)
-    vl.addWidget(QLabel("VIEWPORT"))
-    media_list = QListWidget()
-    pix = QLabel("select a still")
-    pix.setMinimumHeight(220)
-    btn_cam = QPushButton("cam0 + moondream")
-    vl.addWidget(media_list)
-    vl.addWidget(pix)
-    vl.addWidget(btn_cam)
-
-    spawn_w = QWidget()
-    spl = QVBoxLayout(spawn_w)
-    spl.addWidget(QLabel("SPAWN STATUS"))
-    spawn_list = QListWidget()
-    spl.addWidget(spawn_list)
-
-    for w in (chat_w, sonic, core, ops, rec, mail_w, palace_w, view_w, spawn_w):
-        stack.addWidget(w)
-    def go_panel(idx: int, note: str = "") -> None:
-        if 0 <= idx < stack.count():
-            stack.setCurrentIndex(idx)
-        if note:
-            status.setText(note[:64])
-
-    def on_tile(tid: str, panel, why: str) -> None:
-        tid = (tid or "").lower()
-        # Always jump to mapped panel when present
-        if panel is not None:
-            go_panel(int(panel))
-        # Special live actions (100% wired — status + focus, no silent no-ops)
-        if tid == "whatsapp":
-            status.setText("WHATSAPP: use chat /wa link | /wa status | /wa send approve")
-            chat_in.setPlaceholderText("/wa status   or   /wa link")
-            go_panel(0, "WHATSAPP → ASTROCOMMS")
-        elif tid == "claw":
-            status.setText("OPENCLAW: mail openclaw@local — leash, not swallow")
-            go_panel(5, "OPENCLAW → MAIL")
-        elif tid == "qwen":
-            status.setText("QWEN: mail qwen@local coder handoffs")
-            go_panel(5, "QWEN → MAIL")
-        elif tid == "breaks":
-            status.setText("BREAKS: report cards / tool-break")
-            go_panel(4, "BREAKS → RECORDS")
-            refresh()
-        elif tid == "brain":
-            status.setText("BRAIN: staff / model seam (masks not jackets)")
-            go_panel(2, "BRAIN → CORE")
-        elif tid in {"ingest", "jobs", "webgate"}:
-            status.setText(f"{tid.upper()}: SYSTEM OPS board/jobs")
-            go_panel(3, f"{tid.upper()} → OPS")
-        elif tid == "status":
-            status.setText("STATUS: spawn registry")
-            go_panel(8, "STATUS → SPAWN")
-            refresh()
-        elif tid == "palace":
-            status.setText("PALACE: SQLite viewer")
-            go_panel(6)
-        elif why:
-            status.setText((why or tid)[:64])
-
-    for tile in tiles:
-        b = QPushButton(tile.get("label") or tile.get("id"))
-        b.setObjectName(tile.get("neon") or "neonCyan")
-        b.setToolTip(tile.get("why") or "")
-        live = bool(tile.get("live", True))
-        b.setEnabled(live)
-        if not live:
-            b.setText((tile.get("label") or "DEAD") + "  ·")
-        tid = tile.get("id") or ""
-        panel = tile.get("panel")
-        why = tile.get("why") or ""
-        if live:
-            b.clicked.connect(
-                lambda _=False, i=tid, p=panel, w=why: on_tile(i, p, w)
-            )
-        dlay.addWidget(b)
-        buttons.append(b)
-    # Sound triggers row
-    dlay.addWidget(QLabel("SOUND TRIGGERS"))
-    dlay.addWidget(btn_play)
-    dlay.addWidget(btn_tick)
-    
-    # Session controls for long-running daemon work
-    session_row = QHBoxLayout()
-    pause_btn = QPushButton("|| PAUSE SESSION")
-    resume_btn = QPushButton(">>> RESUME")
-    save_btn = QPushButton("SAVE STATE")
-    cancel_btn = QPushButton("CANCEL JOB")
-    session_row.addWidget(QLabel("SESSION"))
-    session_row.addWidget(pause_btn)
-    session_row.addWidget(resume_btn)
-    session_row.addWidget(save_btn)
-    session_row.addWidget(cancel_btn)
-    session_row.addStretch()
-    dlay.addLayout(session_row)
-    
-    # Config/Settings panel
-    config_row = QHBoxLayout()
-    voice_combo = QComboBox()
-    voice_combo.setMinimumWidth(150)
-    mask_combo = QComboBox()
-    mask_combo.setMinimumWidth(150)
-    rate_slider = QSlider(Qt.Horizontal)
-    rate_slider.setRange(1, 10)
-    rate_slider.setValue(7)
-    config_row.addWidget(QLabel("VOICE:"))
-    config_row.addWidget(voice_combo)
-    config_row.addWidget(QLabel("MASK:"))
-    config_row.addWidget(mask_combo)
-    config_row.addWidget(QLabel("RATE:"))
-    config_row.addWidget(rate_slider)
-    dlay.addLayout(config_row)
-    dlay.addStretch()
-    dlay.addWidget(status)
-
-    # Media pagination (better UX for large artifact sets)
-    PAGE_SIZE = 12  # images/audio per page
-    def refresh():
-        try:
-            office.ensure_workforce()
-        except Exception:
-            pass
-        job_list.clear()
-        try:
-            for j in db.jobs():
-                job_list.addItem(
-                    f"{j['id']:3} {j['name']:22} {j['every_s']}s en={j['enabled']}"
-                )
-        except Exception as exc:
-            job_list.addItem(str(exc))
-        staff_list.clear()
-        try:
-            for e in office.staff():
-                staff_list.addItem(
-                    f"{e['id']:18} v={e.get('voice')} jobs={e.get('jobs_run')}"
-                )
-        except Exception:
-            pass
-        bite_list.clear()
-        try:
-            for b in bites.queued(16):
-                bite_list.addItem(
-                    f"{b['id']} {b['status']:7} {b['worker']} {b['line'][:40]}"
-                )
-        except Exception:
-            pass
-        try:
-            lines = [
-                f"r{r['rank']} {r['status']} {r['title']}"
-                for r in office.reports(open_only=False)[:16]
-            ]
-            breaks = [ln for ln in lines if "tool break" in ln.lower() or "break" in ln.lower()]
-            head = ("BREAKS\n" + "\n".join(breaks[:6]) + "\n\n") if breaks else ""
-            rec_box.setPlainText(head + "\n".join(lines) or "no records")
-        except Exception as exc:
-            rec_box.setPlainText(str(exc))
-        try:
-            qrows = db.queue_rows()
-            for q in qrows[:8]:
-                job_list.addItem(f"Q {q['id']} {q['status']} {q['description'][:40]}")
-        except Exception:
-            pass
-        mail_list.clear()
-        try:
-            for p in office.inbox("queued", 16) + office.inbox("delivered", 8):
-                mail_list.addItem(f"{p['id']} {p['status']} ->{p['dest']} {str(p.get('kind'))}")
-        except Exception:
-            pass
-        if table_box.count() == 0:
-            try:
-                con = db.connect()
-                tabs = [r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
-                con.close()
-                table_box.addItems(tabs)
-            except Exception:
-                pass
-        spawn_list.clear()
-        try:
-            from nova.spawnutil import list_spawns
-
-            for s in list_spawns():
-                flag = "ALIVE" if s.get("alive") else "dead"
-                spawn_list.addItem(f"{s.get('name')} pid={s.get('pid')} {flag}")
-        except Exception as exc:
-            spawn_list.addItem(str(exc))
-        media_list.clear()
-        try:
-            art_dir = db.home() / "data" / "artifacts"
-            # Paginated loading: only last PAGE_SIZE of each type
-            jpgs = list(art_dir.rglob("*.jpg"))[-PAGE_SIZE:]
-            wavs = list(art_dir.rglob("*.wav"))[-PAGE_SIZE:]
-            # Sort by mtime descending (newest first)
-            for pth in sorted(jpgs, key=lambda x: x.stat().st_mtime, reverse=True) + \
-                   sorted(wavs, key=lambda x: x.stat().st_mtime, reverse=True):
-                media_list.addItem(str(pth))
-        except Exception:
-            pass
-
-    def play():
-        res = bites.play_next()
-        status.setText(str(res.get("tts") or res)[:48])
-        refresh()
-
-    def tick_now():
-        from nova import sched
-
-        ran = sched.tick()
-        status.setText(f"tick {len(ran)}")
-        refresh()
-
-    btn_play.clicked.connect(play)
-    btn_tick.clicked.connect(tick_now)
-
-    def deliver():
-        res = office.deliver_inbox(3)
-        status.setText(f"mail {len(res)}")
-        refresh()
-
-    def show_table(_=None):
-        name = table_box.currentText().strip()
-        if not name or not name.replace("_", "").isalnum():
-            return
-        needle = palace_search.text().strip().lower()
-        con = db.connect()
-        try:
-            cols = [c[1] for c in con.execute(f"PRAGMA table_info([{name}])").fetchall()]
-            rows = con.execute(f"SELECT * FROM [{name}] ORDER BY 1 DESC LIMIT 200").fetchall()
-            palace_table.setSortingEnabled(False)
-            palace_table.clear()
-            palace_table.setColumnCount(len(cols))
-            palace_table.setHorizontalHeaderLabels(cols)
-            kept = []
-            for r in rows:
-                vals = [str(r[c] if hasattr(r, "keys") else r[i]) for i, c in enumerate(cols)]
-                if needle and needle not in " ".join(vals).lower():
-                    continue
-                kept.append(vals)
-            palace_table.setRowCount(len(kept))
-            for i, vals in enumerate(kept):
-                for j, v in enumerate(vals):
-                    palace_table.setItem(i, j, QTableWidgetItem(v[:240]))
-            palace_table.setSortingEnabled(True)
-            status.setText(f"palace {name} rows={len(kept)}")
-        except Exception as exc:
-            palace_table.setRowCount(0)
-            palace_table.setColumnCount(1)
-            palace_table.setHorizontalHeaderLabels(["error"])
-            palace_table.setRowCount(1)
-            palace_table.setItem(0, 0, QTableWidgetItem(str(exc)))
-        finally:
-            con.close()
-
-    # Avatar workflow controls
-    def avatar_action(cmd):
-        msg = QMessageBox()
-        msg.setWindowTitle("AVATAR WORKFLOW")
-        if cmd == "generate_stills":
-            msg.setText("Generate avatar stills from current session?\nThis will create 12-24 high-res frames with emotion tags.")
-        elif cmd == "assemble_video":
-            msg.setText("Assemble avatar video from stills?\nDuration: 30-60s based on sentiment matching.")
-        elif cmd == "upload_stills":
-            msg.setText("Upload generated stills to storage?")
-        elif cmd == "view_catalog":
-            msg.setText("Open AVATAR_CATALOG.md for metadata review?")
-        elif cmd == "pause_recording":
-            msg.setText("PAUSE: Stop capturing avatar session?")
-        elif cmd == "resume_recording":
-            msg.setText("RESUME: Continue avatar capture where left off?")
-        elif cmd == "save_state":
-            msg.setText("SAVE SESSION STATE to DB for later resume.")
-        elif cmd == "clear_queue":
-            msg.setText("Clear avatar processing queue?\nThis will free up resources.")
-        else:
-            return
-        ans = msg.exec_()
-        if ans == QMessageBox.Yes and cmd in {"generate_stills", "assemble_video"}:
-            # Placeholder for future avatar module integration
-            status.setText(f"AVATAR: {cmd.upper()}")
-            chat_in.setPlaceholderText(f"/avatar {cmd.lower()}  ·  Use AVATAR deck")
-        elif cmd == "clear_queue":
-            from nova import bites, db
-            bites.clear_avatar_queue()
-            status.setText("AVATAR queue cleared")
-    
-    def pause_session():
-        status.setText("SESSION PAUSED - waiting for resume")
-        chat_in.setPlaceholderText("/avatar commands pending...")
-    
-    def resume_session():
-        status.setText("SESSION RESUMED - avatar working")
-        chat_in.setPlaceholderText("ask the palace... (Ctrl+Enter or Send)")
-        refresh()
-    
-    def save_state():
-        try:
-            from nova import db
-            db.save_session_state()
-            status.setText("STATE SAVED to NOVA.db")
-            chat_in.setPlaceholderText("session saved · use /avatar resume")
-        except Exception as e:
-            status.setText(f"save failed: {e}")
-    
-    def cancel_job():
-        try:
-            from nova import sched, db
-            sched.stop()
-            status.setText("ALL JOBS STOPPED - session ended")
-            chat_in.setPlaceholderText("session ended · restart with /START_NOVA")
-        except Exception as e:
-            status.setText(f"cancel: {e}")
-    
-    # Wire avatar session controls
-    pause_btn.clicked.connect(pause_session)
-    resume_btn.clicked.connect(resume_session)
-    save_btn.clicked.connect(save_state)
-    cancel_btn.clicked.connect(cancel_job)
-    
-    # Quick-access slash command input in chat area
-    quick_cmd_box = QLineEdit()
-    quick_cmd_box.setPlaceholderText("/help · /tools · /suggest  (press Ctrl+D to send)")
-    quick_cmd_box.setMinimumHeight(24)
-    quick_cmd_box.setMaximumHeight(32)
-    dlay.addWidget(quick_cmd_box)
-    quick_cmd_box.returnPressed.emit()
-    
-    def quick_send(_=None):
-        cmd = quick_cmd_box.text().strip()
-        if cmd.startswith("/"):
-            chat_in.append("YOU: " + cmd)
-            try:
-                handle(cmd)
-                reply = "\n".join(tstate.get("hist", [])[-2:])
-            except Exception as exc:
-                reply = str(exc)
-            chat_log.append("NOVA: " + reply)
-            quick_cmd_box.clear()
-    
-    quick_cmd_box.returnPressed.connect(quick_send)
-    # Ctrl+D sends quick command
-    def _quick_key(e):
-        from PySide6.QtCore import Qt as _Qt
-        if e.key() == _Qt.Key_D and (e.modifiers() & _Qt.ControlModifier):
-            quick_send()
-    
-    quick_cmd_box.keyPressEvent = _quick_key  # type: ignore
-
-    def cam_see():
-        res = senses.save_still(0)
-        path = res.get("path")
-        tags = senses.vision_tags()
-        extra = {}
-        if path and tags:
-            extra = senses.describe(path, "moondream" if any("moondream" in t for t in tags) else tags[0])
-        status.setText(str(extra.get("text") or res)[:48])
-        refresh()
-
-    btn_mail.clicked.connect(deliver)
-    table_box.currentTextChanged.connect(show_table)
-    palace_search.textChanged.connect(show_table)
-    media_list.itemClicked.connect(lambda *_: show_media())
-    btn_cam.clicked.connect(cam_see)
-
-    def add_url():
-        from nova import board
-
-        u = url_in.text().strip()
-        try:
-            board.enqueue_url(u)
-            url_in.clear()
-            status.setText("queued " + u[:32])
-        except Exception as exc:
-            status.setText(str(exc))
-        refresh()
-
-    btn_url.clicked.connect(add_url)
-
-    timer = QTimer()
-    timer.timeout.connect(refresh)
-    timer.start(4000)
-    refresh()
-
-    deck_scroll = QScrollArea()
-    deck_scroll.setObjectName("CommandDeckScroll")
-    deck_scroll.setWidgetResizable(True)
-    deck_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-    deck_scroll.setFrameShape(QFrame.NoFrame)
-    deck_scroll.setWidget(deck)
-    deck_scroll.setMinimumWidth(200)
-    deck_scroll.setMaximumWidth(340)
-    deck_scroll.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-
-    # Re-home stack panels into scroll areas (keeps deck panel indices stable)
-    panels = [stack.widget(i) for i in range(stack.count())]
-    while stack.count():
-        stack.removeWidget(stack.widget(0))
-    for panel in panels:
-        wrap = QScrollArea()
-        wrap.setWidgetResizable(True)
-        wrap.setFrameShape(QFrame.NoFrame)
-        wrap.setWidget(panel)
-        stack.addWidget(wrap)
-
-    # Main layout: COMMAND DECK + AVATAR CONTROL + STACK PANELS
-    mainlay.addWidget(deck_scroll)
-    mainlay.addWidget(avatar_deck, stretch=0)
-    mainlay.addWidget(stack, stretch=1)
-    
-    win.setCentralWidget(root)
-    win.setMinimumSize(1200, 640)  # Wider to accommodate avatar panel
-    win.resize(1400, 720)
-    if qss.is_file():
-        app.setStyleSheet(qss.read_text(encoding="utf-8"))
+    app = QApplication.instance() or QApplication(sys.argv)
+    win, _ui = build(app)
     win.show()
     sys.exit(app.exec())
 
