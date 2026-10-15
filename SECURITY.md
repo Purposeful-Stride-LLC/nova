@@ -18,4 +18,4 @@ Never commit `.env`, API keys, tokens, SSH keys, `data/` or `*.db`. Keys are rea
 
 ## Reporting a vulnerability
 
-Please do not open a public issue for security problems. Use GitHub's **private vulnerability reporting** (Security tab → "Report a vulnerability") on this repository, or contact Purposeful Stride LLC through the [organization page](https://github.com/Purposeful-Stride-LLC). Include steps to reproduce and the version (`VERSION`).
+Please do not post vulnerability details in a public issue. Instead, [open an issue](https://github.com/Purposeful-Stride-LLC/nova/issues/new) titled "Security contact request" that contains **no technical details**, and a maintainer from Purposeful Stride LLC will reply with a private channel. When reporting privately, include steps to reproduce and the version (`VERSION`).

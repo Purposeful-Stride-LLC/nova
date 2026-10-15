@@ -1,7 +1,8 @@
 ================================================================================
 NOVA DEVLOG
 Hard file. One loop = one dated entry + opinions.
-Wire-patch tests live under STAGING/  until they graduate to nova\
+Wire-patch tests lived under STAGING/ until they graduated to nova/ (tests now live in tests/).
+Note: STAGING/ and notes/ paths below are operator-local history and are NOT shipped in this repo.
 TUI stays the metal face. GUI notes are research, not a second product.
 ================================================================================
 
@@ -9,8 +10,8 @@ MAKE 0  —  FOUNDING  (late Aug – 17 Sep 2026)
 --------------------------------------------------------------------------------
 Intent: sovereign homestead agent on everyday compute. Python spine.
 Ollama local. WHI palace. Dual use (homestead / Gx namespace) with HIL.
-First field kits were website-parity fantasies. Metal on the Windows hub laptop
-(i7-14650HX, 16 GB, RTX 5050 8 GB, Python 3.14, no WSL) forced cuts.
+First field kits were website-parity fantasies. Metal on the Windows host
+(8 GB consumer GPU, Python 3.14, no WSL) forced cuts.
 
 What landed by 1.6: daemon+jobs, matrix /web, pypdf, codesum, cam stills,
 office packets/staff/reports, pocket-tts generate/serve, ANSI TUI,
@@ -112,7 +113,7 @@ Overlay only. data\NOVA.db untouched by design.
 LOOP 2026-09-22  STRUCTURE LOCK — missing steps + council series + leash mail
 --------------------------------------------------------------------------------
 TRAJECTORY
-  Close gaps Michael named: waiting work queue, education seeds, WHI gap loop,
+  Close gaps the operator named: waiting work queue, education seeds, WHI gap loop,
   paper markets unfinished, STAGING not folded into live jobs, OG lid-closed
   must still take jobs. GPU polite. No WhatsApp.
 
@@ -146,14 +147,14 @@ CHECKSUM THIS LOOP
 
 LOOP 2026-09-27  FIELDKIT 2.0 TIDYING OPENED
 --------------------------------------------------------------------------------
-Michael greenlit first formal refactor: clean sprawl, fold proven STAGING into
+The operator greenlit first formal refactor: clean sprawl, fold proven STAGING into
 unified Fieldkit 2.0, standardize mail (TCP 41776/41777), fix GUI dead/alias
 tiles, tighten speech parser + one-sentence prompts, integrate tentacle/daemon.
 Varro owns construction; Cassius 2IC docs/diagrams. See DEVLOG.ai + STAGING/
 FIELDKIT_2_0_REFACTOR_MAP.md. No palace break; backup before schema moves.
 
 2026-09-27  Fieldkit 2.0 on Varro box: VERSION 2.0.0, nova.mail shims, forge_step, deck prune, smoke 8/8, zip NOVA_fieldkit_v2_0.zip
-2026-09-27 Fieldkit 2.0 cutover on the hub laptop — daemon switched from v1_4 to v2_0
+2026-09-27 Fieldkit 2.0 cutover on the Windows host — daemon switched from v1_4 to v2_0
 
 ## 2026-09-27 05:34 CT Varro executor — Fieldkit 2.0 open gaps A-G
 - GUI OPS: Approve All / Automate Queue / Clear standing ingest (+ /approve-all /automate /clear-ingest)
@@ -162,7 +163,7 @@ FIELDKIT_2_0_REFACTOR_MAP.md. No palace break; backup before schema moves.
 - nova.mail.claw_mail_tool; OG ping PROOF ok
 - web.fetch -> ingest_pipe.store_accepted
 - STAGING: REPORT_GUI_APPROVE_AUTOMATE, CLAW_TENTACLE_MAIL_TOOL, DAEMON_AUTONOMY_JOBS_2_0, PROMOTE_INGEST_RAG_2_0, WHI_DEEP_SCAN_PROTOCOL_2_0
-- smoke_fieldkit20_open.py 8/8 on the hub laptop
+- smoke_fieldkit20_open.py 8/8 on the Windows host
 - Did NOT edit leash.py / grok_claw_seat.py / council_series.py
 - Remains: steward enable ingest-clear-daily; Cassius Grok protocol seat (parent wires); WHI deep-scan job next pass
 
@@ -222,7 +223,7 @@ Labels: [log] = master.log counts (2026-09-17 → 2026-10-15 UTC); [code] = seen
   fail-open (RAG judge, governor hooks); approve did not feed board drain; chamber AUTO_PROMOTE_RAG=True.
 - [unverified] The beacon / lid-closed OG, WHI gap-scout, paper and GitHub-sync phases stay unbuilt.
 
-### Fieldkit 2.1 (STAGED beside 2.0; not live; cutover needs operator approval)
+### Fieldkit 2.1 (built staged beside 2.0; released as tag v2.1)
 - Chat: one path (nova/chat.py) with SELF/NOW first, RULES (+ voice rule), GRAMMAR_V2, read-only hunt.
   Uses qwen3:8b ctx 8192 think:false. Guards: speak tags, ids, unrelated commands, action claims, voice line.
 - SELF v2.1: version 2.1, a commands line with numeric ids, a directives line. NOW: thermal from the latest
@@ -240,6 +241,6 @@ Labels: [log] = master.log counts (2026-09-17 → 2026-10-15 UTC); [code] = seen
 - Paths: nova/paths.py; hardcoded user paths removed from 11 modules (docs_ingest, msg, watson, whi,
   hands/paint, report_db_contents, homestead, tutorial, avatar_display, novadiary, tts_gui_tiles) + leash.
 - Staged guard: a STAGED marker blocks the daemon/launch unless NOVA_HOME is a listed scratch home.
-- Tests: 58 pass on the hub laptop (selfknow + v2.1 + GUI acceptance), and both 2.0 smoke suites pass 8/8.
+- Tests: 59 pass on the Windows build host (selfknow + v2.1 + GUI acceptance; 46 pass / 13 skip on Linux without PySide6), and both 2.0 smoke suites pass 8/8.
 - Sim (qwen3:8b, 3 seeds, 12 prompts): v2.0 had 19/36 fabricated with speak tags on 36/36;
   v2.1 had 0/39 fabricated with speak tags on 0/39. Details are in the build report.

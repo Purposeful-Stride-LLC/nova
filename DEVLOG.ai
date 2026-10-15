@@ -1,7 +1,8 @@
 # DEVLOG.ai — notes for the next model (and for Grok)
 
-You are reading the kit at NOVA_fieldkit_v1_4. Python package `nova`.
-the Windows hub laptop host. Do not overwrite `data/NOVA.db`. Overlay code only.
+You are reading the NOVA field kit (v2.1; early notes below date from v1.4). Python package `nova`.
+the Windows host host. Do not overwrite `data/NOVA.db`. Overlay code only.
+Note: STAGING/ paths below are operator-local history and are NOT shipped in this repo.
 
 ## Why the GUI looks like a poster
 Steward supplied a cosmic-console mockup (aqueduct, NOVA wordmark,
@@ -88,20 +89,18 @@ cam: = features path; camsee: = optional moondream (steward heat).
 - Pipeline: crawl -> temp/live chunks; enqueue -> web.fetch hit/miss.
 - Ponder (diary): news-manipulation lexicon vs truthful pubs; arXiv depth later.
 
-## 2026-09-27 Fieldkit 2.0 — tidying cut opened (Michael greenlight)
-Authority: Michael · Construction: Varro · 2IC: Cassius (diagrams/docs only; no metal without Varro)
+## 2026-09-27 Fieldkit 2.0 — tidying cut opened (operator greenlight)
+Authority: operator · Construction: Varro · 2IC: Cassius (diagrams/docs only; no metal without Varro)
 
 ### Decision
 Codebase needs cleanup. First formal refactorization: STAGING-proven work → unified Fieldkit **2.0** tree. Do not break live GUI/TUI/daemon/mail/palace paths. Overlay + smoke; backup data/NOVA.db before schema moves.
 
 ### Why (sprawl snapshot)
-- Live package: 
-ova/ (~50 modules) + gui/ + 	ui/ + hands/awareness — working but crowded aliases.
-- Legacy parallel: <legacy nova-ai tree> (nova_Tv3, diary, terminals) still referenced mentally; diary rewrite lands Documents STAGING/diary for 0x-DOC.
+- Live package: nova/ (~50 modules) + gui/ + tui/ + hands/awareness — working but crowded aliases.
+- Legacy parallel: <legacy nova-ai tree> (nova_Tv3, diary, terminals) still referenced mentally; diary rewrite lands in a local STAGING/diary for 0x-DOC.
 - STAGING: large proven stack (tentacle, mail schema, ingest_pipe, RAG gate, parser speech, OG digester, pets, hearthbeat) waiting fold-in.
 - GUI deck.json: many tiles live but several are **aliases** to same panels (ingest/jobs/webgate→ops; claw/qwen→mail; status→spawn); dead: KILL, TUI, PAPER. Feels non-logical.
-- Speech: GRAMMAR says one short sentence; models still misfire tags → upgrade parser already in 
-ova/parser.py must be the single path + system-prompt load tightened.
+- Speech: GRAMMAR says one short sentence; models still misfire tags → upgrade parser already in nova/parser.py must be the single path + system-prompt load tightened.
 - Mail: HEARTHBEAT schema exists but notes still say UDP; OG live is **TCP** 41776/41777 framed JSON. Standardize + Claw tentacle-mail tool.
 - OG drain: bumped to smollm2:360m 2026-09-27; local WHI NOVA_NODE.db; haul routine still paused.
 
@@ -150,7 +149,7 @@ WhatsApp expansion, paper markets live, Android tentacle, rewriting NOVA.db sche
 
 ## 2026-09-27 drain loop + queues cleared + mail TCP locked
 - OG: drain_loop.py sequential batches (smollm2:360m, MAX=5, BREAK=90s) until queue empty or DRAIN_STOP.
-- the hub laptop: standing ingest cleared (docs_queue stuck, URL queued, packets queued→cleared, fs waiting→cleared). DB backup taken.
+- the Windows host: standing ingest cleared (docs_queue stuck, URL queued, packets queued→cleared, fs waiting→cleared). DB backup taken.
 - Mail: docs/MAIL_PROTOCOL_TCP.md locked; HEARTHBEAT banner notes TCP.
 - GUI 2.0: Approve All + Automate Queue noted in INGEST_QUEUE_CLEARED doc.
 - Cassius tasked: Claw refactor review (≥3 reliability) + RAG alignment scan.
@@ -168,7 +167,7 @@ Added leash.forge_step + canonical_outbox + forge FORGE entry leash-forge every_
 Pruned GUI deck: aliases ingest/jobs/status/webgate live:false; whatsapp parked; unique panes kept.
 Verified put_fact wing preserve, ingest_pipe file://→0x-DOC, proof.enforce_on_reply Tx-CLAW.
 Fixed ingest_pipe unterminated f-string. Smoke tests/smoke_fieldkit20.py green (8/8).
-Zip: /workspace/fk2/NOVA_fieldkit_v2_0.zip
+Zip: NOVA_fieldkit_v2_0.zip (build artifact, not shipped)
 
 ## 2026-09-27 05:34 CT Varro executor — Fieldkit 2.0 open gaps A-G
 - GUI OPS: Approve All / Automate Queue / Clear standing ingest (+ /approve-all /automate /clear-ingest)
@@ -177,7 +176,7 @@ Zip: /workspace/fk2/NOVA_fieldkit_v2_0.zip
 - nova.mail.claw_mail_tool; OG ping PROOF ok
 - web.fetch -> ingest_pipe.store_accepted
 - STAGING: REPORT_GUI_APPROVE_AUTOMATE, CLAW_TENTACLE_MAIL_TOOL, DAEMON_AUTONOMY_JOBS_2_0, PROMOTE_INGEST_RAG_2_0, WHI_DEEP_SCAN_PROTOCOL_2_0
-- smoke_fieldkit20_open.py 8/8 on the hub laptop
+- smoke_fieldkit20_open.py 8/8 on the Windows host
 - Did NOT edit leash.py / grok_claw_seat.py / council_series.py
 - Remains: steward enable ingest-clear-daily; Cassius Grok protocol seat (parent wires); WHI deep-scan job next pass
 
@@ -237,7 +236,7 @@ Labels: [log] = master.log counts (2026-09-17 → 2026-10-15 UTC); [code] = seen
   fail-open (RAG judge, governor hooks); approve did not feed board drain; chamber AUTO_PROMOTE_RAG=True.
 - [unverified] The beacon / lid-closed OG, WHI gap-scout, paper and GitHub-sync phases stay unbuilt.
 
-### Fieldkit 2.1 (STAGED beside 2.0; not live; cutover needs operator approval)
+### Fieldkit 2.1 (built staged beside 2.0; released as tag v2.1)
 - Chat: one path (nova/chat.py) with SELF/NOW first, RULES (+ voice rule), GRAMMAR_V2, read-only hunt.
   Uses qwen3:8b ctx 8192 think:false. Guards: speak tags, ids, unrelated commands, action claims, voice line.
 - SELF v2.1: version 2.1, a commands line with numeric ids, a directives line. NOW: thermal from the latest
@@ -255,6 +254,6 @@ Labels: [log] = master.log counts (2026-09-17 → 2026-10-15 UTC); [code] = seen
 - Paths: nova/paths.py; hardcoded user paths removed from 11 modules (docs_ingest, msg, watson, whi,
   hands/paint, report_db_contents, homestead, tutorial, avatar_display, novadiary, tts_gui_tiles) + leash.
 - Staged guard: a STAGED marker blocks the daemon/launch unless NOVA_HOME is a listed scratch home.
-- Tests: 58 pass on the hub laptop (selfknow + v2.1 + GUI acceptance), and both 2.0 smoke suites pass 8/8.
+- Tests: 59 pass on the Windows build host (selfknow + v2.1 + GUI acceptance; 46 pass / 13 skip on Linux without PySide6), and both 2.0 smoke suites pass 8/8.
 - Sim (qwen3:8b, 3 seeds, 12 prompts): v2.0 had 19/36 fabricated with speak tags on 36/36;
   v2.1 had 0/39 fabricated with speak tags on 0/39. Details are in the build report.

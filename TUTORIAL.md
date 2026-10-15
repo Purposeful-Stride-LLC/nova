@@ -1,6 +1,6 @@
 # NOVA Tutorial
 
-> **v2.1 note:** this tutorial dates from v1.x/2.0. `STAGING/` paths below refer to the operator's local tree and are **not shipped** in this repo. For v2.1 commands see `START.txt`, `TUTORIAL.txt`, `docs/GATES.md`, `docs/SCHEDULER.md`.
+> **v2.1 note:** pages 1–11 date from v1.x/2.0. For the v2.1 propose → approve → verify flow see `START.txt`, `TEST.txt`, `TUTORIAL.txt` (page 21), `docs/GATES.md` and `docs/SCHEDULER.md`. In v2.1, `/web` and `/crawl` refuse every host not in `net_allowlist`.
 
 
 Parse-friendly human guide. Examples start with `>> `.  
@@ -10,7 +10,7 @@ Canonical field-kit path (generic):
 <install folder>   (the folder that contains nova/)
 ```
 
-`TUTORIAL.txt` is a short pointer to this file for older TUI `/tutorial` readers.
+`TUTORIAL.txt` is the plain-text page set read by the TUI `/tutorial` command.
 
 ---
 
@@ -110,20 +110,19 @@ Facts and chunks carry WHI wings. Indexes keep provenance searchable.
 
 ## PAGE 9 — Tentacle / Hearthbeat (high level)
 
-Hearthbeat is the LAN mesh: UDP beacon so a hub NOVA sees slave **tentacle** nodes. Jobs can move digest/scout work off the GPU laptop onto a CPU box.  
-Doctrine and acquisition profiles live under `STAGING/acquisition/` and `docs/`. Do not put passwords or private keys in the tree — use env vars / local secrets.
+Hearthbeat is the LAN mesh: UDP beacon so a hub NOVA sees slave **tentacle** nodes. Jobs can move digest/scout work off the GPU host onto a CPU box. The wire format is in `docs/MAIL_PROTOCOL_TCP.md` (TCP; older UDP notes are obsolete). Do not put passwords or private keys in the tree — use env vars / local secrets.
 
 ---
 
-## PAGE 10 — GUI themes and music
+## PAGE 10 — GUI
 
 ```powershell
 python -m nova.gui
 ```
 
-Theme backgrounds live under `STAGING/gui_art/` (PNGs are in git).  
-Mint / refresh assets with `STAGING/mint_gui_assets.py` (and Diffusers helper `STAGING/mint_gui_diffusers.py` when ComfyUI is blocked).  
-**WAV music beds are not in git** — they land under `STAGING/gui_music/` locally. See `docs/REPORT_GUI_ART_MUSIC_HOWTO_2026-09-26.md`.
+In v2.1 the GUI is read-only; its buttons file proposals for `/cmd approve`.
+
+Brand images shipped in this repo live under `ascii/brand/`. Theme-art and music-bed minting scripts are operator-local and **not shipped**; WAV files are never committed.
 
 ---
 
@@ -141,7 +140,7 @@ Mint / refresh assets with `STAGING/mint_gui_assets.py` (and Diffusers helper `S
 `/help` `/tutorial` `/tools` `/forge` `/suggest` `/list` `/jobs` `/job` `/tick`  
 `/web` `/hunt` `/pdf` `/codesum` `/history` `/models` `/model` `/mask` `/conv`  
 `/holmes` `/queue` `/approve` `/deny` `/reports` `/ack` `/staff` `/tts` `/voice`  
-`/cam` `/see` `/hear` `/vision` `/crawl` `/rag` `/chamber` `/quit`
+`/cam` `/see` `/hear` `/vision` `/crawl` `/rag` `/chamber` `/sched` `/cmd` `/quit`
 
 ## Dependents
 

@@ -4,8 +4,7 @@
 **Audience:** Any AI steward or coder (Grok Bot, OpenClaw/Claw, Qwen, humans)  
 **Purpose:** Gate work in early, middle, and ship stages. Answer: does this code meet the definitions and conditions established for what it must contain and how it must function?
 
-Companion report example: `STAGING/GROKBOT_FUNCTIONALITY_REPORT_2026-09-20.txt`  
-Capability matrix: `STAGING/CAPABILITY_MATRIX_2026-09-20.txt`
+Companion functionality reports and capability matrices are kept operator-local (not shipped).
 
 ---
 
@@ -14,8 +13,8 @@ Capability matrix: `STAGING/CAPABILITY_MATRIX_2026-09-20.txt`
 1. Read this file before writing or reviewing a STEP.
 2. After a change, mark each applicable item **PASS / FAIL / N/A** with one line of evidence (path, command, count, sample address).
 3. Prefer **BASIC STEPs**. Verify files on disk. Never claim DONE from model chat alone.
-4. NOVA live kit is an overlay under `nova\`. **Never wipe** `data\NOVA.db`.
-5. Claw writes under `~\.openclaw\workspace\nova-out\` then steward pulls into the fieldkit.
+4. NOVA live kit is an overlay under `nova/`. **Never wipe** `data/NOVA.db`.
+5. Claw writes under its OpenClaw workspace `nova-out/` folder, then the steward pulls into the fieldkit.
 6. Outbound email/DM requires human-in-the-loop (HIL) unless the user explicitly approved that send.
 7. Promote durable lessons into `docs/advice/` and optionally palace facts / RAG chunks (see Advice stacking).
 
@@ -23,7 +22,7 @@ Capability matrix: `STAGING/CAPABILITY_MATRIX_2026-09-20.txt`
 
 ## Stage-agnostic questions (always ask)
 
-- Does it run correctly on the **target machine** (here: the hub laptop / Windows)?
+- Does it run correctly on the **target machine** (whichever OS/host the kit is deployed on — e.g. Windows, Linux; run `python -m pytest -q tests` there)?
 - Is information at **each pipeline stage** formatted correctly (fields present, non-empty where required)?
 - Are **WHI classifications** implemented as defined (wings vs library codes)?
 - Does behavior match the **written definition and conditions** for this feature?

@@ -1,7 +1,7 @@
 ﻿# NOVA Mail Protocol — TCP Standard (Fieldkit 2.0)
 **Locked:** 2026-09-27  
 **Supersedes:** UDP wording in older HEARTHBEAT notes  
-**Live proof:** OG tentacle `tentacle-01` / 192.0.2.10 — `bin/tentacle_node.py`
+**Live proof:** OG tentacle `tentacle-01` / 192.0.2.10 — `tentacle_node.py` (node script; not shipped in this repo)
 
 ---
 
@@ -101,7 +101,7 @@ Leash rules unchanged: write verbs need PROOF tree + sha256.
 
 ## Local WHI on tentacle
 
-- DB: `~/pg/nova-tentacle/whi/NOVA_NODE.db`  
+- DB: `<node home>/whi/NOVA_NODE.db`  
 - Queue: `queue/waiting|done|failed` subject JSON  
 - Outbox batches for hub haul  
 - Origins/timestamps required on every packet (Fieldkit 2.0 harden)
@@ -119,4 +119,4 @@ Leash rules unchanged: write verbs need PROOF tree + sha256.
 
 ## Doc debt closed by this file
 
-Older STAGING notes saying **UDP** 41776/41777 are obsolete for OG. Keep filename HEARTHBEAT; transport is TCP.
+Older (unshipped) HEARTHBEAT notes saying **UDP** 41776/41777 are obsolete for OG. Keep filename HEARTHBEAT; transport is TCP.
