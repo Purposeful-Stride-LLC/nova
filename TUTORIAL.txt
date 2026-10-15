@@ -91,7 +91,7 @@ JS homepages (x.com, many news roots) often Tx-REJECT. That is the gate.
 
 PAGE 6  PDF HISTORY CODESUM CAM
 --------------------------------------------------------------------------------
->> /pdf C:\path\to\paper.pdf
+>> /pdf path/to/paper.pdf
 Expect: Tx-PDF + artifacts\name.txt  or "no text layer"
 
 >> /history
@@ -188,7 +188,7 @@ DEP psutil
 DEP opencv-python-headless
 DEP pypdf
 DEP certifi optional
-DOC README.txt DEVLOG.txt ascii/INDEX.txt STAGING/PLAN_2026-09-18.txt
+DOC README.txt DEVLOG.txt ascii/INDEX.txt
 
 CITE
 --------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ PAGE 19  CLAW PROOF RULE (ACK != DONE)
 Claw STEPs: Ack is not proof. Require PROOF: bytes=<n> before DONE.
 If Claw says DONE without copy, steward promotes from nova-out when files exist.
 
-Write path: ~/.openclaw/workspace/nova-out/  -> steward pull into fieldkit.
+Write path: OpenClaw workspace nova-out/  -> steward pull into fieldkit.
 
 
 PAGE 20  ASTROCOMMS GUI NOTES
@@ -306,7 +306,7 @@ END
 
 
 === Pets (trainer doctrine) ===
-See STAGING/NOVA_PETS_PLAYBOOK.md — steward = dog trainer; Aurelius/komodo/Holmes/Watson/Pocket obey PROOF, HIL, Pocket-only voice.
+Pets playbook (operator-local, not shipped): steward = dog trainer; Aurelius/komodo/Holmes/Watson/Pocket obey PROOF, HIL, Pocket-only voice.
 
 
 PAGE 21  FIELDKIT 2.1 - PROPOSE, APPROVE, VERIFY

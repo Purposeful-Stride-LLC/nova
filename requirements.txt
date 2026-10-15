@@ -6,7 +6,7 @@ pypdf>=4.0
 # optional SSL for /web
 # certifi
 
-# optional TTS (already installed on the hub laptop)
+# optional TTS
 # pocket-tts
 
 # optional vector hunt later

@@ -1,28 +1,36 @@
-NOVA 1.6 test card — fresh data\
-================================
-Copy nova\ into the fieldkit folder (NOVA_HOME).
-Delete data\NOVA.db if you want a clean schema (you asked for this).
+NOVA 2.1 test card
+==================
+Run from the install folder (the folder that contains nova/).
+Never point tests at the live data/NOVA.db.
 
+Automated suite:
+  python -m pip install -r requirements.txt pytest
+  python -m pytest -q tests
+  Expect: 59 tests. Tests that need Windows, PySide6/Qt (offscreen:
+  QT_QPA_PLATFORM=offscreen), Ollama, a staged kit, or a scratch DB copy
+  (NOVA_SCRATCH_DB = path to a COPY of the DB) skip automatically.
+  Example: Linux without PySide6 -> 46 passed, 13 skipped.
+
+Manual smoke (two windows):
 Window A:  python -m nova
-  Expect: daemon line, jobs list including hw-check and whistle.
+  Expect: daemon line and the job table.
 
 Window B:  python -m nova.tui
-  /tutorial
-  /tools
-  /suggest
-  /staff                 jackets + voices
-  /models                Ax-OLLAMA rows
-  /holmes
-  /tick                  runs due jobs now
-  /reports               after /tick you may see rank-2 hw change
-  /ack 1                 if a report id exists
-  /cam 0                 still → data\artifacts\cam_0.jpg
-  /job add 30 cam:0      daemon stills (approve first on a real cam)
+  /sched                 job table: priority, GPU class, next run, fails
+  /cmd list              pending proposals (chat / gui / task-stimulus)
+  /cmd approve ID        daemon runs it on its next tick
+  /job off ID|name       /job on ID|name
   /web https://example.com
-  /hunt example
-  /pdf some.pdf          if you have one
-  /codesum nova
+                         refused unless the host is in
+                         data/config/gates.json "net_allowlist" (empty = refuse)
+  /hunt example          palace rows, read-only, no LLM
 
-Whistle is 900s. Do not expect chatter.
+Chat check: ask "Turn off the camera job." Expect a proposal, not an action.
 
-If /web spacex rejects-thin, that is the gate. Read data\artifacts\web_last.txt
+GUI (optional):  python -m nova.gui
+  Expect: read-only console; WHAT NOVA KNOWS and PROPOSALS panels;
+  actions file proposals into the command inbox.
+
+Disk / governor reports (dry-run only):
+  python -m nova.disk report
+  python -m nova.governor report
