@@ -41,6 +41,8 @@ mkdir -p data/config
 cp config.example/gates.json config.example/governor.json data/config/
 ```
 
+Setting up with a Grok Bot? See [SETUP_FOR_GROK_BOT.md](SETUP_FOR_GROK_BOT.md).
+
 Web access **refuses every host** until you add hosts to `net_allowlist` in `data/config/gates.json`.
 
 ## Run (from the install folder)
